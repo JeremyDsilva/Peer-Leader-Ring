@@ -4,23 +4,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.LoginController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <AnchorPane prefHeight="601.0" prefWidth="432.0" style="-fx-background-color: a03021;" />
-      <Pane layoutX="433.0" layoutY="1.0" prefHeight="600.0" prefWidth="581.0">
+      <AnchorPane prefHeight="602.0" prefWidth="434.0" style="-fx-background-color: rgb(58,71,80);">
+         <children>
+            <ImageView fitHeight="327.0" fitWidth="473.0" layoutX="54.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@HatchfulExport-All/facebook_profile_image.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <Pane layoutX="433.0" layoutY="1.0" prefHeight="601.0" prefWidth="581.0">
          <children>
             <TextField fx:id="EmailUsernameTextbox" layoutX="131.0" layoutY="212.0" prefHeight="43.0" prefWidth="299.0" promptText="Email Or Username" />
             <PasswordField fx:id="PasswordTextbook" layoutX="131.0" layoutY="291.0" prefHeight="43.0" prefWidth="299.0" promptText="Password" />
-            <Button fx:id="SignInButton" layoutX="337.0" layoutY="367.0" mnemonicParsing="false" onAction="#SignInOnClick" prefHeight="35.0" prefWidth="91.0" text="Sign in" />
-            <Label fx:id="ForgotPassword" layoutX="131.0" layoutY="372.0" prefHeight="21.0" prefWidth="135.0" text="Forgot Password?" />
-            <Label fx:id="SignIn" layoutX="131.0" layoutY="146.0" prefHeight="58.0" prefWidth="211.0" text="SIGN IN ">
+            <Button fx:id="SignInButton" layoutX="241.0" layoutY="367.0" mnemonicParsing="false" onAction="#SignInOnClick" onMouseClicked="#SignInOnClick" prefHeight="35.0" prefWidth="91.0" style="-fx-background-color: #ffd002;" text="Sign In" />
+            <Label fx:id="SignInLabel" alignment="CENTER_RIGHT" layoutX="207.0" layoutY="125.0" prefHeight="58.0" prefWidth="147.0" text="SIGN IN " textFill="#902400">
                <font>
-                  <Font name="System Bold" size="30.0" />
+                  <Font name="Arial Bold" size="36.0" />
                </font>
             </Label>
          </children>

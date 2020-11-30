@@ -2,13 +2,13 @@ package database_project;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.text.Text;
 
-public class Team_LeaderController {
+public class PeerLeaderListController {
 
     @FXML
     private ResourceBundle resources;
@@ -20,56 +20,63 @@ public class Team_LeaderController {
     private Label label;
 
     @FXML
-    private Label TeamLeaderTeamLeaderNameLabel;
-
-    @FXML
-    private Text TeamLeaderGroupName;
-
-    @FXML
-    private Text TeamLeaderTeamLeaderName;
-
-    @FXML
-    private TableView<?> TeamLeaderTable;
-
-    @FXML
-    private TableColumn<?, ?> TeamLeaderTableID;
-
-    @FXML
-    private TableColumn<?, ?> TeamLeaderTableName;
-
-    @FXML
-    private TableColumn<?, ?> TeamLeaderTableCollege;
-
-    @FXML
-    private TableColumn<?, ?> TeamLeaderTableYear;
-
-    @FXML
-    private TableColumn<?, ?> TeamLeaderTableStatus;
-
-    @FXML
     private Label TeamLeaderNameLabel;
 
     @FXML
-    private Label TeamLeaderGroupNameLabel;
+    private Button SignOutButton;
 
     @FXML
-    private Text TeamLeaderName;
+    private TableColumn<?, ?> TeamLeaderPeerLeaderIDColumn;
+
+    @FXML
+    private TableColumn<?, ?> TeamLeaderPeerLeaderNameColumn;
+
+    @FXML
+    private TableColumn<?, ?> TeamLeaderPeerLeaderEmailColumn;
+
+    @FXML
+    private TableColumn<?, ?> TeamLeaderPeerLeaderPhoneColumn;
+
+    @FXML
+    private TableColumn<?, ?> TeamLeaderGroupNameColumn;
+
+    @FXML
+    private TableColumn<?, ?> TeamLeaderActiveColumn;
+
+    @FXML
+    private Button TeamLeaderViewActivityListButton;
+
+    @FXML
+    private Button TeamLeaderViewPeerButton;
+
+    @FXML
+    void SignOutButtonOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void TeamLeaderViewActivityListOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void TeamLeaderViewPeerOnClick(ActionEvent event) {
+
+    }
 
     @FXML
     void initialize() {
-        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTeamLeaderNameLabel != null : "fx:id=\"TeamLeaderTeamLeaderNameLabel\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderGroupName != null : "fx:id=\"TeamLeaderGroupName\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTeamLeaderName != null : "fx:id=\"TeamLeaderTeamLeaderName\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTable != null : "fx:id=\"TeamLeaderTable\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTableID != null : "fx:id=\"TeamLeaderTableID\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTableName != null : "fx:id=\"TeamLeaderTableName\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTableCollege != null : "fx:id=\"TeamLeaderTableCollege\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTableYear != null : "fx:id=\"TeamLeaderTableYear\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderTableStatus != null : "fx:id=\"TeamLeaderTableStatus\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderNameLabel != null : "fx:id=\"TeamLeaderNameLabel\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderGroupNameLabel != null : "fx:id=\"TeamLeaderGroupNameLabel\" was not injected: check your FXML file 'Team_Leader.fxml'.";
-        assert TeamLeaderName != null : "fx:id=\"TeamLeaderName\" was not injected: check your FXML file 'Team_Leader.fxml'.";
+        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderNameLabel != null : "fx:id=\"TeamLeaderNameLabel\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert SignOutButton != null : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderPeerLeaderIDColumn != null : "fx:id=\"TeamLeaderPeerLeaderIDColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderPeerLeaderNameColumn != null : "fx:id=\"TeamLeaderPeerLeaderNameColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderPeerLeaderEmailColumn != null : "fx:id=\"TeamLeaderPeerLeaderEmailColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderPeerLeaderPhoneColumn != null : "fx:id=\"TeamLeaderPeerLeaderPhoneColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderGroupNameColumn != null : "fx:id=\"TeamLeaderGroupNameColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderActiveColumn != null : "fx:id=\"TeamLeaderActiveColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderViewActivityListButton != null : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+        assert TeamLeaderViewPeerButton != null : "fx:id=\"TeamLeaderViewPeerButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
     }
 }

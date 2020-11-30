@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.ActivityListController">
+   <children>
+      <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <ImageView fitHeight="84.0" fitWidth="352.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="407.0" layoutY="22.0" text="List of Activities " textFill="#902400">
+         <font>
+            <Font name="Arial Bold" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
+      <TableView layoutX="26.0" layoutY="192.0" prefHeight="325.0" prefWidth="961.0">
+         <columns>
+            <TableColumn fx:id="ActivityListActivityIDColumn" prefWidth="73.0" text="Activity ID " />
+            <TableColumn fx:id="ActivityListActivityNameColumn" prefWidth="315.0" text="Activity Name" />
+            <TableColumn fx:id="ActivityListDateColumn" minWidth="0.0" prefWidth="133.0" text="Date of Activity " />
+            <TableColumn fx:id="ActivityListOrganizedbyColumn" prefWidth="143.0" text="Organized By" />
+            <TableColumn fx:id="ActivityListNoteColumn" minWidth="0.0" prefWidth="296.0" text="Note" />
+         </columns>
+      </TableView>
+      <AnchorPane layoutY="83.0" prefHeight="84.0" prefWidth="1013.0" style="-fx-background-color: #902400;">
+         <children>
+            <Text fill="#ebebeb" layoutX="453.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fall 2020" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="38.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

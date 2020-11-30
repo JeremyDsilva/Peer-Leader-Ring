@@ -4,12 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class FXMLDocumentController {
+public class LoginController {
 
     @FXML
     private ResourceBundle resources;
@@ -30,26 +31,20 @@ public class FXMLDocumentController {
     private Button SignInButton;
 
     @FXML
-    private Label ForgotPassword;
-
-    @FXML
-    private Label SignIn;
+    private Label SignInLabel;
 
     @FXML
     void SignInOnClick(ActionEvent event) {
-        // todo
+        
     }
 
     @FXML
     void initialize() {
         assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'Login.fxml'.";
-        assert EmailUsernameTextbox != null
-                : "fx:id=\"EmailUsernameTextbox\" was not injected: check your FXML file 'Login.fxml'.";
-        assert PasswordTextbook != null
-                : "fx:id=\"PasswordTextbook\" was not injected: check your FXML file 'Login.fxml'.";
+        assert EmailUsernameTextbox != null : "fx:id=\"EmailUsernameTextbox\" was not injected: check your FXML file 'Login.fxml'.";
+        assert PasswordTextbook != null : "fx:id=\"PasswordTextbook\" was not injected: check your FXML file 'Login.fxml'.";
         assert SignInButton != null : "fx:id=\"SignInButton\" was not injected: check your FXML file 'Login.fxml'.";
-        assert ForgotPassword != null : "fx:id=\"ForgotPassword\" was not injected: check your FXML file 'Login.fxml'.";
-        assert SignIn != null : "fx:id=\"SignIn\" was not injected: check your FXML file 'Login.fxml'.";
+        assert SignInLabel != null : "fx:id=\"SignInLabel\" was not injected: check your FXML file 'Login.fxml'.";
 
     }
 }

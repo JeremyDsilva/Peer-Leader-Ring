@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
  *
  * @author Yash Gaikwad
  */
-public class StatisticsController implements Initializable {
+public class DashboardController implements Initializable {
 
     /**
      * Initializes the controller class.

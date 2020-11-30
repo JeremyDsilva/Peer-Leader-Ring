@@ -1,147 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.GroupListController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Pane layoutX="433.0" layoutY="1.0" prefHeight="600.0" prefWidth="581.0">
+      <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
-            <Label layoutX="192.0" layoutY="66.0" text="Team Leader Name :">
+            <Label fx:id="GroupListNameLabel" layoutX="21.0" layoutY="11.0" prefHeight="42.0" prefWidth="66.0" text="{Name}" textFill="#f2f2f2">
                <font>
-                  <Font name="Times New Roman Bold" size="20.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Label>
-            <Text layoutX="-14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GroupName" wrappingWidth="174.6708984375">
+            <Label fx:id="GroupListGroupNameLabel" layoutX="323.0" layoutY="13.0" prefHeight="42.0" prefWidth="136.0" text="{Group Name}" textFill="#f2f2f2">
                <font>
-                  <Font name="Times New Roman" size="20.0" />
-               </font>
-            </Text>
-            <Text layoutX="383.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TeamLeaderName" wrappingWidth="174.6708984375">
-               <font>
-                  <Font name="Times New Roman" size="20.0" />
-               </font>
-            </Text>
-            <ComboBox layoutX="354.0" layoutY="104.0" prefWidth="150.0" />
-            <Label layoutX="192.0" layoutY="108.0" prefHeight="23.0" prefWidth="162.0" text="List of Activities :">
-               <font>
-                  <Font name="Times New Roman Bold" size="20.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Label>
-            <Button layoutX="399.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" text="Mark Attendance">
+            <Label fx:id="GroupListTeamLeaderLabel" layoutX="655.0" layoutY="13.0" prefHeight="42.0" prefWidth="136.0" text="{Team Leader}" textFill="#f2f2f2">
                <font>
-                  <Font name="Times New Roman Bold" size="15.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
-            </Button>
+            </Label>
          </children></Pane>
-      <AnchorPane layoutY="156.0" prefHeight="451.0" prefWidth="1014.0" style="-fx-background-color: a03021;">
-         <children>
-            <AnchorPane layoutX="49.0" layoutY="47.0" prefHeight="348.0" prefWidth="922.0" style="-fx-background-color: white;">
-               <children>
-                  <TableView prefHeight="348.0" prefWidth="922.0">
-                    <columns>
-                      <TableColumn prefWidth="64.0" text="ID" />
-                      <TableColumn prefWidth="211.0" text="NAME" />
-                        <TableColumn prefWidth="398.0" text="COLLEGE" />
-                        <TableColumn prefWidth="120.0" text="YEAR" />
-                        <TableColumn prefWidth="128.0" text="STATUS" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="877.0" layoutY="406.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Submit" />
-         </children>
-      </AnchorPane>
-      <Label layoutX="14.0" layoutY="66.0" text="Name :">
+      <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="391.0" layoutY="22.0" text="List of Students in Group" textFill="#902400">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="289.0" layoutY="66.0" text="Group Name :">
+      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
+      <TableView layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
+        <columns>
+          <TableColumn fx:id="PeerLeaderStudentIDColumn" prefWidth="97.0" text="Student ID" />
+          <TableColumn fx:id="PeerLeaderStudentNameColumn" prefWidth="262.0" text="Student Name" />
+            <TableColumn fx:id="PeerLeaderStudentEmailColumn" minWidth="0.0" prefWidth="187.0" text="Student Email" />
+            <TableColumn fx:id="PeerLeaderStudentPhoneColumn" prefWidth="127.0" text="Student Phone No." />
+            <TableColumn fx:id="PeerLeaderCollegeColumn" minWidth="0.0" prefWidth="233.0" text="College" />
+            <TableColumn fx:id="PeerLeaderActiveColumn" prefWidth="54.0" text="Active" />
+        </columns>
+      </TableView>
+      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="Mark Attendance" textFill="#eee9e9">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font size="17.0" />
          </font>
-      </Label>
-      <Text layoutX="85.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name " wrappingWidth="174.6708984375">
+      </Button>
+      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="295.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="View List of Activities" textFill="#eee9e9">
          <font>
-            <Font name="Times New Roman" size="20.0" />
+            <Font size="17.0" />
          </font>
-      </Text>
-      <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0">
-          <children>
-              <Label fx:id="label1" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-            <Pane layoutX="433.0" layoutY="1.0" prefHeight="600.0" prefWidth="581.0">
-               <children>
-                  <Label fx:id="PeerLeaderTeamLeaderNameLabel" layoutX="192.0" layoutY="66.0" text="Team Leader Name :">
-                     <font>
-                        <Font name="Times New Roman Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="PeerLeaderGroupName" layoutX="-14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GroupName" wrappingWidth="174.6708984375">
-                     <font>
-                        <Font name="Times New Roman" size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="PeerLEaderTeamLeaderName" layoutX="383.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TeamLeaderName" wrappingWidth="174.6708984375">
-                     <font>
-                        <Font name="Times New Roman" size="20.0" />
-                     </font>
-                  </Text>
-                  <ComboBox fx:id="ListOfActivitiesComboBox" layoutX="354.0" layoutY="104.0" prefWidth="150.0" />
-                  <Label fx:id="PeerLeaderListOfActivitesLabel" layoutX="192.0" layoutY="108.0" prefHeight="23.0" prefWidth="162.0" text="List of Activities :">
-                     <font>
-                        <Font name="Times New Roman Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="MarkAttendanceButton" layoutX="399.0" layoutY="14.0" mnemonicParsing="false" onAction="#MarkAttendanceOnClick" prefHeight="31.0" prefWidth="162.0" text="Mark Attendance">
-                     <font>
-                        <Font name="Times New Roman Bold" size="15.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Pane>
-            <AnchorPane layoutY="156.0" prefHeight="451.0" prefWidth="1014.0" style="-fx-background-color: a03021;">
-               <children>
-                  <AnchorPane layoutX="49.0" layoutY="47.0" prefHeight="348.0" prefWidth="922.0" style="-fx-background-color: white;">
-                     <children>
-                        <TableView fx:id="PeerLeaderTable" prefHeight="348.0" prefWidth="922.0">
-                          <columns>
-                            <TableColumn fx:id="PeerLeaderTableID" prefWidth="64.0" text="ID" />
-                            <TableColumn fx:id="PeerLeaderTableName" prefWidth="211.0" text="NAME" />
-                              <TableColumn fx:id="PeerLeaderTableCollege" prefWidth="398.0" text="COLLEGE" />
-                              <TableColumn fx:id="PeerLeaderTableYear" prefWidth="120.0" text="YEAR" />
-                              <TableColumn fx:id="PeerLeaderTableStatus" prefWidth="128.0" text="STATUS" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-                  <Button fx:id="PeerLeaderSubmitButton" layoutX="877.0" layoutY="406.0" mnemonicParsing="false" onAction="#PeerLeaderSubmitButtonOnClick" prefHeight="31.0" prefWidth="94.0" text="Submit" />
-               </children>
-            </AnchorPane>
-            <Label fx:id="PeerLeaderNameLabel" layoutX="14.0" layoutY="66.0" text="Name :">
-               <font>
-                  <Font name="Times New Roman Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="PeerLeaderGroupNameLabel" layoutX="289.0" layoutY="66.0" text="Group Name :">
-               <font>
-                  <Font name="Times New Roman Bold" size="20.0" />
-               </font>
-            </Label>
-            <Text fx:id="PeerLeaderName" layoutX="85.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name " wrappingWidth="174.6708984375">
-               <font>
-                  <Font name="Times New Roman" size="20.0" />
-               </font>
-            </Text>
-          </children>
-      </AnchorPane>
+      </Button>
     </children>
 </AnchorPane>

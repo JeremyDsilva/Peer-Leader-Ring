@@ -1,11 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller=".AdminController">
-    
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1013.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.AdminController">
+   <children>
+      <AnchorPane layoutX="-1.0" prefHeight="71.0" prefWidth="414.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="61.0" layoutY="15.0" text="Admin Homepage " textFill="#902400">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="600.0" fitWidth="601.0" layoutX="413.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@HatchfulExport-All/facebook_profile_image.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="SignOutButton" layoutX="913.0" layoutY="544.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" prefHeight="42.0" prefWidth="86.0" style="-fx-background-color: #ffd002 #ffd002;" text="Sign Out">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminStudentButton" layoutX="101.0" layoutY="105.0" mnemonicParsing="false" onAction="#AdminStudentButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Students" textFill="#f2f4f5">
+         <font>
+            <Font name="Arial" size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminStudentGroupButton" layoutX="101.0" layoutY="226.0" mnemonicParsing="false" onAction="#AdminStudentGroupButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Student Groups" textFill="#f2f4f5">
+         <font>
+            <Font name="Arial" size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminActivityListButton" layoutX="101.0" layoutY="286.0" mnemonicParsing="false" onAction="#AdminActivityListButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Activity List" textFill="#f2f4f5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminDashboardButton" layoutX="101.0" layoutY="347.0" mnemonicParsing="false" onAction="#AdminDashboardButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Dashboard" textFill="#f2f4f5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminAddAdminButton" layoutX="101.0" layoutY="408.0" mnemonicParsing="false" onAction="#AdminAddAdminButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Add Admin " textFill="#f2f4f5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminManageAdminButton" layoutX="101.0" layoutY="467.0" mnemonicParsing="false" onAction="#AdminManageAdminButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Manage Admin" textFill="#f2f4f5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="AdminLeadersButton" layoutX="101.0" layoutY="166.0" mnemonicParsing="false" onAction="#AdminLeadersButtonOnlick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Leaders" textFill="#f2f4f5">
+         <font>
+            <Font name="Arial" size="22.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
