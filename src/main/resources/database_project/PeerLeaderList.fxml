@@ -32,7 +32,6 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
       <TableView layoutX="38.0" layoutY="180.0" prefHeight="292.0" prefWidth="937.0">
          <columns>
             <TableColumn fx:id="TeamLeaderPeerLeaderIDColumn" prefWidth="97.0" text="Peer Leader ID" />
@@ -43,14 +42,19 @@
             <TableColumn fx:id="TeamLeaderActiveColumn" prefWidth="68.0" text="Active" />
          </columns>
       </TableView>
-      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="544.0" layoutY="493.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="44.0" prefWidth="252.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="544.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="TeamLeaderViewPeerButton" alignment="CENTER" layoutX="233.0" layoutY="493.0" mnemonicParsing="false" onAction="#TeamLeaderViewPeerOnClick" prefHeight="44.0" prefWidth="252.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="View Peer Leader" textFill="#eee9e9">
+      <Button fx:id="TeamLeaderViewPeerButton" alignment="CENTER" layoutX="233.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewPeerOnClick" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: rgb(58,71,80);" text="View Peer Leader" textFill="#eee9e9">
          <font>
             <Font name="Arial" size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="SignOutButton" layoutX="913.0" layoutY="25.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
          </font>
       </Button>
    </children>

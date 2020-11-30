@@ -9,11 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.StudentListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;" />
+      <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
+         <children>
+            <Text fill="#ebebeb" layoutX="428.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fall 2020" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="38.0" />
+               </font>
+            </Text>
+         </children></Pane>
       <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
@@ -24,17 +32,36 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
-      <TableView layoutX="13.0" layoutY="181.0" prefHeight="400.0" prefWidth="985.0">
+      <TableView layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="StudentListStudentIDColumn" prefWidth="68.0" text="Student ID" />
             <TableColumn fx:id="StudentListStudentNameColumn" prefWidth="203.0" text="Student Name" />
             <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" prefWidth="175.0" text="Student Email" />
             <TableColumn fx:id="StudentListStudentPhoneColumn" prefWidth="149.0" text="Student Phone No." />
             <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" prefWidth="169.0" text="College" />
-            <TableColumn fx:id="StudentListStudentRoleColumn" prefWidth="162.0" text="Student Role" />
+            <TableColumn fx:id="StudentListStudentGroupColumn" prefWidth="162.0" text="Student Group" />
             <TableColumn fx:id="StudentListActiveColumn" prefWidth="58.0" text="Active" />
          </columns>
       </TableView>
+      <Button fx:id="BackButton" layoutX="15.0" layoutY="548.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="SignOutButton" layoutX="912.0" layoutY="25.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="StudentListAddButton" alignment="CENTER" layoutX="616.0" layoutY="544.0" mnemonicParsing="false" onAction="#StudentListAddButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Add Student" textFill="#f8eeee">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="StudentListManageButton" alignment="CENTER" layoutX="815.0" layoutY="544.0" mnemonicParsing="false" onAction="#StudentListManageButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Manage Student" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -2,6 +2,9 @@ package database_project;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -63,7 +66,7 @@ public class PeerLeaderListController {
     void TeamLeaderViewPeerOnClick(ActionEvent event) {
 
     }
-
+    // ObservableList<String> ListOfActivites = FXCollections.observableArrayList("Yash","Iffa","Jeremy");
     @FXML
     void initialize() {
         assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
@@ -78,5 +81,9 @@ public class PeerLeaderListController {
         assert TeamLeaderViewActivityListButton != null : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
         assert TeamLeaderViewPeerButton != null : "fx:id=\"TeamLeaderViewPeerButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
+
+        // ListOfActivitiesComboBox.setValue("Iffa");
+        // ListOfActivitiesComboBox.setItems(ListOfActivites);
     }
+    
 }

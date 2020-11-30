@@ -41,7 +41,6 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
       <TableView layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
         <columns>
           <TableColumn fx:id="PeerLeaderStudentIDColumn" prefWidth="97.0" text="Student ID" />
@@ -52,12 +51,17 @@
             <TableColumn fx:id="PeerLeaderActiveColumn" prefWidth="54.0" text="Active" />
         </columns>
       </TableView>
-      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="Mark Attendance" textFill="#eee9e9">
+      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="295.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: #902400#902400 #902400#902400;" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="295.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
          <font>
             <Font size="17.0" />
          </font>

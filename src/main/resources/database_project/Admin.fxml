@@ -23,11 +23,6 @@
             <Image url="@HatchfulExport-All/facebook_profile_image.png" />
          </image>
       </ImageView>
-      <Button fx:id="SignOutButton" layoutX="913.0" layoutY="544.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" prefHeight="42.0" prefWidth="86.0" style="-fx-background-color: #ffd002 #ffd002;" text="Sign Out">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Button>
       <Button fx:id="AdminStudentButton" layoutX="101.0" layoutY="105.0" mnemonicParsing="false" onAction="#AdminStudentButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Students" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
@@ -61,6 +56,11 @@
       <Button fx:id="AdminLeadersButton" layoutX="101.0" layoutY="166.0" mnemonicParsing="false" onAction="#AdminLeadersButtonOnlick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Leaders" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="SignOutButton" layoutX="912.0" layoutY="544.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
          </font>
       </Button>
    </children>

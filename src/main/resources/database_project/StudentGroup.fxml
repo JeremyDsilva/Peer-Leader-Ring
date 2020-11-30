@@ -9,27 +9,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database_project.StudentGroupController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
-            <Label fx:id="StudentGroupNameLabel" layoutX="21.0" layoutY="11.0" prefHeight="42.0" prefWidth="66.0" text="Name:" textFill="#f2f2f2">
+            <Text fill="#ebebeb" layoutX="426.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fall 2020" textAlignment="CENTER">
                <font>
-                  <Font name="Arial Bold" size="17.0" />
+                  <Font name="Arial" size="38.0" />
                </font>
-            </Label>
-            <Label fx:id="StudentGroupGroupNameLabel1" layoutX="330.0" layoutY="13.0" prefHeight="42.0" prefWidth="116.0" text="Group Name:" textFill="#f2f2f2">
-               <font>
-                  <Font name="Arial Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="StudentGroupTeamLeaderLabel1" layoutX="670.0" layoutY="13.0" prefHeight="42.0" prefWidth="116.0" text="Team Leader:" textFill="#f2f2f2">
-               <font>
-                  <Font name="Arial Bold" size="17.0" />
-               </font>
-            </Label>
+            </Text>
          </children>
       </Pane>
       <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
@@ -37,21 +28,38 @@
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
          </image>
       </ImageView>
-      <Label layoutX="407.0" layoutY="22.0" text="Student Group" textFill="#902400">
+      <Label layoutX="407.0" layoutY="22.0" text="Student Groups" textFill="#902400">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="SignOutButton" layoutX="926.0" layoutY="11.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out" />
-      <TableView layoutX="26.0" layoutY="181.0" prefHeight="310.0" prefWidth="961.0">
+      <Button fx:id="SignOutButton" layoutX="912.0" layoutY="25.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <TableView layoutX="26.0" layoutY="181.0" prefHeight="347.0" prefWidth="961.0">
          <columns>
-            <TableColumn fx:id="StudentGroupStudentIDColumn" prefWidth="97.0" text="Student ID" />
-            <TableColumn fx:id="StudentGroupStudentNameColumn" prefWidth="262.0" text="Student Name" />
-            <TableColumn fx:id="StudentGroupStudentEmailColumn" minWidth="0.0" prefWidth="187.0" text="Student Email" />
-            <TableColumn fx:id="StudentGroupStudentPhoneColumn" prefWidth="127.0" text="Student Phone No." />
-            <TableColumn fx:id="StudentGroupCollegeColumn" minWidth="0.0" prefWidth="233.0" text="College" />
-            <TableColumn fx:id="StudentGroupActiveColumn" prefWidth="54.0" text="Active" />
+            <TableColumn fx:id="StudentGroupGroupIDcolumn" prefWidth="136.0" text="Group ID" />
+            <TableColumn fx:id="StudentGroupGroupNameColumn" prefWidth="259.0" text="Group Name " />
+            <TableColumn fx:id="StudentGroupPeerLeaderColumn" minWidth="0.0" prefWidth="201.0" text="Peer Leader " />
+            <TableColumn fx:id="StudentGroupTeamLeaderColumn" prefWidth="189.0" text="Team Leader " />
+            <TableColumn fx:id="StudentGroupStudentColumn" minWidth="0.0" prefWidth="175.0" text="Student " />
          </columns>
       </TableView>
+      <Button fx:id="BackButton" layoutX="26.0" layoutY="545.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="StudentGroupAddButton" alignment="CENTER" layoutX="601.0" layoutY="542.0" mnemonicParsing="false" onAction="#StudentGroupAddButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Add Group" textFill="#f8eeee">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="StudentGroupManageButton" alignment="CENTER" layoutX="800.0" layoutY="542.0" mnemonicParsing="false" onAction="#StudentGroupManageButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Manage Group" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

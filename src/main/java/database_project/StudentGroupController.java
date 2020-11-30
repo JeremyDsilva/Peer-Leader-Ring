@@ -20,34 +20,36 @@ public class StudentGroupController {
     private Label label;
 
     @FXML
-    private Label StudentGroupNameLabel;
-
-    @FXML
-    private Label StudentGroupGroupNameLabel1;
-
-    @FXML
-    private Label StudentGroupTeamLeaderLabel1;
-
-    @FXML
     private Button SignOutButton;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupStudentIDColumn;
+    private TableColumn<?, ?> StudentGroupGroupIDcolumn;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupStudentNameColumn;
+    private TableColumn<?, ?> StudentGroupGroupNameColumn;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupStudentEmailColumn;
+    private TableColumn<?, ?> StudentGroupPeerLeaderColumn;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupStudentPhoneColumn;
+    private TableColumn<?, ?> StudentGroupTeamLeaderColumn;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupCollegeColumn;
+    private TableColumn<?, ?> StudentGroupStudentColumn;
 
     @FXML
-    private TableColumn<?, ?> StudentGroupActiveColumn;
+    private Button BackButton;
+
+    @FXML
+    private Button StudentGroupAddButton;
+
+    @FXML
+    private Button StudentGroupManageButton;
+
+    @FXML
+    void BackButtonOnClick(ActionEvent event) {
+
+    }
 
     @FXML
     void SignOutButtonOnClick(ActionEvent event) {
@@ -55,18 +57,27 @@ public class StudentGroupController {
     }
 
     @FXML
+    void StudentGroupAddButtonOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void StudentGroupManageButtonOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
     void initialize() {
         assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupNameLabel != null : "fx:id=\"StudentGroupNameLabel\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupGroupNameLabel1 != null : "fx:id=\"StudentGroupGroupNameLabel1\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupTeamLeaderLabel1 != null : "fx:id=\"StudentGroupTeamLeaderLabel1\" was not injected: check your FXML file 'StudentGroup.fxml'.";
         assert SignOutButton != null : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupStudentIDColumn != null : "fx:id=\"StudentGroupStudentIDColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupStudentNameColumn != null : "fx:id=\"StudentGroupStudentNameColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupStudentEmailColumn != null : "fx:id=\"StudentGroupStudentEmailColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupStudentPhoneColumn != null : "fx:id=\"StudentGroupStudentPhoneColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupCollegeColumn != null : "fx:id=\"StudentGroupCollegeColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-        assert StudentGroupActiveColumn != null : "fx:id=\"StudentGroupActiveColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupGroupIDcolumn != null : "fx:id=\"StudentGroupGroupIDcolumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupGroupNameColumn != null : "fx:id=\"StudentGroupGroupNameColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupPeerLeaderColumn != null : "fx:id=\"StudentGroupPeerLeaderColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupTeamLeaderColumn != null : "fx:id=\"StudentGroupTeamLeaderColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupStudentColumn != null : "fx:id=\"StudentGroupStudentColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupAddButton != null : "fx:id=\"StudentGroupAddButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+        assert StudentGroupManageButton != null : "fx:id=\"StudentGroupManageButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
 
     }
 }
