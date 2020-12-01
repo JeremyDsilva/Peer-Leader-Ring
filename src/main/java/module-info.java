@@ -1,8 +1,13 @@
-module database_project {
+module controller {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.base;
+    requires javafx.graphics;
 
-    opens database_project to javafx.fxml;
-    exports database_project;
+    opens controller to javafx.fxml;
+
+    exports controller;
+
+    opens app to javafx.graphics;
+
+    exports app;
 }

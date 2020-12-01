@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package database_project;
+package app;
 
 import java.io.IOException;
 
+import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     // private static Parent loadFXML(String fxml) throws IOException {
-    //     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    //     FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(fxml + ".fxml"));
     //     return fxmlLoader.load();
     // }
 
@@ -28,7 +29,8 @@ public class App extends Application {
 
     // @Override
     // public void start(Stage stage) throws IOException {
-    //     scene = new Scene(loadFXML("Login"));
+    //     Parent parent = loadFXML("Login");
+    //     scene = new Scene(parent);
     //     stage.setScene(scene);
     //     stage.show();
     // }
@@ -39,12 +41,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    
-    Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+
+        Parent root = FXMLLoader.load(LoginController.class.getResource("Login.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
     /**
      * @param args the command line arguments
      */
