@@ -1,11 +1,11 @@
 package database_project;
 
-import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class ManageAdminController {
 
@@ -28,29 +28,29 @@ public class ManageAdminController {
     private TextField ManageAdminPhoneTextField;
 
     @FXML
-    private Button NextButton;
-
-    @FXML
     private Button DeleteButton;
 
     @FXML
     private Button UpdateButton;
 
     @FXML
-    private Button PreviousButton;
+    private Button BackButton;
+
+    @FXML
+    private Button AddButton;
+
+    @FXML
+    void AddButtonOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BackButtonOnClick(ActionEvent event) {
+
+    }
 
     @FXML
     void DeleteButtonOnClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void NextButtonOnClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void PreviousButtonOnClick(ActionEvent event) {
 
     }
 
@@ -65,10 +65,10 @@ public class ManageAdminController {
         assert ManageAdminEmailTextField != null : "fx:id=\"ManageAdminEmailTextField\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
         assert ManageAdminFullNameTextField != null : "fx:id=\"ManageAdminFullNameTextField\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
         assert ManageAdminPhoneTextField != null : "fx:id=\"ManageAdminPhoneTextField\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
-        assert NextButton != null : "fx:id=\"NextButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
         assert DeleteButton != null : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
         assert UpdateButton != null : "fx:id=\"UpdateButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
-        assert PreviousButton != null : "fx:id=\"PreviousButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
+        assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
+        assert AddButton != null : "fx:id=\"AddButton\" was not injected: check your FXML file 'ManageAdmin.fxml'.";
 
     }
 }
