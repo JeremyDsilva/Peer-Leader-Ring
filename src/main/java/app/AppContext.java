@@ -10,8 +10,8 @@ public class AppContext {
         return AppContext.user;
     }
 
-    public static User setUser(User user){
-        return AppContext.user = user;
+    public static void setUser(User user){
+        AppContext.user = user;
     }
     
 }
