@@ -18,8 +18,6 @@ public class StudentLeader implements Serializable {
 	@Id
 	private long id;
 
-	private String status;
-
 	@Column(name="STUDENT_LEADER_ROLE")
 	private String studentLeaderRole;
 
@@ -53,14 +51,6 @@ public class StudentLeader implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getStudentLeaderRole() {

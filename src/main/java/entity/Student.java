@@ -17,8 +17,6 @@ public class Student implements Serializable {
 	@Id
 	private long id;
 
-	private String active;
-
 	//bi-directional many-to-one association to ActivityAttendance
 	@OneToMany(mappedBy="student")
 	private List<ActivityAttendance> attendace;
@@ -47,14 +45,6 @@ public class Student implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getActive() {
-		return this.active;
-	}
-
-	public void setActive(String active) {
-		this.active = active;
 	}
 
 	public List<ActivityAttendance> getAttendace() {

@@ -25,11 +25,6 @@ CREATE TABLE student_leader (
             'Junior',
             'Senior'
         ) ),
-    status                CHAR
-        CONSTRAINT sleader_status_ck CHECK ( status IN (
-            'Y',
-            'N'
-        ) ),
     student_leader_role   CHAR(11)
         CONSTRAINT sleader_role_ck CHECK ( student_leader_role IN (
             'team_leader',
@@ -60,11 +55,6 @@ CREATE TABLE student (
         CONSTRAINT student_pk PRIMARY KEY,
     college         VARCHAR2(5),
     student_group   INTEGER,
-    active          CHAR
-        CONSTRAINT student_status_ck CHECK ( active IN (
-            'Y',
-            'N'
-        ) ),
     CONSTRAINT student_user_fk FOREIGN KEY ( id )
         REFERENCES app_user ( id ),
     CONSTRAINT student_college_fk FOREIGN KEY ( college )
