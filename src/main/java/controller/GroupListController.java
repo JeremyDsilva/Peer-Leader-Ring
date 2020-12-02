@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -18,8 +22,11 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
+import javafx.scene.Node;
+
 
 public class GroupListController {
 
@@ -76,17 +83,22 @@ public class GroupListController {
 
         @FXML
         void GroupListMarkAttendOnClick(ActionEvent event) {
-
+//todo
         }
 
         @FXML
-        void GroupListViewActButtonOnClick(ActionEvent event) {
-
+        void GroupListViewActButtonOnClick(ActionEvent event) throws IOException {
+//todo
+        Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+        Scene Activity = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(Activity);
+        window.show();
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) {
-
+//todo
         }
 
         @FXML
