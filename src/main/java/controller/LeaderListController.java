@@ -2,6 +2,10 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import app.AppContext;
+import entity.Group;
+import entity.StudentLeader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -86,6 +90,15 @@ public class LeaderListController {
         assert SignOutButton != null : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
         assert LeaderListAddButton != null : "fx:id=\"LeaderListAddButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
         assert LeaderListManageButton != null : "fx:id=\"LeaderListManageButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
+
+
+
+
+
+
+
+
+
 
     }
 }

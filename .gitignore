@@ -2,6 +2,7 @@
 .classpath
 .settings/*
 .DS_Store
+.vscode
 target/
 pom.xml.tag
 pom.xml.releaseBackup
