@@ -44,8 +44,8 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
     <property name="hibernate.connection.url">jdbc:oracle:thin:@coeoracle.aus.edu:1521:orcl</property>
-    <property name="hibernate.connection.username">b00074902</property>
-    <property name="hibernate.connection.password">password</property>
+    <property name="hibernate.connection.username">b00075653</property>
+    <property name="hibernate.connection.password">b00075653</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>

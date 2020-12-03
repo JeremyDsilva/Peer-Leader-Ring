@@ -27,7 +27,6 @@ import javafx.util.Callback;
 import response.Response;
 import javafx.scene.Node;
 
-
 public class GroupListController {
 
         @FXML
@@ -83,32 +82,77 @@ public class GroupListController {
 
         @FXML
         void GroupListMarkAttendOnClick(ActionEvent event) {
-//todo
+                // todo
         }
 
         @FXML
         void GroupListViewActButtonOnClick(ActionEvent event) throws IOException {
-//todo
-        Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-        Scene Activity = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Activity);
-        window.show();
+                // todo
+                Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+                Scene Activity = new Scene(root);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(Activity);
+                window.show();
         }
 
         @FXML
-        void SignOutButtonOnClick(ActionEvent event) {
-//todo
+        void SignOutButtonOnClick(ActionEvent event) throws IOException {
+                // todo
+                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                Scene Logout = new Scene(root);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(Logout);
+                window.show();
         }
 
         @FXML
         void studentidEditCommit(ActionEvent event) {
-                System.out.println("Commit");
+                System.out.println("Commit1");
         }
 
         @FXML
         void studentidEditStart(ActionEvent event) {
-                System.out.println("Edit");
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void studentnameEditCommit(ActionEvent event) {
+                System.out.println("Commit2");
+        }
+
+        @FXML
+        void studentnameEditStart(ActionEvent event) {
+                System.out.println("Edit2");
+        }
+
+        @FXML
+        void studentemailEditCommit(ActionEvent event) {
+                System.out.println("Commit3");
+        }
+
+        @FXML
+        void studentemailEditStart(ActionEvent event) {
+                System.out.println("Edit3");
+        }
+
+        @FXML
+        void studentphoneEditCommit(ActionEvent event) {
+                System.out.println("Commit4");
+        }
+
+        @FXML
+        void studentphoneEditStart(ActionEvent event) {
+                System.out.println("Edit4");
+        }
+
+        @FXML
+        void studentcollegeEditCommit(ActionEvent event) {
+                System.out.println("Commit5");
+        }
+
+        @FXML
+        void studentcollegeEditStart(ActionEvent event) {
+                System.out.println("Edit5");
         }
 
         @FXML
@@ -187,13 +231,52 @@ public class GroupListController {
                         }
                 });
 
+                // Making the columns editable except the ID field
                 nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                 nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
                         public void handle(CellEditEvent<Student, String> t) {
-                                System.out.println("It works!");
+                                System.out.println("It works1!");
                         }
+
                 });
+
+                emailCloumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works2!");
+                        }
+
+                });
+
+                collegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works3!");
+                        }
+
+                });
+
+                phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works4!");
+                        }
+
+                });
+
+                // The ID is primary. So lets keep it uneditable.
+                // idColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                // idColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, Long>>() {
+                // public void handle(CellEditEvent<Student, String> t) {
+                // System.out.println("It works!");
+                // }
+
+                // });
 
         }
 

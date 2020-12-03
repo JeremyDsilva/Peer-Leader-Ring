@@ -45,10 +45,10 @@
         <columns>
          <TableColumn fx:id="idColumn" onEditCommit="#studentidEditCommit" onEditStart="#studentidEditStart" prefWidth="97.0" text="Student ID" />
           <!-- <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" /> -->
-          <TableColumn fx:id="nameColumn" prefWidth="262.0" text="Student Name" />
-            <TableColumn fx:id="emailCloumn" minWidth="0.0" prefWidth="187.0" text="Student Email" />
-            <TableColumn fx:id="phoneColumn" prefWidth="127.0" text="Student Phone No." />
-            <TableColumn fx:id="collegeColumn" minWidth="0.0" prefWidth="287.0" text="College" />
+          <TableColumn fx:id="nameColumn" onEditCommit="#studentnameEditCommit" onEditStart="#studentnameEditStart" prefWidth="262.0" text="Student Name" />
+            <TableColumn fx:id="emailCloumn" minWidth="0.0" onEditCommit="#studentemailEditCommit" onEditStart="#studentemailEditStart" prefWidth="187.0" text="Student Email" />
+            <TableColumn fx:id="phoneColumn" onEditCommit="#studentphoneEditCommit" onEditStart="#studentphoneEditStart" prefWidth="127.0" text="Student Phone No." />
+            <TableColumn fx:id="collegeColumn" minWidth="0.0" onEditCommit="#studentcollegeEditCommit" onEditStart="#studentcollegeEditStart" prefWidth="287.0" text="College" />
         </columns>
       </TableView>
       <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">

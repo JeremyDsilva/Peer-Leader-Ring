@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import entity.User;
 import handler.LoginHandler;
 import javafx.event.ActionEvent;
@@ -51,7 +52,6 @@ public class LoginController {
         String passwordInput = PasswordTextbox.getText();
 
         Response<User> response = loginHandler.handle(Long.parseLong(idInput), passwordInput);
-
         if (response.success()) {
 
             Parent root = null;
@@ -65,7 +65,9 @@ public class LoginController {
                     root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
 
             } else {
-                // TODO Add 
+                // Tried the STUDENT LOGIN
+                root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+                // TODO Add
             }
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -73,7 +75,8 @@ public class LoginController {
             window.show();
 
         } else {
-            //SignInButton.setOnAction(e->AlertBox.display("Error Window", "Please Input valid credentials"));
+            // SignInButton.setOnAction(e->AlertBox.display("Error Window", "Please Input
+            // valid credentials"));
             System.out.println("Failed");
             // TODO Add message to error label
         }

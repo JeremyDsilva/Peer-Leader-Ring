@@ -1,3 +1,18 @@
+CREATE TABLE activity (
+    id                 INTEGER
+        CONSTRAINT activity_pk PRIMARY KEY,
+    name               VARCHAR2(50) CONSTRAINT activity_name_nn NOT NULL,
+    date_of_activity   DATE CONSTRAINT activity_date_nn NOT NULL,
+    organized_by       VARCHAR2(50) CONSTRAINT activity_organized_nn NOT NULL,
+    note               VARCHAR2(100)
+);
+
+CREATE TABLE college (
+    id             VARCHAR(5)
+        CONSTRAINT college_pk PRIMARY KEY,
+    college_name   VARCHAR(40) CONSTRAINT college_name_nn NOT NULL
+);
+
 CREATE TABLE app_user (
     id             INTEGER
         CONSTRAINT user_pk PRIMARY KEY,
@@ -6,12 +21,6 @@ CREATE TABLE app_user (
     user_role      VARCHAR2(7) CONSTRAINT user_role_ck CHECK(user_role in ('leader', 'student', 'admin')),
     full_name      VARCHAR2(30) CONSTRAINT user_fname_nn NOT NULL,
     phone_number   VARCHAR2(12) 
-);
-
-CREATE TABLE college (
-    id             VARCHAR(5)
-        CONSTRAINT college_pk PRIMARY KEY,
-    college_name   VARCHAR(40) CONSTRAINT college_name_nn NOT NULL
 );
 
 CREATE TABLE student_leader (
@@ -63,20 +72,10 @@ CREATE TABLE student (
         REFERENCES student_group ( id )
 );
 
-CREATE TABLE activity (
-    id                 INTEGER
-        CONSTRAINT activity_pk PRIMARY KEY,
-    name               VARCHAR2(20) CONSTRAINT activity_name_nn NOT NULL,
-    date_of_activity   DATE CONSTRAINT activity_date_nn NOT NULL,
-    organized_by       VARCHAR2(20) CONSTRAINT activity_organized_nn NOT NULL,
-    note               VARCHAR2(100)
-);
-
 CREATE TABLE activity_attendance (
     activity_id   INTEGER,
     student_id    INTEGER,
     rating        INTEGER,
-    feedback      VARCHAR2(100),
     CONSTRAINT act_attendance_pk PRIMARY KEY ( activity_id,
                                                student_id ),
     CONSTRAINT act_attendance_activity_fk FOREIGN KEY ( activity_id )

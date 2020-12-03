@@ -117,5 +117,7 @@ public class StudentViewController {
                 : "fx:id=\"LSTeamCollegeLabel\" was not injected: check your FXML file 'StudentView.fxml'.";
         assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
+        LSStudentIDLabel.setText("yash");
+
     }
 }

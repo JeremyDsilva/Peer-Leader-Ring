@@ -12,6 +12,10 @@ public class Student {
 
     String phone;
 
+    String sgroup;
+
+    
+
     public long getId() {
         return id;
     }

@@ -1,6 +1,29 @@
+--activity
+INSERT INTO activity VALUES(1,'Welcome Session','1-8-2020','AUS FYE','Welcome session for the students');
+INSERT INTO activity VALUES(2,'Trivia Night','21-8-2020','Student council','Organized by the student council for the students');
+INSERT INTO activity VALUES(3,'Share your talent with the Student Council','22-8-2020','Student council','Organized by the student council for the students');
+INSERT INTO activity VALUES(4,'Academic Policies','22-8-2020','AUS FYE','Orientation for the students about the academic policies');
+INSERT INTO activity VALUES(5,'Meet-up with Peer Leader','22-8-2020','Peer Leaders','Meet and greet with peer leaders');
+INSERT INTO activity VALUES(6,'Watch and Munch Movie Night','23-8-2020','Student council','Movie night for students with refreshments served');
+INSERT INTO activity VALUES(7,'Let us Get to Know You ','23-8-2020','Student council','Meet and greet with student council and team leaders');
+INSERT INTO activity VALUES(8,'Virtual Athletic Tour','26-8-2020','AUS FYE','Tour of sports center and available resources');
+INSERT INTO activity VALUES(9,'Welcome to the Library','26-8-2020','Library ','Orientation for the students about the library facilities ');
+INSERT INTO activity VALUES(10,'Live Sports and Fitness Fun Quiz','27-8-2020','AUS FYE','Social event');
+INSERT INTO activity VALUES(11,'Game Night with Student Council','27-8-2020','Student council','Social event organized by student council');
+INSERT INTO activity VALUES(12,'College/School Course Advising','28-8-2020','Colleges','Advising sessions offered by the respective colleges');
+INSERT INTO activity VALUES(13,'Women Workout and Zumba','28-8-2020','AUS FYE','Social event');
+INSERT INTO activity VALUES(14,'Men Full-Body Workout','29-8-2020','AUS FYE','Social event');
+INSERT INTO activity VALUES(15,'Mental Health Tips with Psychology Club','29-8-2020','UCS','Awareness session organized by University Counseling Services');
+
+--college
+INSERT INTO college VALUES ('CEN','College of Engineering');
+INSERT INTO college VALUES ('CAS','College of Arts and Sciences');
+INSERT INTO college VALUES ('CAAD','College of Architecture, Art and Design');
+INSERT INTO college VALUES ('SBA','School of Business Administration');
+
 --app_user
 INSERT INTO app_user VALUES (74902, 'b00074902@aus.edu', 'admin1', 'admin', 'Jeremy Dsilva', '971521345678');
-INSERT INTO app_user VALUES (75635, 'b00075635@aus.edu', 'admin2', 'admin', 'Yash Gaikwad', '971523412781');
+INSERT INTO app_user VALUES (75653, 'b00075653@aus.edu', 'admin2', 'admin', 'Yash Gaikwad', '971523412781');
 INSERT INTO app_user VALUES (75661, 'g00075661@aus.edu', 'admin3', 'admin', 'Iffa Afsa CM', '971524567891');
 INSERT INTO app_user VALUES (12345, 'c00012345@aus.edu', 'leader1', 'leader', 'James Smith', '971525613910');
 INSERT INTO app_user VALUES (23456, 'c00023456@aus.edu', 'leader2', 'leader', 'William Jones', '971526714101');
@@ -34,7 +57,7 @@ INSERT INTO app_user VALUES (87008, 'c00087008@aus.edu', 'student9', 'student', 
 INSERT INTO app_user VALUES (87009, 'c00087009@aus.edu', 'student10', 'student', 'Dorothy Turner', '971569946990');
 INSERT INTO app_user VALUES (87010, 'c00087010@aus.edu', 'student11', 'student', 'Michelle Edwards', '971569949991');
 INSERT INTO app_user VALUES (87011, 'c00087011@@aus.edu', 'student12', 'student', 'Deborah Morris', '971569950992');
-INSERT INTO app_user VALUES (87012, 'c00087012@aus.edu', 'student13', 'student', 'Sharon Rogers', '971569951993 ');
+INSERT INTO app_user VALUES (87012, 'c00087012@aus.edu', 'student13', 'student', 'Sharon Rogers', '971569951993');
 INSERT INTO app_user VALUES (87013, 'c00087013@aus.edu', 'student14', 'student', 'Shirley Cooper', '971569953994');
 INSERT INTO app_user VALUES (87014, 'c00087014@aus.edu', 'student15', 'student', 'Brenda Kelly', '971569954995');
 INSERT INTO app_user VALUES (87015, 'c00087015@aus.edu', 'student16', 'student', 'Katherine Cox', '971569954996');
@@ -63,7 +86,7 @@ INSERT INTO app_user VALUES (87037, 'c00087037@aus.edu', 'student38', 'student',
 INSERT INTO app_user VALUES (87038, 'c00087038@aus.edu', 'student39', 'student', 'Sara Liba', '971554354678');
 INSERT INTO app_user VALUES (87039, 'c00087039@aus.edu', 'student40', 'student', 'Ayesha Suha', '971554454789');
 INSERT INTO app_user VALUES (87040, 'c00087040@aus.edu', 'student41', 'student', 'Noorie Silmi', '971554567890');
-INSERT INTO app_user VALUES (87041, 'c00087041@aus.edu', 'student42', 'student', 'Fathima Zohra', '971554654901 ');
+INSERT INTO app_user VALUES (87041, 'c00087041@aus.edu', 'student42', 'student', 'Fathima Zohra', '971554654901');
 INSERT INTO app_user VALUES (87042, 'c00087042@aus.edu', 'student43', 'student', 'Faiz Mohammad', '971554754012');
 INSERT INTO app_user VALUES (87043, 'c00087043@aus.edu', 'student44', 'student', 'Manzoor Ahmad', '971581254567');
 INSERT INTO app_user VALUES (87044, 'c00087044@aus.edu', 'student45', 'student', 'Riyaz Ahmed', '971582354678');
@@ -83,11 +106,6 @@ INSERT INTO app_user VALUES (87057, 'c00087057@aus.edu', 'student58', 'student',
 INSERT INTO app_user VALUES (87058, 'c00087058@aus.edu', 'student59', 'student', 'Robin Dias', '971580000101');
 INSERT INTO app_user VALUES (87059, 'c00087059@aus.edu', 'student60', 'student', 'Shaham Kampala', '971560100202');
 
---college
-INSERT INTO college VALUES ('CEN','College of Engineering');
-INSERT INTO college VALUES ('CAS','College of Arts and Sciences');
-INSERT INTO college VALUES ('CAAD','College of Architecture, Art and Design');
-INSERT INTO college VALUES ('SBA','School of Business Administration');
 
 --student_leader
 INSERT INTO student_leader VALUES(12345, 'CEN','Senior','team_leader');
@@ -187,22 +205,6 @@ INSERT INTO student VALUES(87057, 'CEN', 13123);
 INSERT INTO student VALUES(87058, 'CEN', 13123);
 INSERT INTO student VALUES(87059, 'CEN', 13123);
 
---activity
-INSERT INTO activity VALUES(1,'Welcome Session','44064','AUS FYE','Welcome session for the students');
-INSERT INTO activity VALUES(2,'Trivia Night','44064','Student council','Organized by the student council for the students');
-INSERT INTO activity VALUES(3,'Share your talent with the Student Council','44065','Student council','Organized by the student council for the students');
-INSERT INTO activity VALUES(4,'Academic Policies','44065','AUS FYE','Orientation for the students about the academic policies');
-INSERT INTO activity VALUES(5,'Meet-up with Peer Leader','44065','Peer Leaders','Meet and greet with peer leaders');
-INSERT INTO activity VALUES(6,'Watch and Munch Movie Night','44066','Student council','Movie night for students with refreshments served');
-INSERT INTO activity VALUES(7,'Let us Get to Know You','44066','Student council','Meet and greet with student council and team leaders');
-INSERT INTO activity VALUES(8,'Virtual Athletic Tour','44069','AUS FYE','Tour of sports center and available resources');
-INSERT INTO activity VALUES(9,'Welcome to the Library','44069','Library ','Orientation for the students about the library facilities ');
-INSERT INTO activity VALUES(10,'Live Sports and Fitness Fun Quiz','44070','AUS FYE','Social event');
-INSERT INTO activity VALUES(11,'Game Night with Student Council','44070','Student council','Social event organized by student council');
-INSERT INTO activity VALUES(12,'College/School Course Advising','44071','Colleges','Advising sessions offered by the respective colleges');
-INSERT INTO activity VALUES(13,'Women Workout and Zumba','44071','AUS FYE','Social event');
-INSERT INTO activity VALUES(14,'Men Full-Body Workout','44072','AUS FYE','Social event');
-INSERT INTO activity VALUES(15,'Mental Health Tips with Psychology Club','44072','UCS','Awareness session organized by University Counseling Services');
 
 --activity_attendance
 -- INSERT INTO activity_attendance VALUES(1, 87000, 3,);

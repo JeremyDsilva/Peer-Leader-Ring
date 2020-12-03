@@ -46,7 +46,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="673.0" layoutY="206.0" text="Email:">
+      <Label layoutX="673.0" layoutY="210.0" prefHeight="21.0" prefWidth="59.0" text="Email:">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -86,7 +86,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="LSStudentEmailLabel" layoutX="728.0" layoutY="206.0" text="{StudentEmail}">
+      <Label fx:id="LSStudentEmailLabel" layoutX="728.0" layoutY="210.0" text="{StudentEmail}">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -111,7 +111,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="673.0" layoutY="342.0" text="Email:">
+      <Label layoutX="673.0" layoutY="346.0" text="Email:">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -136,7 +136,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="LSPeerEmailLabel" layoutX="728.0" layoutY="342.0" text="{PeerEmail}">
+      <Label fx:id="LSPeerEmailLabel" layoutX="728.0" layoutY="346.0" text="{PeerEmail}">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -161,7 +161,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="675.0" layoutY="479.0" text="Email:">
+      <Label layoutX="675.0" layoutY="483.0" text="Email:">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -186,7 +186,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="LSTeamEmailLabel" layoutX="730.0" layoutY="479.0" text="{TeamEmail}">
+      <Label fx:id="LSTeamEmailLabel" layoutX="730.0" layoutY="483.0" text="{TeamEmail}">
          <font>
             <Font name="Arial" size="18.0" />
          </font>

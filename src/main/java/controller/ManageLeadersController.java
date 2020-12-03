@@ -45,22 +45,22 @@ public class ManageLeadersController {
 
     @FXML
     void AddButtonOnClick(ActionEvent event) {
-
+//todo
     }
 
     @FXML
     void BackButtonOnClick(ActionEvent event) {
-
+//todo
     }
 
     @FXML
     void DeleteButtonOnClick(ActionEvent event) {
-
+//todo
     }
 
     @FXML
     void UpdateButtonOnClick(ActionEvent event) {
-
+//todo
     }
 
     @FXML

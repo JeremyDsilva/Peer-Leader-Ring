@@ -8,6 +8,7 @@ import dto.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -32,7 +35,7 @@ public class StudentListController {
         private Label label;
 
         @FXML
-        private TableView<Student> ListOfStudentTableView;
+        private TableView<Student> tableview;
 
         @FXML
         private TableColumn<Student, Long> StudentListStudentIDColumn;
@@ -50,7 +53,7 @@ public class StudentListController {
         private TableColumn<Student, String> StudentListCollegeColumn;
 
         @FXML
-        private TableColumn<?, ?> StudentListStudentGroupColumn;
+        private TableColumn<Student, String> StudentListStudentGroupColumn;
 
         @FXML
         private TableColumn<?, ?> StudentListActiveColumn;
@@ -98,25 +101,71 @@ public class StudentListController {
         }
 
         @FXML
-        void initialize() {
-                // //sets the columns in the table
-                // StudentListStudentIDColumn.setCellValueFactory(new
-                // PropertyValueFactory<Student, Long>("id"));
-                // StudentListStudentNameColumn.setCellValueFactory(new
-                // PropertyValueFactory<Student, String>("name"));
-                // StudentListStudentEmailColumn.setCellValueFactory(new
-                // PropertyValueFactory<Student, String>("email"));
-                // StudentListStudentPhoneColumn.setCellValueFactory(new
-                // PropertyValueFactory<Student, String>("phone"));
-                // StudentListCollegeColumn.setCellValueFactory(new
-                // PropertyValueFactory<Student, String>("college"));
+        void listofstudentsidEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
 
-                // //loading dummy values
-                // ListOfStudentTableView.setItems(getStudents());
+        @FXML
+        void listofstudentsidEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void listofstudentsnameEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
+
+        @FXML
+        void listofstudentsnameEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void listofstudentsemailEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
+
+        @FXML
+        void listofstudentsemailEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void listofstudentsphoneEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
+
+        @FXML
+        void listofstudentsphoneEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void listofstudentscollegeEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
+
+        @FXML
+        void listofstudentscollegeEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void listofstudentsgroupEditCommit(ActionEvent event) {
+                System.out.println("Commit1");
+        }
+
+        @FXML
+        void listofstudentsgroupEditStart(ActionEvent event) {
+                System.out.println("Edit1");
+        }
+
+        @FXML
+        void initialize() {
 
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
-                assert ListOfStudentTableView != null
-                                : "fx:id=\"ListOfStudentTableView\" was not injected: check your FXML file 'StudentList.fxml'.";
+                assert tableview != null
+                                : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert StudentListStudentIDColumn != null
                                 : "fx:id=\"StudentListStudentIDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert StudentListStudentNameColumn != null
@@ -140,19 +189,52 @@ public class StudentListController {
                 assert StudentListManageButton != null
                                 : "fx:id=\"StudentListManageButton\" was not injected: check your FXML file 'StudentList.fxml'.";
 
+                // Skipped making the ID editable
+                StudentListStudentNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                StudentListStudentNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works1!");
+                        }
+
+                });
+
+                StudentListStudentEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                StudentListStudentEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works1!");
+                        }
+
+                });
+
+                StudentListStudentPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                StudentListStudentPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works1!");
+                        }
+
+                });
+
+                StudentListCollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                StudentListCollegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works1!");
+                        }
+
+                });
+
+                StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                StudentListStudentGroupColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
+                                System.out.println("It works1!");
+                        }
+
+                });
+
         }
-
-        // //This will return an observablelist of student objects
-        // private ObservableList<Student> getStudents() {
-        // ObservableList<Student> stu = FXCollections.observableArrayList();
-        // stu.add(new Student(1, "Yash", "CEN", "YashGaikwad@", 0501234567));
-        // stu.add(new Student(1, "Iffa", "CEN", "IffaCM@", 0501234567));
-        // stu.add(new Student(1, "Jeremy", "CEN", "JeremyDSilva@", 0501234567));
-        // stu.add(new Student(1, "dsgv", "CEN", "sdfs@", 0501234567));
-        // stu.add(new Student(1, "dfawe", "CEN", "wef@", 0501234567));
-
-        // return stu;
-
-        // }
 
 }
