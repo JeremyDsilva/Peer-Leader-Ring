@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -43,12 +43,12 @@
       </Label>
       <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
         <columns>
-         <TableColumn fx:id="idColumn" onEditCommit="#studentidEditCommit" onEditStart="#studentidEditStart" prefWidth="97.0" text="Student ID" />
+         <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" />
           <!-- <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" /> -->
-          <TableColumn fx:id="nameColumn" onEditCommit="#studentnameEditCommit" onEditStart="#studentnameEditStart" prefWidth="262.0" text="Student Name" />
-            <TableColumn fx:id="emailCloumn" minWidth="0.0" onEditCommit="#studentemailEditCommit" onEditStart="#studentemailEditStart" prefWidth="187.0" text="Student Email" />
-            <TableColumn fx:id="phoneColumn" onEditCommit="#studentphoneEditCommit" onEditStart="#studentphoneEditStart" prefWidth="127.0" text="Student Phone No." />
-            <TableColumn fx:id="collegeColumn" minWidth="0.0" onEditCommit="#studentcollegeEditCommit" onEditStart="#studentcollegeEditStart" prefWidth="287.0" text="College" />
+          <TableColumn fx:id="nameColumn" prefWidth="262.0" text="Student Name" />
+            <TableColumn fx:id="emailCloumn" minWidth="0.0" prefWidth="187.0" text="Student Email" />
+            <TableColumn fx:id="phoneColumn" prefWidth="127.0" text="Student Phone No." />
+            <TableColumn fx:id="collegeColumn" minWidth="0.0" prefWidth="287.0" text="College" />
         </columns>
       </TableView>
       <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">

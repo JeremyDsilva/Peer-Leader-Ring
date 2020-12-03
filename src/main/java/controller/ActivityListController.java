@@ -9,27 +9,26 @@ import java.util.ResourceBundle;
 import app.AppContext;
 import dto.Activities;
 import entity.Activity;
-import javafx.event.EventHandler;
 import handler.GetActivitiesHandler;
-import handler.LoginHandler;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import response.Response;
-import javafx.scene.Node;
 import javafx.util.Callback;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
+import response.Response;
 
 public class ActivityListController {
 
@@ -68,7 +67,7 @@ public class ActivityListController {
 
         @FXML
         private Button SaveButton;
-    
+
         @FXML
         private Button DeleteButton;
 
@@ -105,14 +104,14 @@ public class ActivityListController {
                                 window.setScene(back);
                                 window.show();
                         }
-                } else if(AppContext.getUser().getUserRole().equals("admin")){
+                } else if (AppContext.getUser().getUserRole().equals("admin")) {
                         Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
                         Scene Back = new Scene(root);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(Back);
                         window.show();
 
-                } else{
+                } else {
                         Parent root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
                         Scene Back = new Scene(root);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -134,63 +133,64 @@ public class ActivityListController {
 
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
+                // todo
 
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
-
+                // todo
         }
 
-        @FXML
-        void activityidEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void activityidEditCommit(ActionEvent event) {
+        // System.out.println("Commit1");
+        // }
 
-        @FXML
-        void activityidEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void activityidEditStart(ActionEvent event) {
+        // System.out.println("Edit1");
+        // }
 
-        @FXML
-        void activitynameEditCommit(ActionEvent event) {
-                System.out.println("Commit2");
-        }
+        // @FXML
+        // void activitynameEditCommit(ActionEvent event) {
+        // System.out.println("Commit2");
+        // }
 
-        @FXML
-        void activitynameEditStart(ActionEvent event) {
-                System.out.println("Edit2");
-        }
+        // @FXML
+        // void activitynameEditStart(ActionEvent event) {
+        // System.out.println("Edit2");
+        // }
 
-        @FXML
-        void activitydateofactivityEditCommit(ActionEvent event) {
-                System.out.println("Commit3");
-        }
+        // @FXML
+        // void activitydateofactivityEditCommit(ActionEvent event) {
+        // System.out.println("Commit3");
+        // }
 
-        @FXML
-        void activitydateofactivityEditStart(ActionEvent event) {
-                System.out.println("Edit3");
-        }
+        // @FXML
+        // void activitydateofactivityEditStart(ActionEvent event) {
+        // System.out.println("Edit3");
+        // }
 
-        @FXML
-        void activityoragnizedbyEditCommit(ActionEvent event) {
-                System.out.println("Commit4");
-        }
+        // @FXML
+        // void activityoragnizedbyEditCommit(ActionEvent event) {
+        // System.out.println("Commit4");
+        // }
 
-        @FXML
-        void activityorganizedbyEditStart(ActionEvent event) {
-                System.out.println("Edit4");
-        }
+        // @FXML
+        // void activityorganizedbyEditStart(ActionEvent event) {
+        // System.out.println("Edit4");
+        // }
 
-        @FXML
-        void activitynoteEditCommit(ActionEvent event) {
-                System.out.println("Commit5");
-        }
+        // @FXML
+        // void activitynoteEditCommit(ActionEvent event) {
+        // System.out.println("Commit5");
+        // }
 
-        @FXML
-        void activitynoteEditStart(ActionEvent event) {
-                System.out.println("Edit5");
-        }
+        // @FXML
+        // void activitynoteEditStart(ActionEvent event) {
+        // System.out.println("Edit5");
+        // }
 
         @FXML
         void initialize() {
@@ -209,11 +209,10 @@ public class ActivityListController {
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert SaveButton != null : 
-                                "fx:id=\"SaveButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert DeleteButton != null : 
-                                "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
-
+                assert SaveButton != null
+                                : "fx:id=\"SaveButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert DeleteButton != null
+                                : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
 
                 Response<List<Activity>> response = activitiesHandler.handle();
 
@@ -231,41 +230,41 @@ public class ActivityListController {
                 }
 
                 ActivityListActivityIDColumn.setCellValueFactory(
-                        new Callback<CellDataFeatures<Activities, Long>, ObservableValue<Long>>() {
-                                public ObservableValue<Long> call(CellDataFeatures<Activities, Long> p) {
-                                        return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
-                                }
-                        });
+                                new Callback<CellDataFeatures<Activities, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<Activities, Long> p) {
+                                                return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
+                                        }
+                                });
                 ActivityListActivityNameColumn.setCellValueFactory(
-                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
-                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
-                                }
-                        });        
+                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+                                        }
+                                });
 
                 ActivityListDateColumn.setCellValueFactory(
-                        new Callback<CellDataFeatures<Activities, Date>, ObservableValue<Date>>() {
-                                public ObservableValue<Date> call(CellDataFeatures<Activities, Date> p) {
-                                        return new ReadOnlyObjectWrapper<Date>(p.getValue().getDate());
-                                }
-                        });
+                                new Callback<CellDataFeatures<Activities, Date>, ObservableValue<Date>>() {
+                                        public ObservableValue<Date> call(CellDataFeatures<Activities, Date> p) {
+                                                return new ReadOnlyObjectWrapper<Date>(p.getValue().getDate());
+                                        }
+                                });
                 ActivityListOrganizedbyColumn.setCellValueFactory(
-                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
-                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getOrganizedby());
-                                }
-                        });
+                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getOrganizedby());
+                                        }
+                                });
                 ActivityListNoteColumn.setCellValueFactory(
-                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
-                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getNote());
-                                }
-                        });
-               
+                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getNote());
+                                        }
+                                });
+
                 // If a STUDENT logs in, he can ONLY view the Acivities list. There is no need
                 // of BACK BUTTON. He should directly LOG OUT.
                 // if (AppContext.getUser().getUserRole().equals("student")) {
-                //         BackButton.setVisible(false);
+                // BackButton.setVisible(false);
 
                 // }
 

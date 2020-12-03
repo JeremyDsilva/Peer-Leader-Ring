@@ -106,55 +106,55 @@ public class GroupListController {
                 window.show();
         }
 
-        @FXML
-        void studentidEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void studentidEditCommit(ActionEvent event) {
+        //         System.out.println("Commit1");
+        // }
 
-        @FXML
-        void studentidEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void studentidEditStart(ActionEvent event) {
+        //         System.out.println("Edit1");
+        // }
 
-        @FXML
-        void studentnameEditCommit(ActionEvent event) {
-                System.out.println("Commit2");
-        }
+        // @FXML
+        // void studentnameEditCommit(ActionEvent event) {
+        //         System.out.println("Commit2");
+        // }
 
-        @FXML
-        void studentnameEditStart(ActionEvent event) {
-                System.out.println("Edit2");
-        }
+        // @FXML
+        // void studentnameEditStart(ActionEvent event) {
+        //         System.out.println("Edit2");
+        // }
 
-        @FXML
-        void studentemailEditCommit(ActionEvent event) {
-                System.out.println("Commit3");
-        }
+        // @FXML
+        // void studentemailEditCommit(ActionEvent event) {
+        //         System.out.println("Commit3");
+        // }
 
-        @FXML
-        void studentemailEditStart(ActionEvent event) {
-                System.out.println("Edit3");
-        }
+        // @FXML
+        // void studentemailEditStart(ActionEvent event) {
+        //         System.out.println("Edit3");
+        // }
 
-        @FXML
-        void studentphoneEditCommit(ActionEvent event) {
-                System.out.println("Commit4");
-        }
+        // @FXML
+        // void studentphoneEditCommit(ActionEvent event) {
+        //         System.out.println("Commit4");
+        // }
 
-        @FXML
-        void studentphoneEditStart(ActionEvent event) {
-                System.out.println("Edit4");
-        }
+        // @FXML
+        // void studentphoneEditStart(ActionEvent event) {
+        //         System.out.println("Edit4");
+        // }
 
-        @FXML
-        void studentcollegeEditCommit(ActionEvent event) {
-                System.out.println("Commit5");
-        }
+        // @FXML
+        // void studentcollegeEditCommit(ActionEvent event) {
+        //         System.out.println("Commit5");
+        // }
 
-        @FXML
-        void studentcollegeEditStart(ActionEvent event) {
-                System.out.println("Edit5");
-        }
+        // @FXML
+        // void studentcollegeEditStart(ActionEvent event) {
+        //         System.out.println("Edit5");
+        // }
 
         @FXML
         void initialize() {
@@ -186,7 +186,7 @@ public class GroupListController {
                 Response<Group> response = groupHandler.handle(122434L);
 
                 GroupListNameLabel.setText(AppContext.getUser().getFullName());
-                GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader().));
+                //GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
                 
                 if (response.success()) {
 
@@ -200,9 +200,7 @@ public class GroupListController {
 
                                 tableView.getItems().add(tbStudent);
                         }
-                } else {
-
-                }
+                } 
 
                 nameColumn.setCellValueFactory(
                                 new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
