@@ -64,9 +64,9 @@ public class LoginController {
                 else
                     root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
 
-            } else {
+            } else{
                 // Tried the STUDENT LOGIN
-                root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+                root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
                 // TODO Add
             }
 

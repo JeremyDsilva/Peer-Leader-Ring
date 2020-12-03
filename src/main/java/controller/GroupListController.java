@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import dto.Student;
 import entity.Group;
 import handler.GetGroupHandler;
@@ -184,6 +185,9 @@ public class GroupListController {
 
                 Response<Group> response = groupHandler.handle(122434L);
 
+                GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader().));
+                
                 if (response.success()) {
 
                         Group group = response.getResponse();

@@ -2,6 +2,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import app.AppContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -117,7 +119,12 @@ public class StudentViewController {
                 : "fx:id=\"LSTeamCollegeLabel\" was not injected: check your FXML file 'StudentView.fxml'.";
         assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
-        LSStudentIDLabel.setText("yash");
+        LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
+        // if(AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader"){
+
+
+        // }
+
 
     }
 }

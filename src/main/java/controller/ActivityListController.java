@@ -3,11 +3,14 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import app.AppContext;
 import dto.Activities;
+import entity.Activity;
 import javafx.event.EventHandler;
+import handler.GetActivitiesHandler;
 import handler.LoginHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +25,11 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import response.Response;
 import javafx.scene.Node;
+import javafx.util.Callback;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 
 public class ActivityListController {
 
@@ -60,10 +67,16 @@ public class ActivityListController {
         private Button SignOutButton;
 
         @FXML
-        private Button ActivityListAddButton;
-
+        private Button SaveButton;
+    
         @FXML
-        private Button ActivityListManageButton;
+        private Button DeleteButton;
+
+        final GetActivitiesHandler activitiesHandler;
+
+        public ActivityListController() {
+                activitiesHandler = new GetActivitiesHandler();
+        }
 
         @FXML
         void ActivityListAddButtonOnClick(ActionEvent event) {
@@ -77,7 +90,7 @@ public class ActivityListController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
-                //No need to check for student login as no BACK BUTTON needed.
+                // No need to check for student login as no BACK BUTTON needed.
                 if (AppContext.getUser().getUserRole().equals("leader")) {
                         if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader")) {
                                 Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
@@ -92,14 +105,19 @@ public class ActivityListController {
                                 window.setScene(back);
                                 window.show();
                         }
-                }
-                else {
+                } else if(AppContext.getUser().getUserRole().equals("admin")){
                         Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
                         Scene Back = new Scene(root);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(Back);
                         window.show();
 
+                } else{
+                        Parent root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
+                        Scene Back = new Scene(root);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        window.setScene(Back);
+                        window.show();
                 }
 
         }
@@ -112,6 +130,16 @@ public class ActivityListController {
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(Logout);
                 window.show();
+        }
+
+        @FXML
+        void DeleteButtonOnClick(ActionEvent event) {
+
+        }
+
+        @FXML
+        void SaveButtonOnClick(ActionEvent event) {
+
         }
 
         @FXML
@@ -181,57 +209,107 @@ public class ActivityListController {
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListAddButton != null
-                                : "fx:id=\"ActivityListAddButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListManageButton != null
-                                : "fx:id=\"ActivityListManageButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert SaveButton != null : 
+                                "fx:id=\"SaveButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert DeleteButton != null : 
+                                "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
 
-                // If a STUDENT logs in, he can ONLY view the Acivities list. There is no need
-                // of BACK BUTTON. He should directly LOG OUT.
-                if (AppContext.getUser().getUserRole().equals("student")) {
-                        BackButton.setVisible(false);
+
+                Response<List<Activity>> response = activitiesHandler.handle();
+
+                if (response.success()) {
+                        List<Activity> activities = response.getResponse();
+
+                        for (var activity : activities) {
+                                Activities tbActivity = new Activities(Long.valueOf(activity.getId()),
+                                                activity.getName(), (Date) activity.getDateOfActivity(),
+                                                activity.getOrganizedBy(), activity.getNote());
+
+                                tableview.getItems().add(tbActivity);
+                        }
+
                 }
 
+                ActivityListActivityIDColumn.setCellValueFactory(
+                        new Callback<CellDataFeatures<Activities, Long>, ObservableValue<Long>>() {
+                                public ObservableValue<Long> call(CellDataFeatures<Activities, Long> p) {
+                                        return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
+                                }
+                        });
+                ActivityListActivityNameColumn.setCellValueFactory(
+                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+                                }
+                        });        
+
+                ActivityListDateColumn.setCellValueFactory(
+                        new Callback<CellDataFeatures<Activities, Date>, ObservableValue<Date>>() {
+                                public ObservableValue<Date> call(CellDataFeatures<Activities, Date> p) {
+                                        return new ReadOnlyObjectWrapper<Date>(p.getValue().getDate());
+                                }
+                        });
+                ActivityListOrganizedbyColumn.setCellValueFactory(
+                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getOrganizedby());
+                                }
+                        });
+                ActivityListNoteColumn.setCellValueFactory(
+                        new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
+                                public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                                        return new ReadOnlyObjectWrapper<String>(p.getValue().getNote());
+                                }
+                        });
+               
+                // If a STUDENT logs in, he can ONLY view the Acivities list. There is no need
+                // of BACK BUTTON. He should directly LOG OUT.
+                // if (AppContext.getUser().getUserRole().equals("student")) {
+                //         BackButton.setVisible(false);
+
+                // }
 
                 // Haven't done the ID column again
-                //Since only admin can edit activities.
-                if(AppContext.getUser().getUserRole().equals("admin"))
-                {
-                ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // Since only admin can edit activities.
+                if (AppContext.getUser().getUserRole().equals("admin")) {
+                        ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                ActivityListActivityNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                        public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works1!");
-                        }
+                        ActivityListActivityNameColumn
+                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                                public void handle(CellEditEvent<Activities, String> t) {
+                                                        System.out.println("It works1!");
+                                                }
 
-                });
-                // // Need to check how to make the date editable
-                // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                                        });
+                        // // Need to check how to make the date editable
+                        // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                // ActivityListDateColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, Date>>() {
-                // public void handle(CellEditEvent<Activities, Date> t) {
-                // System.out.println("It works2!");
-                // }
-                // });
+                        // ActivityListDateColumn.setOnEditCommit(new
+                        // EventHandler<CellEditEvent<Activities, Date>>() {
+                        // public void handle(CellEditEvent<Activities, Date> t) {
+                        // System.out.println("It works2!");
+                        // }
+                        // });
 
-                ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                        ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                ActivityListOrganizedbyColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                        public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works3!");
-                        }
+                        ActivityListOrganizedbyColumn
+                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                                public void handle(CellEditEvent<Activities, String> t) {
+                                                        System.out.println("It works3!");
+                                                }
 
-                });
+                                        });
 
-                ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                        ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                ActivityListNoteColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                        public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works4!");
-                        }
+                        ActivityListNoteColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                public void handle(CellEditEvent<Activities, String> t) {
+                                        System.out.println("It works4!");
+                                }
 
-                });
-        }
+                        });
+                }
 
         }
 }
