@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -51,14 +51,14 @@
             <TableColumn fx:id="collegeColumn" minWidth="0.0" prefWidth="287.0" text="College" />
         </columns>
       </TableView>
-      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="517.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="181.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
+      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="522.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
          <font>
-            <Font size="17.0" />
+            <Font name="Arial" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="295.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="195.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="301.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
          <font>
-            <Font size="17.0" />
+            <Font name="Arial" size="17.0" />
          </font>
       </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">

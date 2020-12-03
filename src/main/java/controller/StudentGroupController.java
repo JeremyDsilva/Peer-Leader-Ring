@@ -2,9 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.Groups;
+import entity.Group;
+import handler.GetGroupsHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,7 +21,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import response.Response;
 import javafx.scene.Node;
+import javafx.util.Callback;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 public class StudentGroupController {
 
@@ -56,10 +64,16 @@ public class StudentGroupController {
         private Button BackButton;
 
         @FXML
-        private Button StudentGroupAddButton;
+        private Button SaveButton;
 
         @FXML
-        private Button StudentGroupManageButton;
+        private Button DeleteButton;
+
+        final GetGroupsHandler getGroupsHandler;
+
+        public StudentGroupController() {
+                getGroupsHandler = new GetGroupsHandler();
+        }
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -82,13 +96,13 @@ public class StudentGroupController {
         }
 
         @FXML
-        void StudentGroupAddButtonOnClick(ActionEvent event) {
-                // todo
+        void DeleteButtonOnClick(ActionEvent event) {
+
         }
 
         @FXML
-        void StudentGroupManageButtonOnClick(ActionEvent event) {
-                // todo
+        void SaveButtonOnClick(ActionEvent event) {
+
         }
 
         @FXML
@@ -160,10 +174,60 @@ public class StudentGroupController {
                                 : "fx:id=\"StudentGroupStudentColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-                assert StudentGroupAddButton != null
-                                : "fx:id=\"StudentGroupAddButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-                assert StudentGroupManageButton != null
-                                : "fx:id=\"StudentGroupManageButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+                assert SaveButton != null
+                                : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+                assert DeleteButton != null
+                                : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
+
+                Response<List<Group>> response = getGroupsHandler.handle();
+
+                if (response.success()) {
+
+                        List<Group> groups = response.getResponse();
+
+                        for (var group : groups) {
+                                Groups tbGroup = new Groups(group.getId(), group.getName(),
+                                                group.getPeerLeader().getUserDetail().getFullName(),
+                                                group.getTeamLeader().getUserDetail().getFullName(), 
+                                                group.getName()
+                                                );
+
+                                tableview.getItems().add(tbGroup);
+                        }
+                }
+                StudentGroupGroupIDcolumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Groups, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<Groups, Long> p) {
+                                                return new ReadOnlyObjectWrapper<Long>(
+                                                                Long.valueOf(p.getValue().getId()));
+                                        }
+                                });
+
+                StudentGroupGroupNameColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+                                        }
+                                });
+
+                StudentGroupPeerLeaderColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPname());
+                                        }
+                                });
+                StudentGroupTeamLeaderColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getTname());
+                                        }
+                                });
+                StudentGroupStudentColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getSname());
+                                        }
+                                });
 
                 // Skipped making the ID editable
                 StudentGroupGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());

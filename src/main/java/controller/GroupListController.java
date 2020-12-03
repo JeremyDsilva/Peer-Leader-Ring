@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Student;
+import dto.Students;
 import entity.Group;
 import handler.GetGroupHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -28,6 +28,7 @@ import javafx.util.Callback;
 import response.Response;
 import javafx.scene.Node;
 
+
 public class GroupListController {
 
         @FXML
@@ -49,22 +50,22 @@ public class GroupListController {
         private Label GroupListTeamLeaderLabel;
 
         @FXML
-        private TableView<Student> tableView;
+        private TableView<Students> tableView;
 
         @FXML
-        private TableColumn<Student, Long> idColumn;
+        private TableColumn<Students, Long> idColumn;
 
         @FXML
-        private TableColumn<Student, String> nameColumn;
+        private TableColumn<Students, String> nameColumn;
 
         @FXML
-        private TableColumn<Student, String> emailCloumn;
+        private TableColumn<Students, String> emailCloumn;
 
         @FXML
-        private TableColumn<Student, String> phoneColumn;
+        private TableColumn<Students, String> phoneColumn;
 
         @FXML
-        private TableColumn<Student, String> collegeColumn;
+        private TableColumn<Students, String> collegeColumn;
 
         @FXML
         private Button GroupListMarkAttendButton;
@@ -193,7 +194,7 @@ public class GroupListController {
                         Group group = response.getResponse();
 
                         for (var student : group.getStudents()) {
-                                Student tbStudent = new Student(Long.valueOf(student.getUserDetail().getId()),
+                                Students tbStudent = new Students(Long.valueOf(student.getUserDetail().getId()),
                                                 student.getUserDetail().getFullName(), student.getCollege().getId(),
                                                 student.getUserDetail().getEmail(),
                                                 student.getUserDetail().getPhoneNumber());
@@ -203,32 +204,32 @@ public class GroupListController {
                 } 
 
                 nameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                                         }
                                 });
 
                 emailCloumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
                                         }
                                 });
                 collegeColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
                                         }
                                 });
                 phoneColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
                                         }
                                 });
-                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, Long>, ObservableValue<Long>>() {
-                        public ObservableValue<Long> call(CellDataFeatures<Student, Long> p) {
+                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
+                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
                                 return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
                         }
                 });
@@ -236,8 +237,8 @@ public class GroupListController {
                 // Making the columns editable except the ID field
                 nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works1!");
                         }
 
@@ -245,8 +246,8 @@ public class GroupListController {
 
                 emailCloumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works2!");
                         }
 
@@ -254,8 +255,8 @@ public class GroupListController {
 
                 collegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works3!");
                         }
 
@@ -263,8 +264,8 @@ public class GroupListController {
 
                 phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works4!");
                         }
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PeerLeaderListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PeerLeaderListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -34,22 +34,17 @@
       </Label>
       <TableView fx:id="tableview" layoutX="38.0" layoutY="180.0" prefHeight="292.0" prefWidth="937.0">
          <columns>
-            <TableColumn fx:id="TeamLeaderPeerLeaderIDColumn" onEditCommit="#peerleaderidEditCommit" onEditStart="#peerleaderidEditStart" prefWidth="97.0" text="Peer Leader ID" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderNameColumn" onEditCommit="#peerleadernameEditCommit" onEditStart="#peerleadernameEditStart" prefWidth="262.0" text="Peer Leader Name" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderEmailColumn" minWidth="0.0" onEditCommit="#peerleaderemailEditStart" onEditStart="#peerleaderemailEditStart" prefWidth="187.0" text="Peer Leader Email" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderPhoneColumn" onEditCommit="#peerleaderphoneEditCommit" onEditStart="#peerleaderphoneEditStart" prefWidth="137.0" text="Peer Leader Phone No." />
+            <TableColumn fx:id="TeamLeaderPeerLeaderIDColumn" onEditCommit="#peerleaderidEditCommit" onEditStart="#peerleaderidEditStart" prefWidth="103.0" text="Peer Leader ID" />
+            <TableColumn fx:id="TeamLeaderPeerLeaderNameColumn" onEditCommit="#peerleadernameEditCommit" onEditStart="#peerleadernameEditStart" prefWidth="256.0" text="Peer Leader Name" />
+            <TableColumn fx:id="TeamLeaderPeerLeaderEmailColumn" minWidth="0.0" onEditCommit="#peerleaderemailEditStart" onEditStart="#peerleaderemailEditStart" prefWidth="215.0" text="Peer Leader Email" />
+            <TableColumn fx:id="TeamLeaderPeerLeaderPhoneColumn" onEditCommit="#peerleaderphoneEditCommit" onEditStart="#peerleaderphoneEditStart" prefWidth="177.0" text="Peer Leader Phone No." />
             <TableColumn fx:id="TeamLeaderGroupNameColumn" minWidth="0.0" onEditCommit="#peerleadergroupnameEditCommit" onEditStart="#peerleadergroupnameEditStart" prefWidth="185.0" text="Group Name " />
-            <TableColumn fx:id="TeamLeaderActiveColumn" prefWidth="68.0" text="Active" />
+            <TableColumn fx:id="TeamLeaderActiveColumn" minWidth="0.0" prefWidth="0.0" text="Active" />
          </columns>
       </TableView>
-      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="544.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="434.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="42.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
          <font>
-            <Font name="Arial" size="22.0" />
-         </font>
-      </Button>
-      <Button fx:id="TeamLeaderViewPeerButton" alignment="CENTER" layoutX="233.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewPeerOnClick" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: rgb(58,71,80);" text="View Peer Leader" textFill="#eee9e9">
-         <font>
-            <Font name="Arial" size="22.0" />
+            <Font name="Arial" size="17.0" />
          </font>
       </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="25.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">

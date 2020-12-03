@@ -12,12 +12,14 @@ package dto;
 public class Groups {
 
     long id;
+    String name;
     String pname;
     String tname;
     String sname;
 
-    public Groups(long id, String pname, String tname, String sname) {
+    public Groups(long id, String name, String pname, String tname, String sname) {
         this.id = id;
+        this.name = name;
         this.pname = pname;
         this.tname = tname;
         this.sname = sname;
@@ -29,6 +31,14 @@ public class Groups {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPname() {

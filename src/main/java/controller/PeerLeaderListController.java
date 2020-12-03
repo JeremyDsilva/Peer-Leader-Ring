@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import app.AppContext;
@@ -10,6 +11,7 @@ import entity.Group;
 import entity.StudentLeader;
 import entity.User;
 import handler.GetGroupHandler;
+import handler.GetLeadersHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +25,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import response.Response;
 import javafx.scene.Node;
+import javafx.util.Callback;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PeerLeaderListController {
 
@@ -61,13 +69,13 @@ public class PeerLeaderListController {
         private TableColumn<PeerLeaders, String> TeamLeaderGroupNameColumn;
 
         @FXML
-        private TableColumn<?, ?> TeamLeaderActiveColumn;
-
-        @FXML
         private Button TeamLeaderViewActivityListButton;
 
-        @FXML
-        private Button TeamLeaderViewPeerButton;
+        final GetLeadersHandler getLeadersHandler;
+
+        public PeerLeaderListController() {
+                getLeadersHandler = new GetLeadersHandler();
+        }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
@@ -82,21 +90,11 @@ public class PeerLeaderListController {
         @FXML
         void TeamLeaderViewActivityListOnClick(ActionEvent event) throws IOException {
                 // todo
-                // Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-                // Scene Logout = new Scene(root);
-                // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                // window.setScene(Logout);
-                // window.show();
-        }
-
-        @FXML
-        void TeamLeaderViewPeerOnClick(ActionEvent event) throws IOException {
-                // todo
-                // Parent root = FXMLLoader.load(getClass().getResource("LeaderList.fxml"));
-                // Scene Logout = new Scene(root);
-                // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                // window.setScene(Logout);
-                // window.show();
+                Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+                Scene Logout = new Scene(root);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(Logout);
+                window.show();
         }
 
         @FXML
@@ -168,12 +166,60 @@ public class PeerLeaderListController {
                                 : "fx:id=\"TeamLeaderPeerLeaderPhoneColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderGroupNameColumn != null
                                 : "fx:id=\"TeamLeaderGroupNameColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
-                assert TeamLeaderActiveColumn != null
-                                : "fx:id=\"TeamLeaderActiveColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderViewActivityListButton != null
                                 : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
-                assert TeamLeaderViewPeerButton != null
-                                : "fx:id=\"TeamLeaderViewPeerButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+
+                Response<List<StudentLeader>> response = getLeadersHandler.handle();
+
+                if (response.success()) {
+
+                        List<StudentLeader> leaders = response.getResponse();
+
+                        if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
+                                for (var leader : leaders) {
+                                        PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
+                                                        leader.getUserDetail().getFullName(),
+                                                        leader.getUserDetail().getPhoneNumber(),
+                                                        leader.getUserDetail().getEmail(), leader.getStudentLeaderRole());
+        
+                                        tableview.getItems().add(tbLeaders);
+                                }
+                        }
+                       
+                }
+
+                TeamLeaderPeerLeaderIDColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<PeerLeaders, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<PeerLeaders, Long> p) {
+                                                return new ReadOnlyObjectWrapper<Long>(
+                                                                Long.valueOf(p.getValue().getPid()));
+                                        }
+                                });
+
+                TeamLeaderPeerLeaderNameColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPname());
+                                        }
+                                });
+                TeamLeaderPeerLeaderEmailColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPemail());
+                                        }
+                                });
+                TeamLeaderPeerLeaderPhoneColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPphone());
+                                        }
+                                });
+                TeamLeaderGroupNameColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPgroupname());
+                                        }
+                                });
 
                 // Skipped making the ID editable
                 TeamLeaderPeerLeaderNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());

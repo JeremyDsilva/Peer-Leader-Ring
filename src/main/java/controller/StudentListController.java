@@ -2,9 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import dto.Student;
+import entity.Student;
+import dto.Students;
+import handler.GetStudentsHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,11 +20,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import response.Response;
 import javafx.scene.Node;
+import javafx.util.Callback;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 
 public class StudentListController {
 
@@ -35,25 +43,25 @@ public class StudentListController {
         private Label label;
 
         @FXML
-        private TableView<Student> tableview;
+        private TableView<Students> tableview;
 
         @FXML
-        private TableColumn<Student, Long> StudentListStudentIDColumn;
+        private TableColumn<Students, Long> StudentListStudentIDColumn;
 
         @FXML
-        private TableColumn<Student, String> StudentListStudentNameColumn;
+        private TableColumn<Students, String> StudentListStudentNameColumn;
 
         @FXML
-        private TableColumn<Student, String> StudentListStudentEmailColumn;
+        private TableColumn<Students, String> StudentListStudentEmailColumn;
 
         @FXML
-        private TableColumn<Student, String> StudentListStudentPhoneColumn;
+        private TableColumn<Students, String> StudentListStudentPhoneColumn;
 
         @FXML
-        private TableColumn<Student, String> StudentListCollegeColumn;
+        private TableColumn<Students, String> StudentListCollegeColumn;
 
         @FXML
-        private TableColumn<Student, String> StudentListStudentGroupColumn;
+        private TableColumn<Students, Long> StudentListStudentGroupColumn;
 
         @FXML
         private TableColumn<?, ?> StudentListActiveColumn;
@@ -65,10 +73,16 @@ public class StudentListController {
         private Button SignOutButton;
 
         @FXML
-        private Button StudentListAddButton;
+        private Button SaveButton;
 
         @FXML
-        private Button StudentListManageButton;
+        private Button DeleteButton;
+
+        final GetStudentsHandler studentsHandler;
+
+        public StudentListController() {
+                studentsHandler = new GetStudentsHandler();
+        }
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -91,13 +105,13 @@ public class StudentListController {
         }
 
         @FXML
-        void StudentListAddButtonOnClick(ActionEvent event) {
-                // todo
+        void DeleteButtonOnClick(ActionEvent event) {
+
         }
 
         @FXML
-        void StudentListManageButtonOnClick(ActionEvent event) {
-                // todo
+        void SaveButtonOnClick(ActionEvent event) {
+
         }
 
         @FXML
@@ -184,16 +198,75 @@ public class StudentListController {
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-                assert StudentListAddButton != null
-                                : "fx:id=\"StudentListAddButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-                assert StudentListManageButton != null
-                                : "fx:id=\"StudentListManageButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+                assert SaveButton != null
+                                : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+                assert DeleteButton != null
+                                : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+
+                Response<List<Student>> response = studentsHandler.handle();
+
+                if (response.success()) {
+
+                        List<Student> students = response.getResponse();
+
+                        for (var student : students) {
+
+                                Students tbStudent = new Students(Long.valueOf(student.getUserDetail().getId()),
+                                                student.getUserDetail().getFullName(), student.getCollege().getId(),
+                                                student.getUserDetail().getEmail(),
+                                                student.getUserDetail().getPhoneNumber(),
+                                                Long.valueOf(student.getGroup().getId()));
+
+                                tableview.getItems().add(tbStudent);
+                        }
+                }
+                StudentListStudentIDColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
+                                                return new ReadOnlyObjectWrapper<Long>(
+                                                                Long.valueOf(p.getValue().getId()));
+                                        }
+                                });
+
+                StudentListStudentNameColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+                                        }
+                                });
+
+                StudentListStudentEmailColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
+                                        }
+                                });
+                StudentListCollegeColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
+                                        }
+                                });
+                StudentListStudentPhoneColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
+                                        }
+                                });
+
+                StudentListStudentGroupColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
+                                                return new ReadOnlyObjectWrapper<Long>(
+                                                                Long.valueOf(p.getValue().getGroupid()));
+                                        }
+                                });
 
                 // Skipped making the ID editable
                 StudentListStudentNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentListStudentNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                StudentListStudentNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works1!");
                         }
 
@@ -201,8 +274,8 @@ public class StudentListController {
 
                 StudentListStudentEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentListStudentEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                StudentListStudentEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works1!");
                         }
 
@@ -210,8 +283,8 @@ public class StudentListController {
 
                 StudentListStudentPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentListStudentPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                StudentListStudentPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works1!");
                         }
 
@@ -219,21 +292,22 @@ public class StudentListController {
 
                 StudentListCollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentListCollegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
+                StudentListCollegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
                                 System.out.println("It works1!");
                         }
 
                 });
 
-                StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentListStudentGroupColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // StudentListStudentGroupColumn.setOnEditCommit(new
+                // EventHandler<CellEditEvent<Students, Long>>() {
+                // public void handle(CellEditEvent<Students, Long> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
         }
 

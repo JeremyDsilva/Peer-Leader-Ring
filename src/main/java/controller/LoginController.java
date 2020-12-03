@@ -55,8 +55,8 @@ public class LoginController {
         if (response.success()) {
 
             Parent root = null;
-            if (response.getResponse().getUserRole().equals("admin")) {
-                root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+            if (response.getResponse().getUserRole().equals("student")) {
+                root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
             } else if (response.getResponse().getUserRole().equals("leader")) {
 
                 if (response.getResponse().getStudentLeader().getStudentLeaderRole().equals("team_leader"))
@@ -66,7 +66,7 @@ public class LoginController {
 
             } else{
                 // Tried the STUDENT LOGIN
-                root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
+                root = FXMLLoader.load(getClass().getResource("admin.fxml"));
                 // TODO Add
             }
 

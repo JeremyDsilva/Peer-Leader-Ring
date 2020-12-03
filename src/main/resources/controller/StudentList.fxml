@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -35,12 +35,11 @@
       <TableView fx:id="tableview" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="StudentListStudentIDColumn" onEditCommit="#listofstudentsidEditCommit" onEditStart="#listofstudentsidEditStart" prefWidth="102.0" text="Student ID" />
-            <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" onEditStart="#listofstudentsnameEditStart" prefWidth="169.0" text="Student Name" />
-            <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" onEditCommit="#listofstudentsemailEditCommit" onEditStart="#listofstudentsemailEditStart" prefWidth="175.0" text="Student Email" />
-            <TableColumn fx:id="StudentListStudentPhoneColumn" onEditCommit="#listofstudentsphoneEditCommit" onEditStart="#listofstudentsphoneEditStart" prefWidth="149.0" text="Student Phone No." />
-            <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" onEditCommit="#listofstudentscollegeEditCommit" onEditStart="#listofstudentscollegeEditStart" prefWidth="169.0" text="College" />
-            <TableColumn fx:id="StudentListStudentGroupColumn" onEditCommit="#listofstudentsgroupEditCommit" onEditStart="#listofstudentsgroupEditStart" prefWidth="162.0" text="Student Group" />
-            <TableColumn fx:id="StudentListActiveColumn" prefWidth="58.0" text="Active" />
+            <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" onEditStart="#listofstudentsnameEditStart" prefWidth="231.0" text="Student Name" />
+            <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" onEditCommit="#listofstudentsemailEditCommit" onEditStart="#listofstudentsemailEditStart" prefWidth="205.0" text="Student Email" />
+            <TableColumn fx:id="StudentListStudentPhoneColumn" onEditCommit="#listofstudentsphoneEditCommit" onEditStart="#listofstudentsphoneEditStart" prefWidth="142.0" text="Student Phone No." />
+            <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" onEditCommit="#listofstudentscollegeEditCommit" onEditStart="#listofstudentscollegeEditStart" prefWidth="168.0" text="College" />
+            <TableColumn fx:id="StudentListStudentGroupColumn" onEditCommit="#listofstudentsgroupEditCommit" onEditStart="#listofstudentsgroupEditStart" prefWidth="135.0" text="Student Group ID" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="15.0" layoutY="548.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
@@ -53,12 +52,12 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="StudentListAddButton" alignment="CENTER" layoutX="601.0" layoutY="544.0" mnemonicParsing="false" onAction="#StudentListAddButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Add Student" textFill="#f8eeee">
+      <Button fx:id="SaveButton" alignment="CENTER" layoutX="786.0" layoutY="543.0" mnemonicParsing="false" onAction="#SaveButtonOnClick" prefHeight="44.0" prefWidth="97.0" style="-fx-background-color: rgb(58,71,80);" text="Save" textFill="#f8eeee">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="StudentListManageButton" alignment="CENTER" layoutX="800.0" layoutY="544.0" mnemonicParsing="false" onAction="#StudentListManageButtonOnClick" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: rgb(58,71,80);" text="Manage Student" textFill="WHITE">
+      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="900.0" layoutY="543.0" mnemonicParsing="false" onAction="#DeleteButtonOnClick" prefHeight="44.0" prefWidth="97.0" style="-fx-background-color: rgb(58,71,80);" text="Delete" textFill="#f8eeee">
          <font>
             <Font size="22.0" />
          </font>

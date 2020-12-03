@@ -97,7 +97,7 @@ public class ActivityListController {
                                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 window.setScene(back);
                                 window.show();
-                        } else if (AppContext.getUser().getUserRole().equals("team_leader")) {
+                        } else if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("team_leader")) {
                                 Parent root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
                                 Scene back = new Scene(root);
                                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -134,12 +134,24 @@ public class ActivityListController {
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
                 // todo
+                if (AppContext.getUser().getUserRole().equals("admin")){
+                        
+                }
+                else{
+
+                }
 
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
                 // todo
+                if (AppContext.getUser().getUserRole().equals("admin")){
+                        
+                }
+                else{
+                        
+                }
         }
 
         // @FXML
@@ -152,10 +164,10 @@ public class ActivityListController {
         // System.out.println("Edit1");
         // }
 
-        // @FXML
-        // void activitynameEditCommit(ActionEvent event) {
-        // System.out.println("Commit2");
-        // }
+        @FXML
+        void activitynameEditCommit(ActionEvent event) {
+                System.out.println("Commit2");
+        }
 
         // @FXML
         // void activitynameEditStart(ActionEvent event) {
@@ -217,6 +229,7 @@ public class ActivityListController {
                 Response<List<Activity>> response = activitiesHandler.handle();
 
                 if (response.success()) {
+
                         List<Activity> activities = response.getResponse();
 
                         for (var activity : activities) {
@@ -271,15 +284,15 @@ public class ActivityListController {
                 // Haven't done the ID column again
                 // Since only admin can edit activities.
                 if (AppContext.getUser().getUserRole().equals("admin")) {
+
                         ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListActivityNameColumn
-                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                                public void handle(CellEditEvent<Activities, String> t) {
-                                                        System.out.println("It works1!");
-                                                }
+                        ActivityListActivityNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                public void handle(CellEditEvent<Activities, String> t) {
+                                System.out.println("It works1!");
+                                }
 
-                                        });
+                        });
                         // // Need to check how to make the date editable
                         // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -292,19 +305,18 @@ public class ActivityListController {
 
                         ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListOrganizedbyColumn
-                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                                public void handle(CellEditEvent<Activities, String> t) {
-                                                        System.out.println("It works3!");
-                                                }
+                        ActivityListOrganizedbyColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                public void handle(CellEditEvent<Activities, String> t) {
+                                System.out.println("It works3!");
+                                }
 
-                                        });
+                        });
 
                         ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                         ActivityListNoteColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
                                 public void handle(CellEditEvent<Activities, String> t) {
-                                        System.out.println("It works4!");
+                                System.out.println("It works4!");
                                 }
 
                         });

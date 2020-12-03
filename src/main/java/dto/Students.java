@@ -1,6 +1,6 @@
 package dto;
 
-public class Student {
+public class Students {
 
     long id;
 
@@ -12,7 +12,7 @@ public class Student {
 
     String phone;
 
-    String sgroup;
+    long groupid;
 
     
 
@@ -40,6 +40,13 @@ public class Student {
         this.college = college;
     }
 
+    public void setGroupid(long groupid){
+        this.groupid = groupid;
+    }
+
+    public long getGroupid(){
+        return groupid;
+    }
 
     public String getPhone() {
         return phone;
@@ -48,15 +55,6 @@ public class Student {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Student(long id, String name, String college, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        this.college = college;
-        this.email = email;
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -65,4 +63,21 @@ public class Student {
         this.email = email;
     }
     
+    public Students(long id, String name, String college, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.college = college;
+        this.email = email;
+        this.phone = phone;
+    }
+    public Students(long id, String name, String college, String email, String phone,  long groupid ) {
+        this.id = id;
+        this.name = name;
+        this.college = college;
+        this.email = email;
+        this.phone = phone;
+        this.groupid = groupid;
+    }
+
+  
 }

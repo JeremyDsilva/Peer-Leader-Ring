@@ -33,15 +33,14 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
+      <TableView fx:id="tableView" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
-            <TableColumn fx:id="LeaderListIDColumn" prefWidth="76.0" text="ID" />
-            <TableColumn fx:id="LeaderListCollegeColumn" prefWidth="276.0" text="College" />
-            <TableColumn fx:id="LeaderListYearColumn" minWidth="0.0" prefWidth="94.0" text="Year " />
-            <TableColumn fx:id="LeaderListRoleColumn" prefWidth="60.0" text="Role" />
-            <TableColumn fx:id="LeaderListEmailColumn" minWidth="0.0" prefWidth="252.0" text="Email" />
-            <TableColumn fx:id="LeaderListPhoneColumn" prefWidth="168.0" text="Phone" />
-            <TableColumn fx:id="LeaderListActiveColumn" prefWidth="58.0" text="Active" />
+            <TableColumn fx:id="LeaderListIDColumn" prefWidth="92.0" text="ID" />
+            <TableColumn fx:id="LeaderListCollegeColumn" prefWidth="234.0" text="College" />
+            <TableColumn fx:id="LeaderListYearColumn" minWidth="0.0" prefWidth="120.0" text="Year " />
+            <TableColumn fx:id="LeaderListRoleColumn" prefWidth="169.0" text="Role" />
+            <TableColumn fx:id="LeaderListEmailColumn" minWidth="0.0" prefWidth="226.0" text="Email" />
+            <TableColumn fx:id="LeaderListPhoneColumn" prefWidth="142.0" text="Phone" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="14.0" layoutY="547.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
@@ -54,12 +53,12 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="LeaderListAddButton" alignment="CENTER" layoutX="612.0" layoutY="543.0" mnemonicParsing="false" onAction="#LeaderListAddButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Add Leader" textFill="#f8eeee">
+      <Button fx:id="SaveButton" alignment="CENTER" layoutX="766.0" layoutY="543.0" mnemonicParsing="false" onAction="#SaveButtonOnClick" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: rgb(58,71,80);" text="Save" textFill="#f8eeee">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="LeaderListManageButton" alignment="CENTER" layoutX="811.0" layoutY="543.0" mnemonicParsing="false" onAction="#LeaderListManageButtonOnClick" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: rgb(58,71,80);" text="Manage Leader" textFill="WHITE">
+      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="889.0" layoutY="543.0" mnemonicParsing="false" onAction="#DeleteButtonOnClick" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: rgb(58,71,80);" text="Delete" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
