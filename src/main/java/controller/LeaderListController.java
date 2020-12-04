@@ -5,32 +5,25 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import app.AppContext;
 import dto.Leaders;
-import entity.Group;
 import entity.StudentLeader;
 import handler.GetLeadersHandler;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.stage.Stage;
-import response.Response;
-import javafx.scene.Node;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import response.Response;
 
 public class LeaderListController {
 
@@ -63,8 +56,6 @@ public class LeaderListController {
 
         @FXML
         private TableColumn<Leaders, String> LeaderListPhoneColumn;
-
-  
 
         @FXML
         private Button BackButton;

@@ -71,12 +71,25 @@ public class ActivityListController {
         @FXML
         private Button DeleteButton;
 
+        private Boolean isInEditMode = false;
+
         final GetActivitiesHandler activitiesHandler;
 
         public ActivityListController() {
                 activitiesHandler = new GetActivitiesHandler();
         }
 
+        public void startEditMode() {
+                isInEditMode = true;
+                DeleteButton.setVisible(isInEditMode);
+                SaveButton.setVisible(isInEditMode);
+        }
+
+        public void endEditMode() {
+                isInEditMode = false;
+                DeleteButton.setVisible(isInEditMode);
+                SaveButton.setVisible(isInEditMode);
+        }
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -88,7 +101,8 @@ public class ActivityListController {
                                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 window.setScene(back);
                                 window.show();
-                        } else if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("team_leader")) {
+                        } else if (AppContext.getUser().getStudentLeader().getStudentLeaderRole()
+                                        .equals("team_leader")) {
                                 Parent root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
                                 Scene back = new Scene(root);
                                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -125,64 +139,19 @@ public class ActivityListController {
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
                 // todo
-                
+
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
+                endEditMode();
                 // todo
-               
         }
-
-        // @FXML
-        // void activityidEditCommit(ActionEvent event) {
-        // System.out.println("Commit1");
-        // }
-
-        // @FXML
-        // void activityidEditStart(ActionEvent event) {
-        // System.out.println("Edit1");
-        // }
 
         @FXML
         void activitynameEditCommit(ActionEvent event) {
                 System.out.println("Commit2");
         }
-
-        // @FXML
-        // void activitynameEditStart(ActionEvent event) {
-        // System.out.println("Edit2");
-        // }
-
-        // @FXML
-        // void activitydateofactivityEditCommit(ActionEvent event) {
-        // System.out.println("Commit3");
-        // }
-
-        // @FXML
-        // void activitydateofactivityEditStart(ActionEvent event) {
-        // System.out.println("Edit3");
-        // }
-
-        // @FXML
-        // void activityoragnizedbyEditCommit(ActionEvent event) {
-        // System.out.println("Commit4");
-        // }
-
-        // @FXML
-        // void activityorganizedbyEditStart(ActionEvent event) {
-        // System.out.println("Edit4");
-        // }
-
-        // @FXML
-        // void activitynoteEditCommit(ActionEvent event) {
-        // System.out.println("Commit5");
-        // }
-
-        // @FXML
-        // void activitynoteEditStart(ActionEvent event) {
-        // System.out.println("Edit5");
-        // }
 
         @FXML
         void initialize() {
@@ -205,6 +174,11 @@ public class ActivityListController {
                                 : "fx:id=\"SaveButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
+
+                
+        
+                DeleteButton.setVisible(false);
+                SaveButton.setVisible(false);
 
                 Response<List<Activity>> response = activitiesHandler.handle();
 
@@ -254,50 +228,47 @@ public class ActivityListController {
                                         }
                                 });
 
-                
-                if (AppContext.getUser().getUserRole().equals("leader") || (AppContext.getUser().getUserRole().equals("student"))){
-                        DeleteButton.setVisible(false);
-                }
-                if (AppContext.getUser().getUserRole().equals("leader") || (AppContext.getUser().getUserRole().equals("student"))){
-                        SaveButton.setVisible(false);
-                }
-
                 // Haven't done the ID column again
                 // Since only admin can edit activities.
                 if (AppContext.getUser().getUserRole().equals("admin")) {
 
                         ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListActivityNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works1!");
-                                }
+                        ActivityListActivityNameColumn
+                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                                public void handle(CellEditEvent<Activities, String> t) {
+                                                        System.out.println("It works1!");
+                                                }
 
-                        });
+                                        });
                         // // Need to check how to make the date editable
                         // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                         // ActivityListDateColumn.setOnEditCommit(new
                         // EventHandler<CellEditEvent<Activities, Date>>() {
                         // public void handle(CellEditEvent<Activities, Date> t) {
+                        // // add error checking
+                        // // is this an actual date
+
                         // System.out.println("It works2!");
                         // }
                         // });
 
                         ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListOrganizedbyColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works3!");
-                                }
+                        ActivityListOrganizedbyColumn
+                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                                                public void handle(CellEditEvent<Activities, String> t) {
+                                                        System.out.println("It works3!");
+                                                }
 
-                        });
+                                        });
 
                         ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                         ActivityListNoteColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
                                 public void handle(CellEditEvent<Activities, String> t) {
-                                System.out.println("It works4!");
+                                        System.out.println("It works4!");
                                 }
 
                         });

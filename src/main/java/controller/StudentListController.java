@@ -5,31 +5,28 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import entity.Student;
 import dto.Students;
+import entity.Student;
 import handler.GetStudentsHandler;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import response.Response;
-import javafx.scene.Node;
 import javafx.util.Callback;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
+import response.Response;
 
 public class StudentListController {
 

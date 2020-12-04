@@ -9,29 +9,26 @@ import app.AppContext;
 import dto.PeerLeaders;
 import entity.Group;
 import entity.StudentLeader;
-import entity.User;
-import handler.GetGroupHandler;
 import handler.GetGroupsUnderLeaderHandler;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.util.Callback;
 import response.Response;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PeerLeaderListController {
 

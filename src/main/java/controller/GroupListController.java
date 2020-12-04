@@ -107,55 +107,6 @@ public class GroupListController {
                 window.show();
         }
 
-        // @FXML
-        // void studentidEditCommit(ActionEvent event) {
-        //         System.out.println("Commit1");
-        // }
-
-        // @FXML
-        // void studentidEditStart(ActionEvent event) {
-        //         System.out.println("Edit1");
-        // }
-
-        // @FXML
-        // void studentnameEditCommit(ActionEvent event) {
-        //         System.out.println("Commit2");
-        // }
-
-        // @FXML
-        // void studentnameEditStart(ActionEvent event) {
-        //         System.out.println("Edit2");
-        // }
-
-        // @FXML
-        // void studentemailEditCommit(ActionEvent event) {
-        //         System.out.println("Commit3");
-        // }
-
-        // @FXML
-        // void studentemailEditStart(ActionEvent event) {
-        //         System.out.println("Edit3");
-        // }
-
-        // @FXML
-        // void studentphoneEditCommit(ActionEvent event) {
-        //         System.out.println("Commit4");
-        // }
-
-        // @FXML
-        // void studentphoneEditStart(ActionEvent event) {
-        //         System.out.println("Edit4");
-        // }
-
-        // @FXML
-        // void studentcollegeEditCommit(ActionEvent event) {
-        //         System.out.println("Commit5");
-        // }
-
-        // @FXML
-        // void studentcollegeEditStart(ActionEvent event) {
-        //         System.out.println("Edit5");
-        // }
 
         @FXML
         void initialize() {

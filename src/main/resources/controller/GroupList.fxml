@@ -41,7 +41,7 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
+      <TableView fx:id="tableView" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
         <columns>
          <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" />
           <!-- <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" /> -->

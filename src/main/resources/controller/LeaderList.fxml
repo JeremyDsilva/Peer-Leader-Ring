@@ -33,7 +33,7 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
+      <TableView fx:id="tableView" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="LeaderListIDColumn" prefWidth="92.0" text="ID" />
             <TableColumn fx:id="LeaderListCollegeColumn" prefWidth="234.0" text="College" />

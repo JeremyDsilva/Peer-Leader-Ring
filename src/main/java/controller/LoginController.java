@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.AppContext;
 import entity.User;
 import handler.LoginHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +18,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import response.Response;
-import javafx.scene.Node;
 
 public class LoginController {
 
@@ -80,35 +79,6 @@ public class LoginController {
             System.out.println("Failed");
             // TODO Add message to error label
         }
-
-        // System.out.println(input);
-        // if (input.equals("Peer")) {
-        // Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
-        // Scene Signin = new Scene(root);
-        // System.out.println("Peer");
-        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // window.setScene(Signin);
-        // window.show();
-        // } else if (input.equals("Admin")) {
-        // Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-        // Scene Signin = new Scene(root);
-        // System.out.println("Admin");
-        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // window.setScene(Signin);
-        // window.show();
-        // } else if (input.equals("Team")) {
-        // Parent root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
-        // Scene Signin = new Scene(root);
-        // System.out.println("Team");
-        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // window.setScene(Signin);
-        // window.show();
-        // }
-
-        // else
-        // {
-
-        // }
 
     }
 

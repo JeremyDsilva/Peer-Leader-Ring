@@ -23,7 +23,7 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableview" layoutX="26.0" layoutY="177.0" prefHeight="351.0" prefWidth="961.0">
+      <TableView fx:id="tableview" editable="true" layoutX="26.0" layoutY="177.0" prefHeight="351.0" prefWidth="961.0">
          <columns>
             <TableColumn fx:id="ActivityListActivityIDColumn" prefWidth="93.0" text="Activity ID " />
             <TableColumn fx:id="ActivityListActivityNameColumn" onEditCommit="#activitynameEditCommit" prefWidth="295.0" text="Activity Name" />

@@ -32,7 +32,7 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableview" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
+      <TableView fx:id="tableview" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="StudentListStudentIDColumn" onEditCommit="#listofstudentsidEditCommit" onEditStart="#listofstudentsidEditStart" prefWidth="102.0" text="Student ID" />
             <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" onEditStart="#listofstudentsnameEditStart" prefWidth="231.0" text="Student Name" />
