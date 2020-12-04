@@ -75,7 +75,6 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<StudentLeader> cq = cb.createQuery(StudentLeader.class);
             Root<StudentLeader> rootEntry = cq.from(StudentLeader.class);
@@ -94,30 +93,5 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
         return response;
 
     }
-    // public Response<List<StudentLeader>> readAllPeerLeaders() {
-
-    //     Response<List<StudentLeader>> response;
-
-    //     Session session = HibernateUtil.getSession();
-    //     try {
-    //         session.beginTransaction();
-
-    //         CriteriaBuilder cb = session.getCriteriaBuilder();
-    //         CriteriaQuery<StudentLeader> cq = cb.createQuery(StudentLeader.class);
-    //         Root<StudentLeader> rootEntry = cq.from(StudentLeader.class);
-    //         CriteriaQuery<StudentLeader> all = cq.select(rootEntry);
-    //         TypedQuery<StudentLeader> allQuery = session.createQuery(all);
-    //         response = Response.of(allQuery.getResultList());
-    //         session.getTransaction().commit();
-    //     } catch (Exception e) {
-    //         if (session.getTransaction() != null)
-    //             session.getTransaction().rollback();
-    //         response = Response.of(e);
-    //     } finally {
-    //         session.close();
-    //     }
-
-    //     return response;
-
-    // }
+    
 }

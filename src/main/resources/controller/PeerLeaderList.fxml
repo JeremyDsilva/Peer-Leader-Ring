@@ -15,9 +15,9 @@
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
-            <Label fx:id="TeamLeaderNameLabel" layoutX="21.0" layoutY="11.0" prefHeight="42.0" prefWidth="66.0" text="{Name}" textFill="#f2f2f2">
+            <Label fx:id="TeamLeaderNameLabel" layoutX="21.0" layoutY="11.0" prefHeight="42.0" prefWidth="252.0" text="{Name}" textFill="#f2f2f2">
                <font>
-                  <Font name="Arial Bold" size="17.0" />
+                  <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
          </children>

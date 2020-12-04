@@ -254,12 +254,6 @@ public class ActivityListController {
                                         }
                                 });
 
-                // If a STUDENT logs in, he can ONLY view the Acivities list. There is no need
-                // of BACK BUTTON. He should directly LOG OUT.
-                // if (AppContext.getUser().getUserRole().equals("student")) {
-                // BackButton.setVisible(false);
-
-                // }
                 
                 if (AppContext.getUser().getUserRole().equals("leader") || (AppContext.getUser().getUserRole().equals("student"))){
                         DeleteButton.setVisible(false);

@@ -40,10 +40,9 @@
       <TableView fx:id="tableview" layoutX="26.0" layoutY="181.0" prefHeight="347.0" prefWidth="961.0">
          <columns>
             <TableColumn fx:id="StudentGroupGroupIDcolumn" onEditCommit="#groupidEditCommit" onEditStart="#groupidEditStart" prefWidth="136.0" text="Group ID" />
-            <TableColumn fx:id="StudentGroupGroupNameColumn" onEditCommit="#groupnameEditCommit" onEditStart="#groupnameEditStart" prefWidth="259.0" text="Group Name " />
-            <TableColumn fx:id="StudentGroupPeerLeaderColumn" minWidth="0.0" onEditCommit="#grouppeerleaderEditCommit" onEditStart="#grouppeerleaderEditStart" prefWidth="201.0" text="Peer Leader " />
-            <TableColumn fx:id="StudentGroupTeamLeaderColumn" onEditCommit="#groupteamleaderEditCommit" onEditStart="#groupteamleaderEditStart" prefWidth="189.0" text="Team Leader " />
-            <TableColumn fx:id="StudentGroupStudentColumn" minWidth="0.0" onEditCommit="#groupstudentEditCommit" onEditStart="#groupstudentEditStart" prefWidth="175.0" text="Student " />
+            <TableColumn fx:id="StudentGroupGroupNameColumn" onEditCommit="#groupnameEditCommit" onEditStart="#groupnameEditStart" prefWidth="298.0" text="Group Name " />
+            <TableColumn fx:id="StudentGroupPeerLeaderColumn" minWidth="0.0" onEditCommit="#grouppeerleaderEditCommit" onEditStart="#grouppeerleaderEditStart" prefWidth="270.0" text="Peer Leader " />
+            <TableColumn fx:id="StudentGroupTeamLeaderColumn" onEditCommit="#groupteamleaderEditCommit" onEditStart="#groupteamleaderEditStart" prefWidth="256.0" text="Team Leader " />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="26.0" layoutY="545.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">

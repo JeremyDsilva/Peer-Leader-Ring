@@ -11,7 +11,7 @@ import entity.Group;
 import entity.StudentLeader;
 import entity.User;
 import handler.GetGroupHandler;
-import handler.GetLeadersHandler;
+import handler.GetGroupsUnderLeaderHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -71,10 +71,10 @@ public class PeerLeaderListController {
         @FXML
         private Button TeamLeaderViewActivityListButton;
 
-        final GetLeadersHandler getLeadersHandler;
+        final GetGroupsUnderLeaderHandler getGroupsUnderLeaderHandler;
 
         public PeerLeaderListController() {
-                getLeadersHandler = new GetLeadersHandler();
+                getGroupsUnderLeaderHandler = new GetGroupsUnderLeaderHandler();
         }
 
         @FXML
@@ -169,18 +169,22 @@ public class PeerLeaderListController {
                 assert TeamLeaderViewActivityListButton != null
                                 : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
-                Response<List<StudentLeader>> response = getLeadersHandler.handle();
+                Response<List<Group>> response = getGroupsUnderLeaderHandler.handle(AppContext.getUser().getId());
+                
+                TeamLeaderNameLabel.setText(AppContext.getUser().getFullName());
 
                 if (response.success()) {
 
-                        List<StudentLeader> leaders = response.getResponse();
+                        List<Group> groups = response.getResponse();
 
                        // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
-                                for (var leader : leaders) {
+                                for (var group : groups) {
+                                        StudentLeader leader = group.getPeerLeader();
                                         PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
                                                         leader.getUserDetail().getFullName(),
                                                         leader.getUserDetail().getPhoneNumber(),
-                                                        leader.getUserDetail().getEmail(), leader.getStudentLeaderRole());
+                                                        leader.getUserDetail().getEmail(), 
+                                                        group.getName());
         
                                         tableview.getItems().add(tbLeaders);
                                 }

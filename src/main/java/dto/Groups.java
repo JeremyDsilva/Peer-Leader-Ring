@@ -15,14 +15,12 @@ public class Groups {
     String name;
     String pname;
     String tname;
-    String sname;
 
-    public Groups(long id, String name, String pname, String tname, String sname) {
+    public Groups(long id, String name, String pname, String tname) {
         this.id = id;
         this.name = name;
         this.pname = pname;
         this.tname = tname;
-        this.sname = sname;
     }
 
     public long getId() {
@@ -56,15 +54,6 @@ public class Groups {
     public void setTname(String tname) {
         this.tname = tname;
     }
-
-    public String getSname() {
-        return sname;
-    }
-
-    public void setSname(String sname) {
-        this.sname = sname;
-    }
-
     
     
 }

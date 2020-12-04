@@ -61,10 +61,7 @@ public class StudentListController {
         private TableColumn<Students, String> StudentListCollegeColumn;
 
         @FXML
-        private TableColumn<Students, Long> StudentListStudentGroupColumn;
-
-        @FXML
-        private TableColumn<?, ?> StudentListActiveColumn;
+        private TableColumn<Students, String> StudentListStudentGroupColumn;
 
         @FXML
         private Button BackButton;
@@ -192,8 +189,6 @@ public class StudentListController {
                                 : "fx:id=\"StudentListCollegeColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert StudentListStudentGroupColumn != null
                                 : "fx:id=\"StudentListStudentGroupColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-                assert StudentListActiveColumn != null
-                                : "fx:id=\"StudentListActiveColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
                 assert SignOutButton != null
@@ -215,7 +210,7 @@ public class StudentListController {
                                                 student.getUserDetail().getFullName(), student.getCollege().getId(),
                                                 student.getUserDetail().getEmail(),
                                                 student.getUserDetail().getPhoneNumber(),
-                                                Long.valueOf(student.getGroup().getId()));
+                                                student.getGroup().getName());
 
                                 tableview.getItems().add(tbStudent);
                         }
@@ -255,10 +250,9 @@ public class StudentListController {
                                 });
 
                 StudentListStudentGroupColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
-                                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
-                                                return new ReadOnlyObjectWrapper<Long>(
-                                                                Long.valueOf(p.getValue().getGroupid()));
+                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getGname());
                                         }
                                 });
 
@@ -299,15 +293,14 @@ public class StudentListController {
 
                 });
 
-                // StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                // StudentListStudentGroupColumn.setOnEditCommit(new
-                // EventHandler<CellEditEvent<Students, Long>>() {
-                // public void handle(CellEditEvent<Students, Long> t) {
-                // System.out.println("It works1!");
-                // }
+                StudentListStudentGroupColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
+                        public void handle(CellEditEvent<Students, String> t) {
+                        System.out.println("It works1!");
+                        }
 
-                // });
+                });
 
         }
 

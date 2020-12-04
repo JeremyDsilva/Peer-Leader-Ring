@@ -12,7 +12,7 @@ public class Students {
 
     String phone;
 
-    long groupid;
+    String gname;
 
     
 
@@ -40,14 +40,6 @@ public class Students {
         this.college = college;
     }
 
-    public void setGroupid(long groupid){
-        this.groupid = groupid;
-    }
-
-    public long getGroupid(){
-        return groupid;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -70,13 +62,21 @@ public class Students {
         this.email = email;
         this.phone = phone;
     }
-    public Students(long id, String name, String college, String email, String phone,  long groupid ) {
+    public Students(long id, String name, String college, String email, String phone,  String gname ) {
         this.id = id;
         this.name = name;
         this.college = college;
         this.email = email;
         this.phone = phone;
-        this.groupid = groupid;
+        this.gname = gname;
+    }
+
+    public String getGname() {
+        return gname;
+    }
+
+    public void setGname(String gname) {
+        this.gname = gname;
     }
 
   

@@ -184,9 +184,11 @@ public class GroupListController {
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
 
-                Response<Group> response = groupHandler.handle(122434L);
+                Response<Group> response = groupHandler.handle(AppContext.getUser().getId());
 
                 GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                GroupListGroupNameLabel.setText(response.getResponse().getName());
+                GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
                 //GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
                 
                 if (response.success()) {

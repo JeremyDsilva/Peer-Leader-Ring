@@ -58,9 +58,6 @@ public class StudentGroupController {
         private TableColumn<Groups, String> StudentGroupTeamLeaderColumn;
 
         @FXML
-        private TableColumn<Groups, String> StudentGroupStudentColumn;
-
-        @FXML
         private Button BackButton;
 
         @FXML
@@ -145,15 +142,6 @@ public class StudentGroupController {
                 System.out.println("Edit1");
         }
 
-        @FXML
-        void groupstudentEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
-
-        @FXML
-        void groupstudentEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
 
         @FXML
         void initialize() {
@@ -170,8 +158,6 @@ public class StudentGroupController {
                                 : "fx:id=\"StudentGroupPeerLeaderColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert StudentGroupTeamLeaderColumn != null
                                 : "fx:id=\"StudentGroupTeamLeaderColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-                assert StudentGroupStudentColumn != null
-                                : "fx:id=\"StudentGroupStudentColumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert SaveButton != null
@@ -188,8 +174,7 @@ public class StudentGroupController {
                         for (var group : groups) {
                                 Groups tbGroup = new Groups(group.getId(), group.getName(),
                                                 group.getPeerLeader().getUserDetail().getFullName(),
-                                                group.getTeamLeader().getUserDetail().getFullName(), 
-                                                group.getName()
+                                                group.getTeamLeader().getUserDetail().getFullName()
                                                 );
 
                                 tableview.getItems().add(tbGroup);
@@ -222,12 +207,7 @@ public class StudentGroupController {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getTname());
                                         }
                                 });
-                StudentGroupStudentColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
-                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getSname());
-                                        }
-                                });
+
 
                 // Skipped making the ID editable
                 StudentGroupGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -251,15 +231,6 @@ public class StudentGroupController {
                 StudentGroupTeamLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                 StudentGroupTeamLeaderColumn.setOnEditCommit(new EventHandler<CellEditEvent<Groups, String>>() {
-                        public void handle(CellEditEvent<Groups, String> t) {
-                                System.out.println("It works1!");
-                        }
-
-                });
-
-                StudentGroupStudentColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                StudentGroupStudentColumn.setOnEditCommit(new EventHandler<CellEditEvent<Groups, String>>() {
                         public void handle(CellEditEvent<Groups, String> t) {
                                 System.out.println("It works1!");
                         }
