@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -63,7 +64,7 @@ public class LoginController {
                 else
                     root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
 
-            } else{
+            } else {
                 // Tried the STUDENT LOGIN
                 root = FXMLLoader.load(getClass().getResource("admin.fxml"));
                 // TODO Add
@@ -74,8 +75,13 @@ public class LoginController {
             window.show();
 
         } else {
-            // SignInButton.setOnAction(e->AlertBox.display("Error Window", "Please Input
-            // valid credentials"));
+            // Alert a = new Alert(Alert.AlertType.ERROR);
+            // a.setTitle("Wrong Input");
+            // a.setContentText("Please enter Valid Credentials");
+            // a.setHeaderText(null);
+            // a.showAndWait();
+            //AlertBox.display("Error Window", "Please Input valid credentials");
+            // SignInButton.setOnAction(e->);
             System.out.println("Failed");
             // TODO Add message to error label
         }

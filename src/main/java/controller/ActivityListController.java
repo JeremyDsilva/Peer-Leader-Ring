@@ -175,8 +175,6 @@ public class ActivityListController {
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
 
-                
-        
                 DeleteButton.setVisible(false);
                 SaveButton.setVisible(false);
 

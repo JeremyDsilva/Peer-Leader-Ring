@@ -94,54 +94,55 @@ public class StudentGroupController {
 
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
+                // todo
 
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
+                // todo
 
         }
 
+        // @FXML
+        // void groupidEditCommit(ActionEvent event) {
+        // System.out.println("Commit1");
+        // }
+
+        // @FXML
+        // void groupidEditStart(ActionEvent event) {
+        // System.out.println("Edit1");
+        // }
+
         @FXML
-        void groupidEditCommit(ActionEvent event) {
+        void groupnameEditCommit(CellEditEvent<Groups, String> t) {
                 System.out.println("Commit1");
         }
 
-        @FXML
-        void groupidEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void groupnameEditStart(ActionEvent event) {
+        // System.out.println("Edit1");
+        // }
 
         @FXML
-        void groupnameEditCommit(ActionEvent event) {
+        void grouppeerleaderEditCommit(CellEditEvent<Groups, String> t) {
                 System.out.println("Commit1");
         }
 
-        @FXML
-        void groupnameEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void grouppeerleaderEditStart(ActionEvent event) {
+        // System.out.println("Edit1");
+        // }
 
         @FXML
-        void grouppeerleaderEditCommit(ActionEvent event) {
+        void groupteamleaderEditCommit(CellEditEvent<Groups, String> t) {
                 System.out.println("Commit1");
         }
 
-        @FXML
-        void grouppeerleaderEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
-
-        @FXML
-        void groupteamleaderEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
-
-        @FXML
-        void groupteamleaderEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
-
+        // @FXML
+        // void groupteamleaderEditStart(ActionEvent event) {
+        // System.out.println("Edit1");
+        // }
 
         @FXML
         void initialize() {
@@ -174,8 +175,7 @@ public class StudentGroupController {
                         for (var group : groups) {
                                 Groups tbGroup = new Groups(group.getId(), group.getName(),
                                                 group.getPeerLeader().getUserDetail().getFullName(),
-                                                group.getTeamLeader().getUserDetail().getFullName()
-                                                );
+                                                group.getTeamLeader().getUserDetail().getFullName());
 
                                 tableview.getItems().add(tbGroup);
                         }
@@ -208,34 +208,36 @@ public class StudentGroupController {
                                         }
                                 });
 
-
                 // Skipped making the ID editable
                 StudentGroupGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentGroupGroupNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Groups, String>>() {
-                        public void handle(CellEditEvent<Groups, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // StudentGroupGroupNameColumn.setOnEditCommit(new
+                // EventHandler<CellEditEvent<Groups, String>>() {
+                // public void handle(CellEditEvent<Groups, String> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
                 StudentGroupPeerLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentGroupPeerLeaderColumn.setOnEditCommit(new EventHandler<CellEditEvent<Groups, String>>() {
-                        public void handle(CellEditEvent<Groups, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // StudentGroupPeerLeaderColumn.setOnEditCommit(new
+                // EventHandler<CellEditEvent<Groups, String>>() {
+                // public void handle(CellEditEvent<Groups, String> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
                 StudentGroupTeamLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                StudentGroupTeamLeaderColumn.setOnEditCommit(new EventHandler<CellEditEvent<Groups, String>>() {
-                        public void handle(CellEditEvent<Groups, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // StudentGroupTeamLeaderColumn.setOnEditCommit(new
+                // EventHandler<CellEditEvent<Groups, String>>() {
+                // public void handle(CellEditEvent<Groups, String> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
         }
 }
