@@ -25,9 +25,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import response.Response;
 import javafx.scene.Node;
 import javafx.util.Callback;
+import response.Response;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -175,7 +175,7 @@ public class PeerLeaderListController {
 
                         List<StudentLeader> leaders = response.getResponse();
 
-                        if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
+                       // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
                                 for (var leader : leaders) {
                                         PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
                                                         leader.getUserDetail().getFullName(),
@@ -184,7 +184,7 @@ public class PeerLeaderListController {
         
                                         tableview.getItems().add(tbLeaders);
                                 }
-                        }
+                        //}
                        
                 }
 

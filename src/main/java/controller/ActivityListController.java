@@ -77,15 +77,6 @@ public class ActivityListController {
                 activitiesHandler = new GetActivitiesHandler();
         }
 
-        @FXML
-        void ActivityListAddButtonOnClick(ActionEvent event) {
-                // todo
-        }
-
-        @FXML
-        void ActivityListManageButtonOnClick(ActionEvent event) {
-                // todo
-        }
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -134,24 +125,13 @@ public class ActivityListController {
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
                 // todo
-                if (AppContext.getUser().getUserRole().equals("admin")){
-                        
-                }
-                else{
-
-                }
-
+                
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
                 // todo
-                if (AppContext.getUser().getUserRole().equals("admin")){
-                        
-                }
-                else{
-                        
-                }
+               
         }
 
         // @FXML
@@ -280,6 +260,13 @@ public class ActivityListController {
                 // BackButton.setVisible(false);
 
                 // }
+                
+                if (AppContext.getUser().getUserRole().equals("leader") || (AppContext.getUser().getUserRole().equals("student"))){
+                        DeleteButton.setVisible(false);
+                }
+                if (AppContext.getUser().getUserRole().equals("leader") || (AppContext.getUser().getUserRole().equals("student"))){
+                        SaveButton.setVisible(false);
+                }
 
                 // Haven't done the ID column again
                 // Since only admin can edit activities.
