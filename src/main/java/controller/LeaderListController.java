@@ -76,6 +76,8 @@ public class LeaderListController {
 
         int editRow = -1;
 
+        Boolean rejectChange = false;
+
         final GetLeadersHandler getLeadersHandler;
 
         public LeaderListController() {
@@ -131,42 +133,52 @@ public class LeaderListController {
         }
 
         int getRow(CellEditEvent<Leaders, ?> t) {
-                // todo
                 return t.getTablePosition().getRow();
         }
 
-        @FXML
-        void listofleaderscollegeEditStart(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
-        }
-
-        @FXML
-        void listofleaderscollegeEditCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
-                }
-                if (getRow(t) != editRow) {
+        boolean onEditCommitCheck(CellEditEvent<Leaders, ?> t) {
+                if (editRow != -1 && getRow(t) != editRow) {
                         Alert a = new Alert(Alert.AlertType.ERROR);
                         a.setTitle("Cannot Edit");
                         a.setContentText("Please select the previous edited row and SAVE");
                         a.setHeaderText(null);
                         a.showAndWait();
-                        // if the I started editing the row i was editing , I care
-                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
-                        // set it back to prev value
+                        t.consume();
+                        return false;
                 }
+
+                return true;
+        }
+
+        boolean onEditStartCheck(CellEditEvent<Leaders, ?> t) {
+                if (editRow != -1 && getRow(t) != editRow) { // no row is being edit, dont care
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+                        a.setTitle("Cannot Start Editing");
+                        a.setContentText("Please select the previous edited row and SAVE");
+                        a.setHeaderText(null);
+                        a.showAndWait();
+                        t.consume();
+                        return false;
+                }
+                return true;
+        }
+
+        @FXML
+        void listofleaderscollegeEditStart(CellEditEvent<Leaders, String> t) {
+                if (!onEditStartCheck(t)) {
+                        t.getSource();
+
+                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
+                }
+        }
+
+        @FXML
+        void listofleaderscollegeEditCommit(CellEditEvent<Leaders, String> t) {
+                if (!onEditCommitCheck(t)) {
+                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
+                        return;
+                }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
@@ -183,36 +195,18 @@ public class LeaderListController {
 
         @FXML
         void listofleadersyearStartCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (!onEditStartCheck(t)) {
+                        tableView.getSelectionModel().getSelectedItem().setYear(t.getOldValue());
                 }
         }
 
         @FXML
         void listofleadersyearEditCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
-                }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
+                if (!onEditCommitCheck(t)) {
                         tableView.getSelectionModel().getSelectedItem().setYear(t.getOldValue());
-                        // set it back to prev value
+                        return;
                 }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 9 || t.getNewValue().isEmpty()) {
@@ -228,36 +222,18 @@ public class LeaderListController {
 
         @FXML
         void listofleadersroleStartCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (!onEditStartCheck(t)) {
+                        tableView.getSelectionModel().getSelectedItem().setRole(t.getOldValue());
                 }
         }
 
         @FXML
         void listofleadersroleEditCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
-                }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
+                if (!onEditCommitCheck(t)) {
                         tableView.getSelectionModel().getSelectedItem().setRole(t.getOldValue());
-                        // set it back to prev value
+                        return;
                 }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 7 || t.getNewValue().isEmpty()) {
@@ -273,36 +249,18 @@ public class LeaderListController {
 
         @FXML
         void listofleadersemailStartCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (!onEditStartCheck(t)) {
+                        tableView.getSelectionModel().getSelectedItem().setEmail(t.getOldValue());
                 }
         }
 
         @FXML
         void listofleadersemailEditCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
-                }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
+                if (!onEditCommitCheck(t)) {
                         tableView.getSelectionModel().getSelectedItem().setEmail(t.getOldValue());
-                        // set it back to prev value
+                        return;
                 }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
@@ -318,36 +276,18 @@ public class LeaderListController {
 
         @FXML
         void listofleadersphoneStartCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (!onEditStartCheck(t)) {
+                        tableView.getSelectionModel().getSelectedItem().setPhone(t.getOldValue());
                 }
         }
 
         @FXML
         void listofleadersphoneEditCommit(CellEditEvent<Leaders, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
-                }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
+                if (!onEditCommitCheck(t)) {
                         tableView.getSelectionModel().getSelectedItem().setPhone(t.getOldValue());
-                        // set it back to prev value
+                        return;
                 }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 10 || t.getNewValue().isEmpty()) {
@@ -430,6 +370,7 @@ public class LeaderListController {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getRole());
                                         }
                                 });
+
                 LeaderListEmailColumn.setCellValueFactory(
                                 new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
                                         public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
