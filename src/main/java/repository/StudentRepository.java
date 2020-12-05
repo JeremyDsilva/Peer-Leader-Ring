@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -83,6 +84,44 @@ public class StudentRepository implements Repository<Student, Long> {
             CriteriaQuery<Student> all = cq.select(rootEntry);
             TypedQuery<Student> allQuery = session.createQuery(all);
             response = Response.of(allQuery.getResultList());
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
+    public Response<List<Student>> getStudentFromGroup(Long groupId) {
+
+        Response<List<Student>> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Student> q = cb.createQuery(Student.class);
+            Root<Student> g = q.from(Student.class);
+            ParameterExpression<Long> id = cb.parameter(Long.class);
+            q.select(g).where(cb.equal(g.get("group"), id));
+
+            TypedQuery<Student> query = session.createQuery(q);
+            query.setParameter(id, groupId);
+
+            var students = query.getResultList();
+
+            // to get attendance
+            for (var student : students) {
+                student.getAttendace().size();
+            }
+
+            response = Response.of(students);
+
             session.getTransaction().commit();
         } catch (Exception e) {
             if (session.getTransaction() != null)
