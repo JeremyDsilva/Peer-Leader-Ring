@@ -1,8 +1,12 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -17,10 +21,6 @@ public class ActivityAttendance implements Serializable {
 
 	@EmbeddedId
 	private ActivityAttendancePK id;
-
-	private String feedback;
-
-	private BigDecimal rating;
 
 	//bi-directional many-to-one association to Activity
 	@ManyToOne
@@ -39,22 +39,6 @@ public class ActivityAttendance implements Serializable {
 
 	public void setId(ActivityAttendancePK id) {
 		this.id = id;
-	}
-
-	public String getFeedback() {
-		return this.feedback;
-	}
-
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
-	}
-
-	public BigDecimal getRating() {
-		return this.rating;
-	}
-
-	public void setRating(BigDecimal rating) {
-		this.rating = rating;
 	}
 
 	public Activity getActivity() {
