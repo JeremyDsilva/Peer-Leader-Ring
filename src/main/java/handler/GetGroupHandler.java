@@ -18,7 +18,7 @@ public class GetGroupHandler {
         }
 
         GroupRepository groupRepository = new GroupRepository();
-        
+
         return groupRepository.read(Long.valueOf(groupId));
 
     }

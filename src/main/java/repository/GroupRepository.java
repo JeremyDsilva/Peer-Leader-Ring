@@ -100,7 +100,7 @@ public class GroupRepository implements Repository<Group, Long> {
     }
 
     public Response<List<Group>> groupsUnderLeader(Long leaderId) {
-    
+
         Response<List<Group>> response;
 
         Session session = HibernateUtil.getSession();
@@ -110,7 +110,7 @@ public class GroupRepository implements Repository<Group, Long> {
             CriteriaQuery<Group> q = cb.createQuery(Group.class);
             Root<Group> g = q.from(Group.class);
             ParameterExpression<Long> id = cb.parameter(Long.class);
-            q.select(g).where(cb.or(cb.equal(g.get("teamLeader"),id),cb.equal(g.get("peerLeader"),id)));
+            q.select(g).where(cb.or(cb.equal(g.get("teamLeader"), id), cb.equal(g.get("peerLeader"), id)));
 
             TypedQuery<Group> query = session.createQuery(q);
             query.setParameter(id, leaderId);

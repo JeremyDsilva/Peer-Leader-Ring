@@ -97,7 +97,7 @@ public class StudentRepository implements Repository<Student, Long> {
 
     }
 
-    public Response<List<Student>> getStudentFromGroup(Long groupId) {
+    public Response<List<Student>> getStudentsFromGroup(Long groupId) {
 
         Response<List<Student>> response;
 
