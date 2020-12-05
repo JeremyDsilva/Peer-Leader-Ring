@@ -75,7 +75,6 @@ CREATE TABLE student (
 CREATE TABLE activity_attendance (
     activity_id   INTEGER,
     student_id    INTEGER,
-    rating        INTEGER,
     CONSTRAINT act_attendance_pk PRIMARY KEY ( activity_id,
                                                student_id ),
     CONSTRAINT act_attendance_activity_fk FOREIGN KEY ( activity_id )
