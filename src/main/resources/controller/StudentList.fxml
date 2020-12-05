@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -35,11 +35,11 @@
       <TableView fx:id="tableview" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="StudentListStudentIDColumn" prefWidth="102.0" text="Student ID" />
-            <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" prefWidth="231.0" text="Student Name" />
-            <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" onEditCommit="#listofstudentsemailEditCommit" prefWidth="205.0" text="Student Email" />
-            <TableColumn fx:id="StudentListStudentPhoneColumn" onEditCommit="#listofstudentsphoneEditCommit" prefWidth="142.0" text="Student Phone No." />
-            <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" onEditCommit="#listofstudentscollegeEditCommit" prefWidth="168.0" text="College" />
-            <TableColumn fx:id="StudentListStudentGroupColumn" onEditCommit="#listofstudentsgroupEditCommit" prefWidth="135.0" text="Student Group ID" />
+            <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" onEditStart="#listofstudentsnameEditStart" prefWidth="231.0" text="Student Name" />
+            <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" onEditCommit="#listofstudentsemailEditCommit" onEditStart="#listofstudentsemailEditStart" prefWidth="205.0" text="Student Email" />
+            <TableColumn fx:id="StudentListStudentPhoneColumn" onEditCommit="#listofstudentsphoneEditCommit" onEditStart="#listofstudentsphoneEditStart" prefWidth="142.0" text="Student Phone No." />
+            <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" onEditCommit="#listofstudentscollegeEditCommit" onEditStart="#listofstudentscollegeEditStart" prefWidth="168.0" text="College" />
+            <TableColumn fx:id="StudentListStudentGroupColumn" onEditCommit="#listofstudentsgroupEditCommit" onEditStart="#listofstudentsgroupEditStart" prefWidth="135.0" text="Student Group ID" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="15.0" layoutY="548.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">

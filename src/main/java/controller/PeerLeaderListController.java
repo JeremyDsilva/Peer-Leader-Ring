@@ -68,6 +68,8 @@ public class PeerLeaderListController {
         @FXML
         private Button TeamLeaderViewActivityListButton;
 
+        int editRow = -1;
+
         final GetGroupsUnderLeaderHandler getGroupsUnderLeaderHandler;
 
         public PeerLeaderListController() {
@@ -94,55 +96,45 @@ public class PeerLeaderListController {
                 window.show();
         }
 
-        @FXML
-        void peerleaderidEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void peerleadernameEditCommit(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Commit1");
+        // }
 
-        @FXML
-        void peerleaderidEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void peerleadernameEditStart(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Edit1");
+        // }
 
-        @FXML
-        void peerleadernameEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void peerleaderemailEditCommit(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Commit1");
+        // }
 
-        @FXML
-        void peerleadernameEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void peerleaderemailEditStart(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Edit1");
+        // }
 
-        @FXML
-        void peerleaderemailEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void peerleaderphoneEditCommit(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Commit1");
+        // }
 
-        @FXML
-        void peerleaderemailEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void peerleaderphoneEditStart(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Edit1");
+        // }
 
-        @FXML
-        void peerleaderphoneEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
+        // @FXML
+        // void peerleadergroupnameEditCommit(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Commit1");
+        // }
 
-        @FXML
-        void peerleaderphoneEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
-
-        @FXML
-        void peerleadergroupnameEditCommit(ActionEvent event) {
-                System.out.println("Commit1");
-        }
-
-        @FXML
-        void peerleadergroupnameEditStart(ActionEvent event) {
-                System.out.println("Edit1");
-        }
+        // @FXML
+        // void peerleadergroupnameEditStart(CellEditEvent<PeerLeaders, String> t) {
+        // System.out.println("Edit1");
+        // }
 
         @FXML
         void initialize() {
@@ -167,26 +159,25 @@ public class PeerLeaderListController {
                                 : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
                 Response<List<Group>> response = getGroupsUnderLeaderHandler.handle(AppContext.getUser().getId());
-                
+
                 TeamLeaderNameLabel.setText(AppContext.getUser().getFullName());
 
                 if (response.success()) {
 
                         List<Group> groups = response.getResponse();
 
-                       // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
-                                for (var group : groups) {
-                                        StudentLeader leader = group.getPeerLeader();
-                                        PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
-                                                        leader.getUserDetail().getFullName(),
-                                                        leader.getUserDetail().getPhoneNumber(),
-                                                        leader.getUserDetail().getEmail(), 
-                                                        group.getName());
-        
-                                        tableview.getItems().add(tbLeaders);
-                                }
-                        //}
-                       
+                        // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
+                        for (var group : groups) {
+                                StudentLeader leader = group.getPeerLeader();
+                                PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
+                                                leader.getUserDetail().getFullName(),
+                                                leader.getUserDetail().getPhoneNumber(),
+                                                leader.getUserDetail().getEmail(), group.getName());
+
+                                tableview.getItems().add(tbLeaders);
+                        }
+                        // }
+
                 }
 
                 TeamLeaderPeerLeaderIDColumn.setCellValueFactory(
@@ -223,41 +214,45 @@ public class PeerLeaderListController {
                                 });
 
                 // Skipped making the ID editable
-                TeamLeaderPeerLeaderNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // TeamLeaderPeerLeaderNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                TeamLeaderPeerLeaderNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<PeerLeaders, String>>() {
-                        public void handle(CellEditEvent<PeerLeaders, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // // TeamLeaderPeerLeaderNameColumn.setOnEditCommit(new
+                // // EventHandler<CellEditEvent<PeerLeaders, String>>() {
+                // // public void handle(CellEditEvent<PeerLeaders, String> t) {
+                // // System.out.println("It works1!");
+                // // }
 
-                });
+                // // });
 
-                TeamLeaderPeerLeaderEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // TeamLeaderPeerLeaderEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                TeamLeaderPeerLeaderEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<PeerLeaders, String>>() {
-                        public void handle(CellEditEvent<PeerLeaders, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // // TeamLeaderPeerLeaderEmailColumn.setOnEditCommit(new
+                // // EventHandler<CellEditEvent<PeerLeaders, String>>() {
+                // // public void handle(CellEditEvent<PeerLeaders, String> t) {
+                // // System.out.println("It works1!");
+                // // }
 
-                });
+                // // });
 
-                TeamLeaderPeerLeaderPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // TeamLeaderPeerLeaderPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                TeamLeaderPeerLeaderPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<PeerLeaders, String>>() {
-                        public void handle(CellEditEvent<PeerLeaders, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // // TeamLeaderPeerLeaderPhoneColumn.setOnEditCommit(new
+                // // EventHandler<CellEditEvent<PeerLeaders, String>>() {
+                // // public void handle(CellEditEvent<PeerLeaders, String> t) {
+                // // System.out.println("It works1!");
+                // // }
 
-                });
+                // // });
 
-                TeamLeaderGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // TeamLeaderGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                TeamLeaderGroupNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<PeerLeaders, String>>() {
-                        public void handle(CellEditEvent<PeerLeaders, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // // TeamLeaderGroupNameColumn.setOnEditCommit(new
+                // // EventHandler<CellEditEvent<PeerLeaders, String>>() {
+                // // public void handle(CellEditEvent<PeerLeaders, String> t) {
+                // // System.out.println("It works1!");
+                // // }
 
-                });
+                // // });
 
         }
 

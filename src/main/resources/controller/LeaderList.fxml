@@ -36,11 +36,11 @@
       <TableView fx:id="tableView" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
             <TableColumn fx:id="LeaderListIDColumn" prefWidth="92.0" text="ID" />
-            <TableColumn fx:id="LeaderListCollegeColumn" onEditCommit="#listofleaderscollegeEditCommit" prefWidth="234.0" text="College" />
-            <TableColumn fx:id="LeaderListYearColumn" minWidth="0.0" onEditCommit="#listofleadersyearEditCommit" prefWidth="120.0" text="Year " />
-            <TableColumn fx:id="LeaderListRoleColumn" onEditCommit="#listofleadersroleEditCommit" prefWidth="169.0" text="Role" />
-            <TableColumn fx:id="LeaderListEmailColumn" minWidth="0.0" onEditCommit="#listofleadersemailEditCommit" prefWidth="226.0" text="Email" />
-            <TableColumn fx:id="LeaderListPhoneColumn" onEditCommit="#listofleadersphoneEditCommit" prefWidth="142.0" text="Phone" />
+            <TableColumn fx:id="LeaderListCollegeColumn" onEditCommit="#listofleaderscollegeEditCommit" onEditStart="#listofleaderscollegeEditStart" prefWidth="234.0" text="College" />
+            <TableColumn fx:id="LeaderListYearColumn" minWidth="0.0" onEditCommit="#listofleadersyearEditCommit" onEditStart="#listofleadersyearStartCommit" prefWidth="120.0" text="Year " />
+            <TableColumn fx:id="LeaderListRoleColumn" onEditCommit="#listofleadersroleEditCommit" onEditStart="#listofleadersroleStartCommit" prefWidth="169.0" text="Role" />
+            <TableColumn fx:id="LeaderListEmailColumn" minWidth="0.0" onEditCommit="#listofleadersemailEditCommit" onEditStart="#listofleadersemailStartCommit" prefWidth="226.0" text="Email" />
+            <TableColumn fx:id="LeaderListPhoneColumn" onEditCommit="#listofleadersphoneEditCommit" onEditStart="#listofleadersphoneStartCommit" prefWidth="142.0" text="Phone" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="14.0" layoutY="547.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">

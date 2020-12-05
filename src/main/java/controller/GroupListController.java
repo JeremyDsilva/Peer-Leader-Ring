@@ -28,7 +28,6 @@ import javafx.util.Callback;
 import response.Response;
 import javafx.scene.Node;
 
-
 public class GroupListController {
 
         @FXML
@@ -107,7 +106,6 @@ public class GroupListController {
                 window.show();
         }
 
-
         @FXML
         void initialize() {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
@@ -140,8 +138,8 @@ public class GroupListController {
                 GroupListNameLabel.setText(AppContext.getUser().getFullName());
                 GroupListGroupNameLabel.setText(response.getResponse().getName());
                 GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
-                //GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
-                
+                // GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
+
                 if (response.success()) {
 
                         Group group = response.getResponse();
@@ -154,7 +152,7 @@ public class GroupListController {
 
                                 tableView.getItems().add(tbStudent);
                         }
-                } 
+                }
 
                 nameColumn.setCellValueFactory(
                                 new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
@@ -188,41 +186,45 @@ public class GroupListController {
                 });
 
                 // Making the columns editable except the ID field
-                nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
-                        public void handle(CellEditEvent<Students, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
+                // String>>() {
+                // public void handle(CellEditEvent<Students, String> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
-                emailCloumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // emailCloumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
-                        public void handle(CellEditEvent<Students, String> t) {
-                                System.out.println("It works2!");
-                        }
+                // emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
+                // String>>() {
+                // public void handle(CellEditEvent<Students, String> t) {
+                // System.out.println("It works2!");
+                // }
 
-                });
+                // });
 
-                collegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // collegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
-                        public void handle(CellEditEvent<Students, String> t) {
-                                System.out.println("It works3!");
-                        }
+                // collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
+                // String>>() {
+                // public void handle(CellEditEvent<Students, String> t) {
+                // System.out.println("It works3!");
+                // }
 
-                });
+                // });
 
-                phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
-                        public void handle(CellEditEvent<Students, String> t) {
-                                System.out.println("It works4!");
-                        }
+                // phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
+                // String>>() {
+                // public void handle(CellEditEvent<Students, String> t) {
+                // System.out.println("It works4!");
+                // }
 
-                });
+                // });
 
                 // The ID is primary. So lets keep it uneditable.
                 // idColumn.setCellFactory(TextFieldTableCell.forTableColumn());

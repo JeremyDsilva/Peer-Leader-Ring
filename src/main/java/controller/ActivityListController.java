@@ -149,11 +149,6 @@ public class ActivityListController {
         }
 
         @FXML
-        void activitynameEditCommit(ActionEvent event) {
-                System.out.println("Commit2");
-        }
-
-        @FXML
         void initialize() {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert ActivityListActivityIDColumn != null
