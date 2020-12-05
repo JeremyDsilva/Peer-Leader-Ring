@@ -74,10 +74,8 @@ public class StudentViewController {
         @FXML
         private Label LSTeamCollegeLabel;
 
-
         @FXML
         private Button ViewActivityListButton;
-
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {

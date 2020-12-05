@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentGroupController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentGroupController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
@@ -39,7 +39,7 @@
          </font></Button>
       <TableView fx:id="tableview" editable="true" layoutX="26.0" layoutY="181.0" prefHeight="347.0" prefWidth="961.0">
          <columns>
-            <TableColumn fx:id="StudentGroupGroupIDcolumn" onEditCommit="#groupidEditCommit" onEditStart="#groupidEditStart" prefWidth="136.0" text="Group ID" />
+            <TableColumn fx:id="StudentGroupGroupIDcolumn" prefWidth="136.0" text="Group ID" />
             <TableColumn fx:id="StudentGroupGroupNameColumn" onEditCommit="#groupnameEditCommit" onEditStart="#groupnameEditStart" prefWidth="298.0" text="Group Name " />
             <TableColumn fx:id="StudentGroupPeerLeaderColumn" minWidth="0.0" onEditCommit="#grouppeerleaderEditCommit" onEditStart="#grouppeerleaderEditStart" prefWidth="270.0" text="Peer Leader " />
             <TableColumn fx:id="StudentGroupTeamLeaderColumn" onEditCommit="#groupteamleaderEditCommit" onEditStart="#groupteamleaderEditStart" prefWidth="256.0" text="Team Leader " />
