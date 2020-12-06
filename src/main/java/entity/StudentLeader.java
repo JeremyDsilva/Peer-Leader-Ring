@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,7 @@ public class StudentLeader implements Serializable {
 	private List<Group> teamGroup;
 
 	//bi-directional one-to-one association to User
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="ID")
 	private User userDetail;
 

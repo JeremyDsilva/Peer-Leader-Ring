@@ -60,8 +60,23 @@ public class StudentRepository implements Repository<Student, Long> {
 
     @Override
     public Response<Student> update(Student entity) {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = HibernateUtil.getSession();
+        Response<Student> response;
+        
+        try {
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
+            response = Response.of(entity);
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+        
+        return response;        
     }
 
     @Override
