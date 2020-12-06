@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -11,7 +12,6 @@ import handler.GetLeadersHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,11 +23,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import net.bytebuddy.asm.Advice.Return;
 import response.Response;
 
 public class LeaderListController {
@@ -114,7 +113,6 @@ public class LeaderListController {
                 // long data = tableview.getSelectionModel().getSelectedItem().getId();
                 // System.out.println(data);
                 // tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItems());
-
         }
 
         @FXML
@@ -132,50 +130,15 @@ public class LeaderListController {
                 editRow = -1;
         }
 
-        int getRow(CellEditEvent<Leaders, ?> t) {
-                return t.getTablePosition().getRow();
-        }
-
-        boolean onEditCommitCheck(CellEditEvent<Leaders, ?> t) {
-                if (editRow != -1 && getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        t.consume();
-                        return false;
-                }
-
-                return true;
-        }
-
-        boolean onEditStartCheck(CellEditEvent<Leaders, ?> t) {
-                if (editRow != -1 && getRow(t) != editRow) { // no row is being edit, dont care
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        t.consume();
-                        return false;
-                }
-                return true;
-        }
-
         @FXML
         void listofleaderscollegeEditStart(CellEditEvent<Leaders, String> t) {
-                if (!onEditStartCheck(t)) {
-                        t.getSource();
-
-                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void listofleaderscollegeEditCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditCommitCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
                         return;
                 }
 
@@ -183,122 +146,102 @@ public class LeaderListController {
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
+                        // dataLeaders.get(editRow).setCollege();
                 }
-
-                editRow = getRow(t);
         }
 
         @FXML
         void listofleadersyearStartCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditStartCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setYear(t.getOldValue());
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void listofleadersyearEditCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditCommitCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setYear(t.getOldValue());
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
                         return;
                 }
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 9 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setYear(t.getNewValue());
                 }
-
-                editRow = getRow(t);
         }
 
         @FXML
         void listofleadersroleStartCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditStartCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setRole(t.getOldValue());
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void listofleadersroleEditCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditCommitCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setRole(t.getOldValue());
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
                         return;
                 }
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 7 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setRole(t.getNewValue());
                 }
-
-                editRow = getRow(t);
         }
 
         @FXML
         void listofleadersemailStartCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditStartCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setEmail(t.getOldValue());
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void listofleadersemailEditCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditCommitCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setEmail(t.getOldValue());
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
                         return;
                 }
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
 
-                editRow = getRow(t);
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setEmail(t.getNewValue());
+                }
         }
 
         @FXML
         void listofleadersphoneStartCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditStartCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setPhone(t.getOldValue());
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void listofleadersphoneEditCommit(CellEditEvent<Leaders, String> t) {
-                if (!onEditCommitCheck(t)) {
-                        tableView.getSelectionModel().getSelectedItem().setPhone(t.getOldValue());
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
                         return;
                 }
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 10 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
 
-                editRow = getRow(t);
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setPhone(t.getNewValue());
+                }
         }
 
         @FXML
