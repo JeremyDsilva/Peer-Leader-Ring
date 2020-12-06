@@ -5,15 +5,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.AppContext;
+import dto.Students;
+import entity.Student;
+import handler.GetStudentHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.scene.Node;
+import response.Response;
 
 public class StudentViewController {
 
@@ -77,6 +81,12 @@ public class StudentViewController {
         @FXML
         private Button ViewActivityListButton;
 
+        final GetStudentHandler studentHandler;
+
+        public StudentViewController() {
+                studentHandler = new GetStudentHandler();
+        }
+
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
                 // todo
@@ -135,10 +145,43 @@ public class StudentViewController {
                 assert ViewActivityListButton != null
                                 : "fx:id=\"ViewActivityListButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
-                LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
-                // if(AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader"){
+                Response<Student> response = studentHandler.handle(AppContext.getUser().getId());
 
-                // }
+                if (response.success()) {
+                        LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
+                        LSStudentNameLabel.setText(String.valueOf(AppContext.getUser().getFullName()));
+                        LSStudentCollegeLabel.setText(String.valueOf(response.getResponse().getCollege().getId()));
+                        LSStudentPhoneLabel.setText(
+                                        String.valueOf(response.getResponse().getUserDetail().getPhoneNumber()));
+                        LSStudentEmailLabel.setText(String.valueOf(AppContext.getUser().getEmail()));
+
+                        // -----------------------------------------------------------
+
+                        LSPeerIDLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getPeerLeader().getUserDetail().getId()));
+                        LSPeerNameLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
+                                        .getUserDetail().getFullName()));
+                        LSPeerCollegeLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getPeerLeader().getCollege().getId()));
+                        LSPeerPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
+                                        .getUserDetail().getPhoneNumber()));
+                        LSPeerEmailLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getPeerLeader().getUserDetail().getEmail()));
+
+                        // -----------------------------------------------------------
+
+                        LSTeamIDLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getTeamLeader().getUserDetail().getId()));
+                        LSTeamNameLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
+                                        .getUserDetail().getFullName()));
+                        LSTeamCollegeLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getTeamLeader().getCollege().getId()));
+                        LSTeamPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
+                                        .getUserDetail().getPhoneNumber()));
+                        LSTeamEmailLabel.setText(String.valueOf(
+                                        response.getResponse().getGroup().getTeamLeader().getUserDetail().getEmail()));
+
+                }
 
         }
 }

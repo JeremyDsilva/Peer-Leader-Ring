@@ -19,12 +19,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -42,7 +44,7 @@ public class ActivityListController {
         private Label label;
 
         @FXML
-        private TableView<Activities> tableview;
+        private TableView<Activities> tableView;
 
         @FXML
         private TableColumn<Activities, Long> ActivityListActivityIDColumn;
@@ -72,6 +74,10 @@ public class ActivityListController {
         private Button DeleteButton;
 
         private Boolean isInEditMode = false;
+
+        int editRow = -1;
+
+        Boolean rejectChange = false;
 
         final GetActivitiesHandler activitiesHandler;
 
@@ -139,13 +145,127 @@ public class ActivityListController {
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
                 // todo
+                // This removed the selected row from the table. The first line selects the ID
+                // of the selected cell.
+                // Could use it to check
+                // todo JEREMY
+                // long data = tableview.getSelectionModel().getSelectedItem().getId();
+                // System.out.println(data);
+                // tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItems());
 
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
-                endEditMode();
+                //endEditMode();
                 // todo
+                Activities l = tableView.getSelectionModel().getSelectedItem();
+                System.out.println(l);
+                if (l == null) {
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+                        a.setTitle("Cannot Save");
+                        a.setContentText("Please select a row and SAVE");
+                        a.setHeaderText(null);
+                        a.showAndWait();
+                }
+                editRow = -1;
+        }
+
+        @FXML
+        void ActivityListnameEditStart(CellEditEvent<Activities, String> t) {
+                Helper.onEditStartCheck(t, editRow);
+        }
+
+        @FXML
+        void ActivityListnameEditCommit(CellEditEvent<Activities, String> t) {
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
+                }
+
+                // to do your valiidation
+                System.out.println(t.getNewValue());
+                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+                if (t.getNewValue().length() > 100 || t.getNewValue().isEmpty()) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
+                }
+        }
+
+        @FXML
+        void ActivityListDOAEditStart(CellEditEvent<Activities, Date> t) {
+                Helper.onEditStartCheck(t, editRow);
+        }
+
+        @FXML
+        void ActivityListDOAEditCommit(CellEditEvent<Activities, Date> t) {
+                // if (!Helper.onEditCommitCheck(t, editRow)) {
+                // tableView.refresh();
+                // return;
+                // }
+
+                // // to do your valiidation
+                // System.out.println(t.getNewValue());
+                // // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+                // if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()) {
+                // Helper.createAlert("Cannot Edit", "Please follow the constraint
+                // requirements");
+                // } else {
+                // editRow = Helper.getRow(t);
+                // tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
+                // // dataLeaders.get(editRow).setCollege();
+                // }
+        }
+
+        @FXML
+        void ActivityListorganizedEditStart(CellEditEvent<Activities, String> t) {
+                Helper.onEditStartCheck(t, editRow);
+        }
+
+        @FXML
+        void ActivityListorganizedEditCommit(CellEditEvent<Activities, String> t) {
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
+                }
+
+                // to do your valiidation
+                System.out.println(t.getNewValue());
+                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+                if (t.getNewValue().length() > 50 || t.getNewValue().isEmpty()) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setOrganizedby(t.getNewValue());
+                }
+        }
+
+        @FXML
+        void ActivityListnoteEditStart(CellEditEvent<Activities, String> t) {
+                Helper.onEditStartCheck(t, editRow);
+        }
+
+        @FXML
+        void ActivityListnoteEditCommit(CellEditEvent<Activities, String> t) {
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
+                }
+
+                // to do your valiidation
+                System.out.println(t.getNewValue());
+                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+                if (t.getNewValue().length() > 200) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setNote(t.getNewValue());
+                }
         }
 
         @FXML
@@ -184,7 +304,7 @@ public class ActivityListController {
                                                 activity.getName(), (Date) activity.getDateOfActivity(),
                                                 activity.getOrganizedBy(), activity.getNote());
 
-                                tableview.getItems().add(tbActivity);
+                                tableView.getItems().add(tbActivity);
                         }
 
                 }
@@ -224,17 +344,19 @@ public class ActivityListController {
                 // Haven't done the ID column again
                 // Since only admin can edit activities.
                 if (AppContext.getUser().getUserRole().equals("admin")) {
+                        DeleteButton.setVisible(true);
+                        SaveButton.setVisible(true);
 
                         ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListActivityNameColumn
-                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                                public void handle(CellEditEvent<Activities, String> t) {
-                                                        System.out.println("It works1!");
-                                                }
+                        // ActivityListActivityNameColumn
+                        // .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                        // public void handle(CellEditEvent<Activities, String> t) {
+                        // System.out.println("It works1!");
+                        // }
 
-                                        });
-                        // // Need to check how to make the date editable
+                        // });
+                        // Need to check how to make the date editable
                         // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                         // ActivityListDateColumn.setOnEditCommit(new
@@ -249,22 +371,23 @@ public class ActivityListController {
 
                         ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListOrganizedbyColumn
-                                        .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                                public void handle(CellEditEvent<Activities, String> t) {
-                                                        System.out.println("It works3!");
-                                                }
+                        // ActivityListOrganizedbyColumn
+                        // .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
+                        // public void handle(CellEditEvent<Activities, String> t) {
+                        // System.out.println("It works3!");
+                        // }
 
-                                        });
+                        // });
 
                         ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                        ActivityListNoteColumn.setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                                public void handle(CellEditEvent<Activities, String> t) {
-                                        System.out.println("It works4!");
-                                }
+                        // ActivityListNoteColumn.setOnEditCommit(new
+                        // EventHandler<CellEditEvent<Activities, String>>() {
+                        // public void handle(CellEditEvent<Activities, String> t) {
+                        // System.out.println("It works4!");
+                        // }
 
-                        });
+                        // });
                 }
 
         }

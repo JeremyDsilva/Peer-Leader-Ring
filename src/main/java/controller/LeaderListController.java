@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -145,8 +146,11 @@ public class LeaderListController {
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()) {
+                if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty() || !t.getNewValue().equals("CEN")
+                                || !t.getNewValue().equals("CAAD") || !t.getNewValue().equals("CAS")
+                                || !t.getNewValue().equals("SBA")) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
                         tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
@@ -168,8 +172,11 @@ public class LeaderListController {
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
-                if (t.getNewValue().length() > 9 || t.getNewValue().isEmpty()) {
+                if (t.getNewValue().length() > 9 || !t.getNewValue().isEmpty() || !t.getNewValue().equals("Freshman")
+                                || !t.getNewValue().equals("Sophmore") || !t.getNewValue().equals("Junior")
+                                || !t.getNewValue().equals("Senior")) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
                         tableView.getSelectionModel().getSelectedItem().setYear(t.getNewValue());
@@ -190,8 +197,10 @@ public class LeaderListController {
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
-                if (t.getNewValue().length() > 7 || t.getNewValue().isEmpty()) {
+                if (t.getNewValue().length() > 11 || t.getNewValue().isEmpty() || !t.getNewValue().equals("team_leader")
+                                || !t.getNewValue().equals("peer_leader")) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
                         tableView.getSelectionModel().getSelectedItem().setRole(t.getNewValue());
@@ -212,8 +221,10 @@ public class LeaderListController {
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
-                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()
+                                || !Helper.emailValidate(t.getNewValue())) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
 
                 } else {
                         editRow = Helper.getRow(t);
@@ -235,8 +246,9 @@ public class LeaderListController {
 
                 // to do your valiidation
                 System.out.println(t.getNewValue());
-                if (t.getNewValue().length() > 10 || t.getNewValue().isEmpty()) {
+                if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
 
                 } else {
                         editRow = Helper.getRow(t);
@@ -248,7 +260,7 @@ public class LeaderListController {
         void initialize() {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert tableView != null
-                                : "fx:id=\"tableView\" was not injected: check your FXML file 'LeaderList.fxml'.";
+                                : "fx:id=\"tableview\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert LeaderListIDColumn != null
                                 : "fx:id=\"LeaderListIDColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert LeaderListCollegeColumn != null

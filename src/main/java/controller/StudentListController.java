@@ -46,7 +46,7 @@ public class StudentListController {
     private Label label;
 
     @FXML
-    private TableView<Students> tableview;
+    private TableView<Students> tableView;
 
     @FXML
     private TableColumn<Students, Long> StudentListStudentIDColumn;
@@ -78,9 +78,9 @@ public class StudentListController {
     @FXML
     private Button DeleteButton;
 
-    // boolean editrow = true;
-
     int editRow = -1;
+
+    Boolean rejectChange = false;
 
     final GetStudentsHandler studentsHandler;
 
@@ -125,7 +125,7 @@ public class StudentListController {
         // todo getData that has cahnged using editRow because editRow contains row
         // number pull the enter row
         // todo Jeremy save the data
-        Students s = tableview.getSelectionModel().getSelectedItem();
+        Students s = tableView.getSelectionModel().getSelectedItem();
         System.out.println(s);
         if (s == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -135,86 +135,58 @@ public class StudentListController {
             a.showAndWait();
         }
         editRow = -1;
-
-        // todo
-        // tableview.setEditable(true);
-        // tableview.setSelectionModel(defaultSelectionModel);
-        // editrow = true;
-        // String data = tableview.getSelectionModel().getSelectedItem().getName();
-        // System.out.println(data);
-        // if (data.length() > 10) {
-        // Alert a = new Alert(Alert.AlertType.ERROR);
-        // a.setTitle("Wrong Input");
-        // a.setContentText("Please enter Valid Credentials");
-        // a.setHeaderText(null);
-        // a.showAndWait();
-        // }
     }
 
-    int getRow(CellEditEvent<Students, ?> t) {
-        // todo
-        return t.getTablePosition().getRow();
-    }
+    // todo
+    // tableview.setEditable(true);
+    // tableview.setSelectionModel(defaultSelectionModel);
+    // editrow = true;
+    // String data = tableview.getSelectionModel().getSelectedItem().getName();
+    // System.out.println(data);
+    // if (data.length() > 10) {
+    // Alert a = new Alert(Alert.AlertType.ERROR);
+    // a.setTitle("Wrong Input");
+    // a.setContentText("Please enter Valid Credentials");
+    // a.setHeaderText(null);
+    // a.showAndWait();
+    // }
 
     @FXML
     void listofstudentsnameEditStart(CellEditEvent<Students, String> t) {
 
-        if (editRow == -1) { // no row is being edit, dont care
-        }
-
-        else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-        }
-
-        else {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Start Editing");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-        }
-        // if (editRow == -1) // no row is being edit, dont care
-        // return;
-
-        // if (getRow(t) == editRow) // if the I started editing the row i was editing ,
-        // dont care
-        // return;
-
-        // // to do alert
-        // Alert a = new Alert(Alert.AlertType.ERROR);
-        // a.setTitle("Wrong Input");
-        // a.setContentText("Please enter Valid Credentials");
-        // a.setHeaderText(null);
-        // a.showAndWait();
-
+        Helper.onEditStartCheck(t, editRow);
     }
+    // if (editRow == -1) // no row is being edit, dont care
+    // return;
+
+    // if (getRow(t) == editRow) // if the I started editing the row i was editing ,
+    // dont care
+    // return;
+
+    // // to do alert
+    // Alert a = new Alert(Alert.AlertType.ERROR);
+    // a.setTitle("Wrong Input");
+    // a.setContentText("Please enter Valid Credentials");
+    // a.setHeaderText(null);
+    // a.showAndWait();
 
     @FXML
     void listofstudentsnameEditCommit(CellEditEvent<Students, String> t) {
-        if (editRow == -1) {
-            // no row is being edit, dont care
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
         }
-        if (getRow(t) != editRow) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-            // if the I started editing the row i was editing , I care
-            tableview.getSelectionModel().getSelectedItem().setName(t.getOldValue());
-            // set it back to prev value
-        }
+
         // to do your valiidation
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 20 || t.getNewValue().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please follow the constraint requirements");
-            a.setHeaderText(null);
-            a.showAndWait();
+        if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
         }
-
-        editRow = getRow(t);
     }
     // if (editRow == -1) // no row is being edit, dont care
     // System.out.println("i dont care");
@@ -259,206 +231,120 @@ public class StudentListController {
 
     @FXML
     void listofstudentsemailEditStart(CellEditEvent<Students, String> t) {
-        if (editRow == -1) { // no row is being edit, dont care
-        }
-
-        else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-        }
-
-        else {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Start Editing");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-        }
+        Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
     void listofstudentsemailEditCommit(CellEditEvent<Students, String> t) {
 
-        if (editRow == -1) {
-            // no row is being edit, dont care
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
         }
-        if (getRow(t) != editRow) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-            // if the I started editing the row i was editing , I care
-            tableview.getSelectionModel().getSelectedItem().setEmail(t.getOldValue());
-            // set it back to prev value
-        }
+
         // to do your valiidation
         System.out.println(t.getNewValue());
-        // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please follow the constraint requirements");
-            a.setHeaderText(null);
-            a.showAndWait();
+        if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty() || !Helper.emailValidate(t.getNewValue())) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setEmail(t.getNewValue());
         }
-
-        editRow = getRow(t);
-        // if (editRow == -1) // no row is being edit, dont care
-        // System.out.println("i dont care");
-        // else if (getRow(t) != editRow) { // if the I started editing the row i was
-        // editing , I care
-        // System.out.println("Error"); // todo
-        // // set it back to prev value
-        // }
-
-        // // to do your val;idation
-
-        // editRow = getRow(t);
-
-        // System.out.println("Commit1");
     }
+    // if (editRow == -1) // no row is being edit, dont care
+    // System.out.println("i dont care");
+    // else if (getRow(t) != editRow) { // if the I started editing the row i was
+    // editing , I care
+    // System.out.println("Error"); // todo
+    // // set it back to prev value
+    // }
+
+    // // to do your val;idation
+
+    // editRow = getRow(t);
+
+    // System.out.println("Commit1");
 
     @FXML
     void listofstudentsphoneEditStart(CellEditEvent<Students, String> t) {
 
-        if (editRow == -1) { // no row is being edit, dont care
-        }
-
-        else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-        }
-
-        else {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Start Editing");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-        }
+        Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
     void listofstudentsphoneEditCommit(CellEditEvent<Students, String> t) {
-        if (editRow == -1) {
-            // no row is being edit, dont care
-        }
-        if (getRow(t) != editRow) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-            // if the I started editing the row i was editing , I care
-            tableview.getSelectionModel().getSelectedItem().setPhone(t.getOldValue());
-            // set it back to prev value
-        }
-        // to do your valiidation
-        System.out.println(t.getNewValue());
-        // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 10 || t.getNewValue().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please follow the constraint requirements");
-            a.setHeaderText(null);
-            a.showAndWait();
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
         }
 
-        editRow = getRow(t);
+        // to do your valiidation
+        System.out.println(t.getNewValue());
+        if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setPhone(t.getNewValue());
+        }
     }
 
     @FXML
     void listofstudentscollegeEditStart(CellEditEvent<Students, String> t) {
-        if (editRow == -1) { // no row is being edit, dont care
-        }
-
-        else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-        }
-
-        else {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Start Editing");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-        }
+        Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
     void listofstudentscollegeEditCommit(CellEditEvent<Students, String> t) {
-        if (editRow == -1) {
-            // no row is being edit, dont care
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
         }
-        if (getRow(t) != editRow) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-            // if the I started editing the row i was editing , I care
-            tableview.getSelectionModel().getSelectedItem().setCollege(t.getOldValue());
-            // set it back to prev value
-        }
+
         // to do your valiidation
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please follow the constraint requirements");
-            a.setHeaderText(null);
-            a.showAndWait();
+        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty() || !t.getNewValue().equals("CEN")
+                || !t.getNewValue().equals("CAAD") || !t.getNewValue().equals("CAS")
+                || !t.getNewValue().equals("SBA")) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
+            // dataLeaders.get(editRow).setCollege();
         }
-
-        editRow = getRow(t);
     }
 
     @FXML
     void listofstudentsgroupEditStart(CellEditEvent<Students, String> t) {
 
-        if (editRow == -1) { // no row is being edit, dont care
-        }
-
-        else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-        }
-
-        else {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Start Editing");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-        }
+        Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
     void listofstudentsgroupEditCommit(CellEditEvent<Students, String> t) {
-        if (editRow == -1) {
-            // no row is being edit, dont care
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
         }
-        if (getRow(t) != editRow) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please select the previous edited row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
-            // if the I started editing the row i was editing , I care
-            tableview.getSelectionModel().getSelectedItem().setGname(t.getOldValue());
-            // set it back to prev value
-        }
+
         // to do your valiidation
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 20 || t.getNewValue().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Edit");
-            a.setContentText("Please follow the constraint requirements");
-            a.setHeaderText(null);
-            a.showAndWait();
+        if (t.getNewValue().length() > 20) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
+            // dataLeaders.get(editRow).setCollege();
         }
-
-        editRow = getRow(t);
     }
 
     // void checking()
@@ -486,7 +372,7 @@ public class StudentListController {
     void initialize() {
 
         assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert tableview != null : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert tableView != null : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert StudentListStudentIDColumn != null
                 : "fx:id=\"StudentListStudentIDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert StudentListStudentNameColumn != null
@@ -505,7 +391,7 @@ public class StudentListController {
         assert SaveButton != null : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert DeleteButton != null
                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-        // TableViewSelectionModel<Students> defaultSelectionModel =
+        // tableviewSelectionModel<Students> defaultSelectionModel =
         // tableviewgetSelectionModel();
 
         // tableview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -523,7 +409,7 @@ public class StudentListController {
                         student.getUserDetail().getEmail(), student.getUserDetail().getPhoneNumber(),
                         student.getGroup().getName());
 
-                tableview.getItems().add(tbStudent);
+                tableView.getItems().add(tbStudent);
             }
         }
         StudentListStudentIDColumn

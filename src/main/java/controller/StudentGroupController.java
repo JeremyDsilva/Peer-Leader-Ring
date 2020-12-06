@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -43,7 +44,7 @@ public class StudentGroupController {
         private Button SignOutButton;
 
         @FXML
-        private TableView<Groups> tableview;
+        private TableView<Groups> tableView;
 
         @FXML
         private TableColumn<Groups, Long> StudentGroupGroupIDcolumn;
@@ -69,6 +70,8 @@ public class StudentGroupController {
         final GetGroupsHandler getGroupsHandler;
 
         int editRow = -1;
+
+        Boolean rejectChange = false;
 
         public StudentGroupController() {
                 getGroupsHandler = new GetGroupsHandler();
@@ -111,163 +114,101 @@ public class StudentGroupController {
         void SaveButtonOnClick(ActionEvent event) {
                 // todo
                 // todo
-                Groups g = tableview.getSelectionModel().getSelectedItem();
+                Groups g = tableView.getSelectionModel().getSelectedItem();
                 System.out.println(g);
                 if (g == null) {
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Cannot Save");
-                a.setContentText("Please select a row and SAVE");
-                a.setHeaderText(null);
-                a.showAndWait();
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+                        a.setTitle("Cannot Save");
+                        a.setContentText("Please select a row and SAVE");
+                        a.setHeaderText(null);
+                        a.showAndWait();
                 }
                 editRow = -1;
 
         }
 
-        int getRow(CellEditEvent<Groups, ?> t) {
-                // todo
-                return t.getTablePosition().getRow();
-        }
+        // int getRow(CellEditEvent<Groups, ?> t) {
+        // // todo
+        // return t.getTablePosition().getRow();
+        // }
 
         @FXML
         void groupnameEditStart(CellEditEvent<Groups, String> t) {
 
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void groupnameEditCommit(CellEditEvent<Groups, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
+
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
                 }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
-                        tableview.getSelectionModel().getSelectedItem().setName(t.getOldValue());
-                        // set it back to prev value
-                }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 20 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (t.getNewValue().length() > 20) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
+                        // dataLeaders.get(editRow).setCollege();
                 }
-
-                editRow = getRow(t);
         }
 
         @FXML
         void grouppeerleaderEditStart(CellEditEvent<Groups, String> t) {
 
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void grouppeerleaderEditCommit(CellEditEvent<Groups, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
                 }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
-                        tableview.getSelectionModel().getSelectedItem().setPname(t.getOldValue());
-                        // set it back to prev value
-                }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 20 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setPname(t.getNewValue());
 
-                editRow = getRow(t);
+                }
         }
 
         @FXML
         void groupteamleaderEditStart(CellEditEvent<Groups, String> t) {
 
-                if (editRow == -1) { // no row is being edit, dont care
-                }
-
-                else if (getRow(t) == editRow) {// if the I started editing the row i was editing , dont care
-                }
-
-                else {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Start Editing");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
         void groupteamleaderEditCommit(CellEditEvent<Groups, String> t) {
-                if (editRow == -1) {
-                        // no row is being edit, dont care
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
                 }
-                if (getRow(t) != editRow) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please select the previous edited row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                        // if the I started editing the row i was editing , I care
-                        tableview.getSelectionModel().getSelectedItem().setTname(t.getOldValue());
-                        // set it back to prev value
-                }
+
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 20 || t.getNewValue().isEmpty()) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Edit");
-                        a.setContentText("Please follow the constraint requirements");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
+                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setTname(t.getNewValue());
 
-                editRow = getRow(t);
+                }
         }
 
         @FXML
@@ -275,7 +216,7 @@ public class StudentGroupController {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
-                assert tableview != null
+                assert tableView != null
                                 : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentGroup.fxml'.";
                 assert StudentGroupGroupIDcolumn != null
                                 : "fx:id=\"StudentGroupGroupIDcolumn\" was not injected: check your FXML file 'StudentGroup.fxml'.";
@@ -303,7 +244,7 @@ public class StudentGroupController {
                                                 group.getPeerLeader().getUserDetail().getFullName(),
                                                 group.getTeamLeader().getUserDetail().getFullName());
 
-                                tableview.getItems().add(tbGroup);
+                                tableView.getItems().add(tbGroup);
                         }
                 }
                 StudentGroupGroupIDcolumn.setCellValueFactory(

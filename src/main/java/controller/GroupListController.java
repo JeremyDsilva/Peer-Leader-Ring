@@ -11,22 +11,20 @@ import handler.GetGroupHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
-import javafx.scene.Node;
 
 public class GroupListController {
 
@@ -116,7 +114,7 @@ public class GroupListController {
                 assert GroupListTeamLeaderLabel != null
                                 : "fx:id=\"GroupListTeamLeaderLabel\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert tableView != null
-                                : "fx:id=\"tableView\" was not injected: check your FXML file 'GroupList.fxml'.";
+                                : "fx:id=\"tableview\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert idColumn != null : "fx:id=\"IdColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert nameColumn != null
                                 : "fx:id=\"nameColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
@@ -138,7 +136,6 @@ public class GroupListController {
                 GroupListNameLabel.setText(AppContext.getUser().getFullName());
                 GroupListGroupNameLabel.setText(response.getResponse().getName());
                 GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
-                // GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
 
                 if (response.success()) {
 

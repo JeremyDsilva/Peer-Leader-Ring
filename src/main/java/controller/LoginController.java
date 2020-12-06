@@ -44,7 +44,7 @@ public class LoginController {
     private Label SignInLabel;
 
     final LoginHandler loginHandler;
-
+    
     @FXML
     void SignInOnClick(ActionEvent event) throws IOException {
         System.out.println("one");

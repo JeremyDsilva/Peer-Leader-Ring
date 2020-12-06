@@ -1,6 +1,8 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -55,6 +57,12 @@ public class Helper {
             return false;
         }
         return true;
+    }
+
+    public static boolean emailValidate(String email) {
+        Matcher matcher = Pattern.compile("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}(.[a-z]{2,3})+$|^$", Pattern.CASE_INSENSITIVE).matcher(email);
+    
+        return matcher.find();
     }
 
     public static void createAlert(String title, String message) {
