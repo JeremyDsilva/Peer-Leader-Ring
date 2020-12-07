@@ -82,8 +82,24 @@ public class UserRepository implements Repository<User, Long> {
 
     @Override
     public Response<Void> delete(User entity) {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = HibernateUtil.getSession();
+
+        Response<Void> response;
+
+        try {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            response = Response.Ok();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
     }
 
     public Response<List<User>> readAll(String userRole) {
@@ -103,6 +119,41 @@ public class UserRepository implements Repository<User, Long> {
             TypedQuery<User> query = session.createQuery(q);
             query.setParameter(role, userRole);
             response = Response.of(query.getResultList());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
+    public Response<Long> count(String userRole) {
+
+        Response<Long> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+            Root<User> user = criteria.from(User.class);
+
+            criteria.select(builder.count(user));
+
+            ParameterExpression<String> role = builder.parameter(String.class);
+            criteria.where(builder.equal(user.get("userRole"), role));
+
+            TypedQuery<Long> query = session.createQuery(criteria);
+            query.setParameter(role, userRole);
+
+            response = Response.of(query.getSingleResult());
 
             session.getTransaction().commit();
         } catch (Exception e) {
