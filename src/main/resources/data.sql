@@ -113,18 +113,18 @@ INSERT INTO student_leader VALUES(31212, 'SBA','Junior','peer_leader');
 INSERT INTO student_leader VALUES(41312, 'CAS','Sophomore','peer_leader');
 
 --student_group
-INSERT INTO student_group VALUES(1, 'OASIS1',56789, 12345);
-INSERT INTO student_group VALUES(2, 'OASIS2',67890, 12345);
-INSERT INTO student_group VALUES(3, 'OASIS3',78901, 12345);
-INSERT INTO student_group VALUES(4, 'WAVES1',89012, 23456);
-INSERT INTO student_group VALUES(5, 'WAVES2',90123, 23456);
-INSERT INTO student_group VALUES(6, 'WAVES3',54321, 23456);
-INSERT INTO student_group VALUES(7, 'SNOW1',65432, 34567);
-INSERT INTO student_group VALUES(8, 'SNOW2',76543, 34567);
-INSERT INTO student_group VALUES(9, 'SNOW3',87654, 34567);
-INSERT INTO student_group VALUES(10, 'RAIN1',98765, 45678);
-INSERT INTO student_group VALUES(11, 'RAIN2',10987, 45678);
-INSERT INTO student_group VALUES(12, 'RAIN3',21098, 45678);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('OASIS1',56789, 12345);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('OASIS2',67890, 12345);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('OASIS3',78901, 12345);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('WAVES1',89012, 23456);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('WAVES2',90123, 23456);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('WAVES3',54321, 23456);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('SNOW1',65432, 34567);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('SNOW2',76543, 34567);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('SNOW3',87654, 34567);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('RAIN1',98765, 45678);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('RAIN2',10987, 45678);
+INSERT INTO student_group (NAME, PEER_LEADER, TEAM_LEADER) VALUES('RAIN3',21098, 45678);
 
 --student
 INSERT INTO student VALUES(87000, 'CEN', 1);
@@ -189,21 +189,21 @@ INSERT INTO student VALUES(87058, 'CEN', 12);
 INSERT INTO student VALUES(87059, 'CEN', 12);
 
 --activity
-INSERT INTO activity VALUES(1,'Welcome Session',Date '2020-8-1','AUS FYE','Welcome session for the students');
-INSERT INTO activity VALUES(2,'Trivia Night',Date '2020-9-21','Student council','Organized by the student council for the students');
-INSERT INTO activity VALUES(3,'Share your talent with the Student Council',Date '2020-9-21','Student council','Organized by the student council for the students');
-INSERT INTO activity VALUES(4,'Academic Policies',Date '2020-9-22','AUS FYE','Orientation for the students about the academic policies');
-INSERT INTO activity VALUES(5,'Meet-up with Peer Leader',Date '2020-9-22','Peer Leaders','Meet and greet with peer leaders');
-INSERT INTO activity VALUES(6,'Watch and Munch Movie Night',Date '2020-9-23','Student council','Movie night for students with refreshments served');
-INSERT INTO activity VALUES(7,'Let us Get to Know You ',Date '2020-9-23','Student council','Meet and greet with student council and team leaders');
-INSERT INTO activity VALUES(8,'Virtual Athletic Tour',Date '2020-9-24','AUS FYE','Tour of sports center and available resources');
-INSERT INTO activity VALUES(9,'Welcome to the Library',Date '2020-9-24','Library ','Orientation for the students about the library facilities ');
-INSERT INTO activity VALUES(10,'Live Sports and Fitness Fun Quiz',Date '2020-9-25','AUS FYE','Social event');
-INSERT INTO activity VALUES(11,'Game Night with Student Council',Date '2020-9-25','Student council','Social event organized by student council');
-INSERT INTO activity VALUES(12,'College/School Course Advising',Date '2020-9-26','Colleges','Advising sessions offered by the respective colleges');
-INSERT INTO activity VALUES(13,'Women Workout and Zumba',Date '2020-9-26','AUS FYE','Social event');
-INSERT INTO activity VALUES(14,'Men Full-Body Workout',Date '2020-9-27','AUS FYE','Social event');
-INSERT INTO activity VALUES(15,'Mental Health Tips with Psychology Club',Date '2020-9-28','UCS','Awareness session organized by University Counseling Services');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Welcome Session',Date '2020-8-1','AUS FYE','Welcome session for the students');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Trivia Night',Date '2020-9-21','Student council','Organized by the student council for the students');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Share your talent with the Student Council',Date '2020-9-21','Student council','Organized by the student council for the students');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Academic Policies',Date '2020-9-22','AUS FYE','Orientation for the students about the academic policies');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Meet-up with Peer Leader',Date '2020-9-22','Peer Leaders','Meet and greet with peer leaders');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Watch and Munch Movie Night',Date '2020-9-23','Student council','Movie night for students with refreshments served');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Let us Get to Know You ',Date '2020-9-23','Student council','Meet and greet with student council and team leaders');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Virtual Athletic Tour',Date '2020-9-24','AUS FYE','Tour of sports center and available resources');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Welcome to the Library',Date '2020-9-24','Library ','Orientation for the students about the library facilities ');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Live Sports and Fitness Fun Quiz',Date '2020-9-25','AUS FYE','Social event');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Game Night with Student Council',Date '2020-9-25','Student council','Social event organized by student council');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('College/School Course Advising',Date '2020-9-26','Colleges','Advising sessions offered by the respective colleges');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Women Workout and Zumba',Date '2020-9-26','AUS FYE','Social event');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Men Full-Body Workout',Date '2020-9-27','AUS FYE','Social event');
+INSERT INTO activity (name, date_of_activity, organized_by, note) VALUES('Mental Health Tips with Psychology Club',Date '2020-9-28','UCS','Awareness session organized by University Counseling Services');
 
 --activity_attendance
 INSERT INTO activity_attendance VALUES(1, 87000);

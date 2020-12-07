@@ -51,6 +51,7 @@ CREATE TABLE student_group (
     name          VARCHAR2(20),
     peer_leader   INTEGER,
     team_leader   INTEGER,
+    CONSTRAINT student_group_name_uk UNIQUE (name),
     CONSTRAINT team_peer_uk UNIQUE ( peer_leader,
                                      team_leader ),
     CONSTRAINT group_peer_leader_fk FOREIGN KEY ( peer_leader )
