@@ -35,13 +35,13 @@
       </Label>
       <TableView fx:id="tableView" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
-            <TableColumn fx:id="LeaderListIDColumn" prefWidth="102.0" text="ID" />
+            <TableColumn fx:id="IDColumn" onEditCommit="#idEditCommit" onEditStart="#idEditStart" prefWidth="102.0" text="ID" />
             <TableColumn fx:id="NameColumn" onEditCommit="#nameEditCommit" onEditStart="#nameEditStart" prefWidth="204.0" text="Name" />
-            <TableColumn fx:id="LeaderListYearColumn" minWidth="0.0" onEditCommit="#listofleadersyearEditCommit" onEditStart="#listofleadersyearStartCommit" prefWidth="140.0" text="College" />
-            <TableColumn fx:id="LeaderListRoleColumn" onEditCommit="#listofleadersroleEditCommit" onEditStart="#listofleadersroleStartCommit" prefWidth="103.0" text="Year" />
-            <TableColumn fx:id="LeaderListEmailColumn" minWidth="0.0" onEditCommit="#listofleadersemailEditCommit" onEditStart="#listofleadersemailStartCommit" prefWidth="136.0" text="Role" />
-            <TableColumn fx:id="LeaderListPhoneColumn" onEditCommit="#listofleadersphoneEditCommit" onEditStart="#listofleadersphoneStartCommit" prefWidth="164.0" text="Email" />
-            <TableColumn prefWidth="134.0" text="Phone" />
+            <TableColumn fx:id="CollegeColumn" onEditCommit="#collegeEditCommit" onEditStart="#collegeEditStart" prefWidth="140.0" text="College" />
+            <TableColumn fx:id="YearColumn" minWidth="0.0" onEditCommit="#yearEditCommit" onEditStart="#yearStartCommit" prefWidth="103.0" text="Year" />
+            <TableColumn fx:id="RoleColumn" onEditCommit="#roleEditCommit" onEditStart="#roleStartCommit" prefWidth="136.0" text="Role" />
+            <TableColumn fx:id="EmailColumn" minWidth="0.0" onEditCommit="#emailEditCommit" onEditStart="#emailStartCommit" prefWidth="164.0" text="Email" />
+            <TableColumn fx:id="PhoneColumn" onEditCommit="#phoneEditCommit" onEditStart="#phoneStartCommit" prefWidth="134.0" text="Phone" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="14.0" layoutY="547.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
