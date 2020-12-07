@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Students;
 import entity.Student;
 import handler.GetStudentHandler;
 import javafx.event.ActionEvent;
@@ -150,7 +149,7 @@ public class StudentViewController {
                 if (response.success()) {
                         LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
                         LSStudentNameLabel.setText(String.valueOf(AppContext.getUser().getFullName()));
-                        LSStudentCollegeLabel.setText(String.valueOf(response.getResponse().getCollege().getId()));
+                        LSStudentCollegeLabel.setText(String.valueOf(response.getResponse().getCollege()));
                         LSStudentPhoneLabel.setText(
                                         String.valueOf(response.getResponse().getUserDetail().getPhoneNumber()));
                         LSStudentEmailLabel.setText(String.valueOf(AppContext.getUser().getEmail()));
@@ -162,7 +161,7 @@ public class StudentViewController {
                         LSPeerNameLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
                                         .getUserDetail().getFullName()));
                         LSPeerCollegeLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getPeerLeader().getCollege().getId()));
+                                        response.getResponse().getGroup().getPeerLeader().getCollege()));
                         LSPeerPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSPeerEmailLabel.setText(String.valueOf(
@@ -175,7 +174,7 @@ public class StudentViewController {
                         LSTeamNameLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
                                         .getUserDetail().getFullName()));
                         LSTeamCollegeLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getTeamLeader().getCollege().getId()));
+                                        response.getResponse().getGroup().getTeamLeader().getCollege()));
                         LSTeamPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSTeamEmailLabel.setText(String.valueOf(

@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Students;
+import dto.Student;
 import entity.Group;
 import handler.GetGroupHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -46,22 +46,22 @@ public class GroupListController {
         private Label GroupListTeamLeaderLabel;
 
         @FXML
-        private TableView<Students> tableView;
+        private TableView<Student> tableView;
 
         @FXML
-        private TableColumn<Students, Long> idColumn;
+        private TableColumn<Student, String> idColumn;
 
         @FXML
-        private TableColumn<Students, String> nameColumn;
+        private TableColumn<Student, String> nameColumn;
 
         @FXML
-        private TableColumn<Students, String> emailCloumn;
+        private TableColumn<Student, String> emailCloumn;
 
         @FXML
-        private TableColumn<Students, String> phoneColumn;
+        private TableColumn<Student, String> phoneColumn;
 
         @FXML
-        private TableColumn<Students, String> collegeColumn;
+        private TableColumn<Student, String> collegeColumn;
 
         @FXML
         private Button GroupListMarkAttendButton;
@@ -135,7 +135,8 @@ public class GroupListController {
                 if (AppContext.getUser().getUserRole().equals("leader")) {
 
                         if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader"))
-                                response = groupHandler.handle(AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+                                response = groupHandler.handle(
+                                                AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
                         else
                                 response = groupHandler.handle((Long) AppContext.get("groupId"));
                 }
@@ -147,48 +148,42 @@ public class GroupListController {
                         GroupListTeamLeaderLabel
                                         .setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
 
-                        Group group = response.getResponse();
-
-                        for (var student : group.getStudents()) {
-                                Students tbStudent = new Students(Long.valueOf(student.getUserDetail().getId()),
-                                                student.getUserDetail().getFullName(), student.getCollege().getId(),
-                                                student.getUserDetail().getEmail(),
-                                                student.getUserDetail().getPhoneNumber());
-
-                                tableView.getItems().add(tbStudent);
-                        }
+                        response.getResponse().getStudents()
+                                        .forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
                 }
 
+                idColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
+                                        }
+                                });
+
                 nameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                                         }
                                 });
 
                 emailCloumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
                                         }
                                 });
                 collegeColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
                                         }
                                 });
                 phoneColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
                                         }
                                 });
-                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
-                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
-                                return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
-                        }
-                });
 
         }
 

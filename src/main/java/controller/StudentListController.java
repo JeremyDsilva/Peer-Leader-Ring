@@ -5,34 +5,27 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dto.Students;
-import entity.Student;
+import dto.Student;
 import handler.GetStudentsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
-import javafx.scene.control.TablePosition;
 
 public class StudentListController {
 
@@ -46,25 +39,25 @@ public class StudentListController {
     private Label label;
 
     @FXML
-    private TableView<Students> tableView;
+    private TableView<Student> tableView;
 
     @FXML
-    private TableColumn<Students, Long> StudentListStudentIDColumn;
+    private TableColumn<Student, String> IDColumn;
 
     @FXML
-    private TableColumn<Students, String> StudentListStudentNameColumn;
+    private TableColumn<Student, String> NameColumn;
 
     @FXML
-    private TableColumn<Students, String> StudentListStudentEmailColumn;
+    private TableColumn<Student, String> EmailColumn;
 
     @FXML
-    private TableColumn<Students, String> StudentListStudentPhoneColumn;
+    private TableColumn<Student, String> PhoneColumn;
 
     @FXML
-    private TableColumn<Students, String> StudentListCollegeColumn;
+    private TableColumn<Student, String> CollegeColumn;
 
     @FXML
-    private TableColumn<Students, String> StudentListStudentGroupColumn;
+    private TableColumn<Student, String> GroupColumn;
 
     @FXML
     private Button BackButton;
@@ -121,57 +114,69 @@ public class StudentListController {
 
     @FXML
     void SaveButtonOnClick(ActionEvent event) {
+        if (editRow == -1) {
+            Helper.createAlert("Error", "No row was been modified");
+        } else {
+            var respone = tableView.getItems().get(editRow).updateOrSave();
 
-        // todo getData that has cahnged using editRow because editRow contains row
-        // number pull the enter row
-        // todo Jeremy save the data
-        Students s = tableView.getSelectionModel().getSelectedItem();
-        System.out.println(s);
-        if (s == null) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Cannot Save");
-            a.setContentText("Please select a row and SAVE");
-            a.setHeaderText(null);
-            a.showAndWait();
+            if (respone.hasException()) {
+                Helper.createAlert("Error", respone.getException().getMessage());
+
+                var resetResponse = tableView.getItems().get(editRow).reset();
+
+                if (resetResponse.hasException()) {
+                    Helper.createAlert("Database Error", resetResponse.getException().getMessage());
+                    tableView.getItems().remove(editRow);
+                }
+            } else if (editRow + 1 == tableView.getItems().size()) {
+                tableView.getItems()
+                        .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+            }
+
+            tableView.refresh();
+
+            editRow = -1;
         }
-        editRow = -1;
+
     }
 
-    // todo
-    // tableview.setEditable(true);
-    // tableview.setSelectionModel(defaultSelectionModel);
-    // editrow = true;
-    // String data = tableview.getSelectionModel().getSelectedItem().getName();
-    // System.out.println(data);
-    // if (data.length() > 10) {
-    // Alert a = new Alert(Alert.AlertType.ERROR);
-    // a.setTitle("Wrong Input");
-    // a.setContentText("Please enter Valid Credentials");
-    // a.setHeaderText(null);
-    // a.showAndWait();
-    // }
-
     @FXML
-    void listofstudentsnameEditStart(CellEditEvent<Students, String> t) {
+    void idEditStart(CellEditEvent<Student, String> t) {
+        if (editRow + 1 != tableView.getItems().size())
+            Helper.createAlert("Cannot Edit", "ID is not editable");
 
         Helper.onEditStartCheck(t, editRow);
     }
-    // if (editRow == -1) // no row is being edit, dont care
-    // return;
-
-    // if (getRow(t) == editRow) // if the I started editing the row i was editing ,
-    // dont care
-    // return;
-
-    // // to do alert
-    // Alert a = new Alert(Alert.AlertType.ERROR);
-    // a.setTitle("Wrong Input");
-    // a.setContentText("Please enter Valid Credentials");
-    // a.setHeaderText(null);
-    // a.showAndWait();
 
     @FXML
-    void listofstudentsnameEditCommit(CellEditEvent<Students, String> t) {
+    void idEditCommit(CellEditEvent<Student, String> t) {
+        if (editRow + 1 != tableView.getItems().size())
+            Helper.createAlert("Cannot Edit", "ID is not editable");
+
+        if (!Helper.onEditCommitCheck(t, editRow)) {
+            tableView.refresh();
+            return;
+        }
+
+        System.out.println(t.getNewValue());
+        if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
+            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            tableView.refresh();
+        } else {
+            editRow = Helper.getRow(t);
+            tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
+        }
+
+    }
+
+    @FXML
+    void nameEditStart(CellEditEvent<Student, String> t) {
+
+        Helper.onEditStartCheck(t, editRow);
+    }
+
+    @FXML
+    void nameEditCommit(CellEditEvent<Student, String> t) {
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
             return;
@@ -188,55 +193,15 @@ public class StudentListController {
             tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
         }
     }
-    // if (editRow == -1) // no row is being edit, dont care
-    // System.out.println("i dont care");
-    // else if (getRow(t) != editRow) {
-    // Alert a = new Alert(Alert.AlertType.ERROR);
-    // a.setTitle("Wrong Input");
-    // a.setContentText("Please enter Valid Credentials");
-    // a.setHeaderText(null);
-    // a.showAndWait();
-    // // if the I started editing the row i was editing , I care
-    // System.out.println("Error"); // todo
-    // // set it back to prev value
-    // }
-
-    // // to do your val;idation
-
-    // editRow = getRow(t);
-    // // Alert a = new Alert(Alert.AlertType.ERROR);
-    // // a.setTitle("Wrong Input");
-    // // a.setContentText("Please enter Valid Credentials");
-    // // a.setHeaderText(null);
-    // // a.showAndWait();
-
-    // tableview.setEditable(false);
-    // String data = tableview.getSelectionModel().getSelectedItem().getName();
-    // System.out.println(data);
-    // if (data.length() > 10) {
-    // Alert a = new Alert(Alert.AlertType.ERROR);
-    // a.setTitle("Wrong Input");
-    // a.setContentText("Please enter Valid Credentials");
-    // a.setHeaderText(null);
-    // a.showAndWait();
-
-    // checking();
-    // TablePosition tp = tableview.getSelectionModel().getSelectedCells().get(1);
-    // System.out.println("tp");
-    // int row = tp.getRow();
-    // Students item = tableview.getItems().get(row);
-    // TableColumn tc = tp.getTableColumn();
-    // String data = (String) tc.getCellObservableValue(item).getValue();
-    // System.out.println(data);
 
     @FXML
-    void listofstudentsemailEditStart(CellEditEvent<Students, String> t) {
+    void emailEditStart(CellEditEvent<Student, String> t) {
         Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
-    void listofstudentsemailEditCommit(CellEditEvent<Students, String> t) {
+    void emailEditCommit(CellEditEvent<Student, String> t) {
 
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
@@ -253,29 +218,16 @@ public class StudentListController {
             tableView.getSelectionModel().getSelectedItem().setEmail(t.getNewValue());
         }
     }
-    // if (editRow == -1) // no row is being edit, dont care
-    // System.out.println("i dont care");
-    // else if (getRow(t) != editRow) { // if the I started editing the row i was
-    // editing , I care
-    // System.out.println("Error"); // todo
-    // // set it back to prev value
-    // }
-
-    // // to do your val;idation
-
-    // editRow = getRow(t);
-
-    // System.out.println("Commit1");
 
     @FXML
-    void listofstudentsphoneEditStart(CellEditEvent<Students, String> t) {
+    void phoneEditStart(CellEditEvent<Student, String> t) {
 
         Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
-    void listofstudentsphoneEditCommit(CellEditEvent<Students, String> t) {
+    void phoneEditCommit(CellEditEvent<Student, String> t) {
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
             return;
@@ -293,13 +245,13 @@ public class StudentListController {
     }
 
     @FXML
-    void listofstudentscollegeEditStart(CellEditEvent<Students, String> t) {
+    void collegeEditStart(CellEditEvent<Student, String> t) {
         Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
-    void listofstudentscollegeEditCommit(CellEditEvent<Students, String> t) {
+    void collegeEditCommit(CellEditEvent<Student, String> t) {
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
             return;
@@ -308,27 +260,26 @@ public class StudentListController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty() || !t.getNewValue().equals("CEN")
-                || !t.getNewValue().equals("CAAD") || !t.getNewValue().equals("CAS")
-                || !t.getNewValue().equals("SBA")) {
+        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty() || ( !t.getNewValue().equals("CEN")
+                && !t.getNewValue().equals("CAAD") && !t.getNewValue().equals("CAS")
+                && !t.getNewValue().equals("SBA"))) {
             Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
             tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
-            // dataLeaders.get(editRow).setCollege();
         }
     }
 
     @FXML
-    void listofstudentsgroupEditStart(CellEditEvent<Students, String> t) {
+    void groupEditStart(CellEditEvent<Student, String> t) {
 
         Helper.onEditStartCheck(t, editRow);
 
     }
 
     @FXML
-    void listofstudentsgroupEditCommit(CellEditEvent<Students, String> t) {
+    void groupEditCommit(CellEditEvent<Student, String> t) {
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
             return;
@@ -343,164 +294,77 @@ public class StudentListController {
         } else {
             editRow = Helper.getRow(t);
             tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
-            // dataLeaders.get(editRow).setCollege();
         }
     }
-
-    // void checking()
-    // {
-    // TablePosition<Students,String> tp =
-    // tableview.getSelectionModel().getSelectedCells().get(1);
-    // System.out.println("tp");
-    // int row = tp.getRow();
-    // Students item = tableview.getItems().get(row);
-    // TableColumn tc = tp.getTableColumn();
-    // String data = (String) tc.getCellObservableValue(item).getValue();
-    // System.out.println(data);
-    // String data = tableview.getSelectionModel().getSelectedItem().getName();
-    // System.out.println(data);
-    // if(data.length() >10)
-    // {
-    // Alert a = new Alert(Alert.AlertType.ERROR);
-    // a.setTitle("Wrong Input");
-    // a.setContentText("Please enter Valid Credentials");
-    // a.setHeaderText(null);
-    // a.showAndWait();
-    // }
 
     @FXML
     void initialize() {
 
         assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert tableView != null : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListStudentIDColumn != null
-                : "fx:id=\"StudentListStudentIDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListStudentNameColumn != null
-                : "fx:id=\"StudentListStudentNameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListStudentEmailColumn != null
-                : "fx:id=\"StudentListStudentEmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListStudentPhoneColumn != null
-                : "fx:id=\"StudentListStudentPhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListCollegeColumn != null
-                : "fx:id=\"StudentListCollegeColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert StudentListStudentGroupColumn != null
-                : "fx:id=\"StudentListStudentGroupColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert IDColumn != null : "fx:id=\" IDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert NameColumn != null : "fx:id=\" NameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert EmailColumn != null : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert PhoneColumn != null : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert CollegeColumn != null
+                : "fx:id=\"CollegeColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert GroupColumn != null
+                : "fx:id=\" GroupColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert SignOutButton != null
                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert SaveButton != null : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert DeleteButton != null
                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-        // tableviewSelectionModel<Students> defaultSelectionModel =
-        // tableviewgetSelectionModel();
 
-        // tableview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        Response<List<Student>> response = studentsHandler.handle();
+        Response<List<entity.Student>> response = studentsHandler.handle();
 
         if (response.success()) {
-
-            List<Student> students = response.getResponse();
-
-            for (var student : students) {
-
-                Students tbStudent = new Students(Long.valueOf(student.getUserDetail().getId()),
-                        student.getUserDetail().getFullName(), student.getCollege().getId(),
-                        student.getUserDetail().getEmail(), student.getUserDetail().getPhoneNumber(),
-                        student.getGroup().getName());
-
-                tableView.getItems().add(tbStudent);
-            }
+            response.getResponse().forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
+            tableView.getItems()
+                    .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
         }
-        StudentListStudentIDColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
-                    public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
-                        return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
-                    }
-                });
 
-        StudentListStudentNameColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
-                        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
-                    }
-                });
+        IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
+            }
+        });
 
-        StudentListStudentEmailColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
-                        return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
-                    }
-                });
-        StudentListCollegeColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
-                        return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
-                    }
-                });
-        StudentListStudentPhoneColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
-                        return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
-                    }
-                });
+        NameColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+            }
+        });
 
-        StudentListStudentGroupColumn
-                .setCellValueFactory(new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
-                        return new ReadOnlyObjectWrapper<String>(p.getValue().getGname());
-                    }
-                });
+        EmailColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
+            }
+        });
+        CollegeColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
+            }
+        });
+        PhoneColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
+            }
+        });
+
+        GroupColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getGroupName());
+            }
+        });
         // Skipped making the ID editable
-        StudentListStudentNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        // StudentListStudentNameColumn.setOnEditCommit(new
-        // EventHandler<CellEditEvent<Students, String>>() {
-        // public void handle(CellEditEvent<Students, String> t) {
-        // System.out.println("It works1!");
-        // }
-
-        // });
-
-        StudentListStudentEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        // StudentListStudentEmailColumn.setOnEditCommit(new
-        // EventHandler<CellEditEvent<Students, String>>() {
-        // public void handle(CellEditEvent<Students, String> t) {
-        // System.out.println("It works1!");
-        // }
-
-        // });
-
-        StudentListStudentPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        // StudentListStudentPhoneColumn.setOnEditCommit(new
-        // EventHandler<CellEditEvent<Students, String>>() {
-        // public void handle(CellEditEvent<Students, String> t) {
-        // System.out.println("It works1!");
-        // }
-
-        // });
-
-        StudentListCollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        // StudentListCollegeColumn.setOnEditCommit(new
-        // EventHandler<CellEditEvent<Students, String>>() {
-        // public void handle(CellEditEvent<Students, String> t) {
-        // System.out.println("It works1!");
-        // }
-
-        // });
-
-        StudentListStudentGroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        // StudentListStudentGroupColumn.setOnEditCommit(new
-        // EventHandler<CellEditEvent<Students, String>>() {
-        // public void handle(CellEditEvent<Students, String> t) {
-        // System.out.println("It works1!");
-        // }
-
-        // });
+        IDColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        NameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        EmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        PhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        CollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        GroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
 

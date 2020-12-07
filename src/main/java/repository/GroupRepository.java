@@ -60,10 +60,46 @@ public class GroupRepository implements Repository<Group, Long> {
         return response;
     }
 
+    public Response<Group> read(String groupName) {
+
+        Response<Group> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Group> q = cb.createQuery(Group.class);
+            Root<Group> g = q.from(Group.class);
+            ParameterExpression<String> expression = cb.parameter(String.class);
+            q.select(g).where(cb.equal(g.get("name"), expression));
+
+            TypedQuery<Group> query = session.createQuery(q);
+            query.setParameter(expression, groupName);
+
+            var result = query.getResultList();
+
+            if (result.isEmpty())
+                response = Response.ofException("No matching group with that name");
+            else
+                response = Response.of(result.get(0));
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
     @Override
     public Response<Group> update(Group entity) {
         Session session = HibernateUtil.getSession();
-        
+
         Response<Group> response;
 
         try {

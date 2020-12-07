@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,14 +30,14 @@ public class Student implements Serializable {
 	private List<ActivityAttendance> attendace;
 
 	//bi-directional one-to-one association to User
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="ID")
 	private User userDetail;
 
 	//uni-directional many-to-one association to College
-	@ManyToOne
-	@JoinColumn(name="COLLEGE")
-	private College college;
+	// @ManyToOne
+	// @JoinColumn(name="COLLEGE")
+	private String college;
 
 	//bi-directional many-to-one association to Group
 	@ManyToOne
@@ -84,11 +85,11 @@ public class Student implements Serializable {
 		this.userDetail = userDetail;
 	}
 
-	public College getCollege() {
+	public String getCollege() {
 		return this.college;
 	}
 
-	public void setCollege(College college) {
+	public void setCollege(String college) {
 		this.college = college;
 	}
 

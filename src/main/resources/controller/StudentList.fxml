@@ -34,12 +34,12 @@
       </Label>
       <TableView fx:id="tableView" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
          <columns>
-            <TableColumn fx:id="StudentListStudentIDColumn" prefWidth="102.0" text="Student ID" />
-            <TableColumn fx:id="StudentListStudentNameColumn" onEditCommit="#listofstudentsnameEditCommit" onEditStart="#listofstudentsnameEditStart" prefWidth="231.0" text="Student Name" />
-            <TableColumn fx:id="StudentListStudentEmailColumn" minWidth="0.0" onEditCommit="#listofstudentsemailEditCommit" onEditStart="#listofstudentsemailEditStart" prefWidth="205.0" text="Student Email" />
-            <TableColumn fx:id="StudentListStudentPhoneColumn" onEditCommit="#listofstudentsphoneEditCommit" onEditStart="#listofstudentsphoneEditStart" prefWidth="142.0" text="Student Phone No." />
-            <TableColumn fx:id="StudentListCollegeColumn" minWidth="0.0" onEditCommit="#listofstudentscollegeEditCommit" onEditStart="#listofstudentscollegeEditStart" prefWidth="168.0" text="College" />
-            <TableColumn fx:id="StudentListStudentGroupColumn" onEditCommit="#listofstudentsgroupEditCommit" onEditStart="#listofstudentsgroupEditStart" prefWidth="135.0" text="Student Group Name" />
+            <TableColumn fx:id="IDColumn" onEditCommit="#idEditCommit" onEditStart="#idEditStart" prefWidth="102.0" text="Student ID" />
+            <TableColumn fx:id="NameColumn" onEditCommit="#nameEditCommit" onEditStart="#nameEditStart" prefWidth="231.0" text="Student Name" />
+            <TableColumn fx:id="EmailColumn" minWidth="0.0" onEditCommit="#emailEditCommit" onEditStart="#emailEditStart" prefWidth="205.0" text="Student Email" />
+            <TableColumn fx:id="PhoneColumn" onEditCommit="#phoneEditCommit" onEditStart="#phoneEditStart" prefWidth="142.0" text="Student Phone No." />
+            <TableColumn fx:id="CollegeColumn" minWidth="0.0" onEditCommit="#collegeEditCommit" onEditStart="#collegeEditStart" prefWidth="168.0" text="College" />
+            <TableColumn fx:id="GroupColumn" onEditCommit="#groupEditCommit" onEditStart="#groupEditStart" prefWidth="135.0" text="Student Group Name" />
          </columns>
       </TableView>
       <Button fx:id="BackButton" layoutX="15.0" layoutY="548.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">

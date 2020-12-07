@@ -49,9 +49,9 @@ public class StudentLeader implements Serializable {
 	private User userDetail;
 
 	//uni-directional many-to-one association to College
-	@ManyToOne
-	@JoinColumn(name="COLLEGE")
-	private College college;
+	// @ManyToOne
+	// @JoinColumn(name="COLLEGE")
+	private String college;
 
 	public StudentLeader() {
 	}
@@ -132,11 +132,11 @@ public class StudentLeader implements Serializable {
 		this.userDetail = userDetail;
 	}
 
-	public College getCollege() {
+	public String getCollege() {
 		return this.college;
 	}
 
-	public void setCollege(College college) {
+	public void setCollege(String college) {
 		this.college = college;
 	}
 

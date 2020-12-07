@@ -15,7 +15,6 @@ public class HibernateUtil {
         Configuration conf = new Configuration().addAnnotatedClass(entity.Activity.class)
                 .addAnnotatedClass(entity.ActivityAttendance.class)
                 .addAnnotatedClass(entity.ActivityAttendancePK.class)
-                .addAnnotatedClass(entity.College.class)
                 .addAnnotatedClass(entity.Group.class)
                 .addAnnotatedClass(entity.Student.class)
                 .addAnnotatedClass(entity.StudentLeader.class)

@@ -7,10 +7,6 @@ package dto;
 
 import java.sql.Date;
 
-/**
- *
- * @author Yash Gaikwad
- */
 public class Activities {
 
     long id;

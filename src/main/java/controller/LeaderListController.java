@@ -290,7 +290,7 @@ public class LeaderListController {
 
                         for (var leader : leaders) {
                                 Leaders tbLeaders = new Leaders(Long.valueOf(leader.getId()),
-                                                leader.getCollege().getId(), leader.getYear(),
+                                                leader.getCollege(), leader.getYear(),
                                                 leader.getStudentLeaderRole(), leader.getUserDetail().getEmail(),
                                                 leader.getUserDetail().getPhoneNumber());
 
@@ -340,59 +340,10 @@ public class LeaderListController {
                                 });
 
                 LeaderListCollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // LeaderListCollegeColumn.setOnEditCommit(new
-                // EventHandler<CellEditEvent<Leaders, String>>() {
-                // public void handle(CellEditEvent<Leaders, String> t)
-                // {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 LeaderListYearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // LeaderListYearColumn.setOnEditCommit(new EventHandler<CellEditEvent<Leaders,
-                // String>>() {
-                // public void handle(CellEditEvent<Leaders, String> t)
-                // {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 LeaderListRoleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // LeaderListRoleColumn.setOnEditCommit(new EventHandler<CellEditEvent<Leaders,
-                // String>>() {
-                // public void handle(CellEditEvent<Leaders, String> t)
-                // {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 LeaderListEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // LeaderListEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Leaders,
-                // String>>() {
-                // public void handle(CellEditEvent<Leaders, String> t)
-                // {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 LeaderListPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // LeaderListPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Leaders,
-                // String>>() {
-                // public void handle(CellEditEvent<Leaders, String> t)
-                // {
-                // System.out.println("It works1!");
-                // }
-
-                // });
 
         }
 }

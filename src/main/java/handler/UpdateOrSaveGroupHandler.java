@@ -70,16 +70,16 @@ public class UpdateOrSaveGroupHandler {
         } else {
             var response = groupRepos.update(db);
 
-            if(response.hasException()) // attempt to reset view to old values 
-            {
-                var resetResponse = groupRepos.read(Long.parseLong(dto.getId()));
-                if(resetResponse.hasException()) // will occur if database cant find the value
-                    return Response.ofException("Group has been deleted");
+            // if(response.hasException()) // attempt to reset view to old values 
+            // {
+            //     var resetResponse = groupRepos.read(Long.parseLong(dto.getId()));
+            //     if(resetResponse.hasException()) // will occur if database cant find the value
+            //         return Response.ofException("Group has been deleted");
 
-                dto.setName(resetResponse.getResponse().getName());
-                dto.setPeerLeaderId(Long.toString(resetResponse.getResponse().getPeerLeader().getId()));
-                dto.setTeamLeaderId(Long.toString(resetResponse.getResponse().getTeamLeader().getId()));
-            }
+            //     dto.setName(resetResponse.getResponse().getName());
+            //     dto.setPeerLeaderId(Long.toString(resetResponse.getResponse().getPeerLeader().getId()));
+            //     dto.setTeamLeaderId(Long.toString(resetResponse.getResponse().getTeamLeader().getId()));
+            // }
 
             return response; // return original response
         }
