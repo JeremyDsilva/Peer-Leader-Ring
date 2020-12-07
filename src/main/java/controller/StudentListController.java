@@ -154,7 +154,8 @@ public class StudentListController {
 
     @FXML
     void idEditStart(CellEditEvent<Student, String> t) {
-        if (editRow + 1 != tableView.getItems().size())
+        int row = editRow != -1 ? editRow : Helper.getRow(t);
+        if (row + 1 != tableView.getItems().size())
             Helper.createAlert("Cannot Edit", "ID is not editable");
 
         Helper.onEditStartCheck(t, editRow);
@@ -162,7 +163,8 @@ public class StudentListController {
 
     @FXML
     void idEditCommit(CellEditEvent<Student, String> t) {
-        if (editRow + 1 != tableView.getItems().size())
+        int row = editRow != -1 ? editRow : Helper.getRow(t);
+        if (row + 1 != tableView.getItems().size())
             Helper.createAlert("Cannot Edit", "ID is not editable");
 
         if (!Helper.onEditCommitCheck(t, editRow)) {
@@ -176,7 +178,7 @@ public class StudentListController {
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
-            tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
+            tableView.getSelectionModel().getSelectedItem().setId(t.getNewValue());
         }
 
     }

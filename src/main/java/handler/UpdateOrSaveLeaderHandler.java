@@ -1,22 +1,21 @@
 package handler;
 
-import dto.Student;
-import repository.GroupRepository;
-import repository.StudentRepository;
+import dto.Leader;
+import repository.StudentLeaderRepository;
 import response.Response;
 
-public class UpdateOrSaveStudentHandler {
+public class UpdateOrSaveLeaderHandler {
 
-    public Response<entity.Student> handle(Student dto) {
+    public Response<entity.StudentLeader> handle(Leader dto) {
 
-        StudentRepository repos = new StudentRepository();
+        StudentLeaderRepository repos = new StudentLeaderRepository();
 
         var db = dto.getDatabaseObject();
 
         boolean newValue = db == null;
 
         if (db == null) {
-            db = new entity.Student();
+            db = new entity.StudentLeader();
             db.setId(Long.parseLong(dto.getId()));
         }
 
@@ -24,18 +23,8 @@ public class UpdateOrSaveStudentHandler {
         db.getUserDetail().setEmail(dto.getEmail());
         db.getUserDetail().setPhoneNumber(dto.getPhone());
         db.setCollege(dto.getCollege());
-
-        if (newValue || !db.getGroup().getName().equals(dto.getGroupName())) {
-            GroupRepository groupRepos = new GroupRepository();
-
-            var response = groupRepos.read(dto.getGroupName());
-
-            if(response.hasException())
-                return Response.of(response.getException());
-
-            db.setGroup(response.getResponse());
-        }
-
+        db.setYear(dto.getYear());
+        db.setStudentLeaderRole(dto.getRole());
 
         if (newValue) {
             var response = repos.create(db);
@@ -49,7 +38,6 @@ public class UpdateOrSaveStudentHandler {
 
             return response; // return original response
         }
-
     }
 
 }
