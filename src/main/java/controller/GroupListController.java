@@ -19,9 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
@@ -131,13 +130,22 @@ public class GroupListController {
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
 
-                Response<Group> response = groupHandler.handle(AppContext.getUser().getId());
+                Response<Group> response = null;
 
-                GroupListNameLabel.setText(AppContext.getUser().getFullName());
-                GroupListGroupNameLabel.setText(response.getResponse().getName());
-                GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
+                if (AppContext.getUser().getUserRole().equals("leader")) {
 
-                if (response.success()) {
+                        if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader"))
+                                response = groupHandler.handle(AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+                        else
+                                response = groupHandler.handle((Long) AppContext.get("groupId"));
+                }
+
+                if (response != null && response.success()) {
+
+                        GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                        GroupListGroupNameLabel.setText(response.getResponse().getName());
+                        GroupListTeamLeaderLabel
+                                        .setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
 
                         Group group = response.getResponse();
 
@@ -181,57 +189,6 @@ public class GroupListController {
                                 return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
                         }
                 });
-
-                // Making the columns editable except the ID field
-                // nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
-                // String>>() {
-                // public void handle(CellEditEvent<Students, String> t) {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
-                // emailCloumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // emailCloumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
-                // String>>() {
-                // public void handle(CellEditEvent<Students, String> t) {
-                // System.out.println("It works2!");
-                // }
-
-                // });
-
-                // collegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // collegeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
-                // String>>() {
-                // public void handle(CellEditEvent<Students, String> t) {
-                // System.out.println("It works3!");
-                // }
-
-                // });
-
-                // phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // phoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students,
-                // String>>() {
-                // public void handle(CellEditEvent<Students, String> t) {
-                // System.out.println("It works4!");
-                // }
-
-                // });
-
-                // The ID is primary. So lets keep it uneditable.
-                // idColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // idColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, Long>>() {
-                // public void handle(CellEditEvent<Student, String> t) {
-                // System.out.println("It works!");
-                // }
-
-                // });
 
         }
 

@@ -3,6 +3,8 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class Group implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private long id;
 
 	private String name;
@@ -35,12 +38,12 @@ public class Group implements Serializable {
 	private List<Student> students;
 
 	//bi-directional many-to-one association to StudentLeader
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="PEER_LEADER")
 	private StudentLeader peerLeader;
 
 	//bi-directional many-to-one association to StudentLeader
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="TEAM_LEADER")
 	private StudentLeader teamLeader;
 

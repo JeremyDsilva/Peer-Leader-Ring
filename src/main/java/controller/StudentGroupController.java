@@ -5,8 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dto.Groups;
-import entity.Group;
+import dto.Group;
 import handler.GetGroupsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -16,14 +15,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -44,19 +41,19 @@ public class StudentGroupController {
         private Button SignOutButton;
 
         @FXML
-        private TableView<Groups> tableView;
+        private TableView<Group> tableView;
 
         @FXML
-        private TableColumn<Groups, Long> StudentGroupGroupIDcolumn;
+        private TableColumn<Group, String> StudentGroupGroupIDcolumn;
 
         @FXML
-        private TableColumn<Groups, String> StudentGroupGroupNameColumn;
+        private TableColumn<Group, String> StudentGroupGroupNameColumn;
 
         @FXML
-        private TableColumn<Groups, String> StudentGroupPeerLeaderColumn;
+        private TableColumn<Group, String> StudentGroupPeerLeaderColumn;
 
         @FXML
-        private TableColumn<Groups, String> StudentGroupTeamLeaderColumn;
+        private TableColumn<Group, String> StudentGroupTeamLeaderColumn;
 
         @FXML
         private Button BackButton;
@@ -67,15 +64,9 @@ public class StudentGroupController {
         @FXML
         private Button DeleteButton;
 
-        final GetGroupsHandler getGroupsHandler;
-
         int editRow = -1;
 
         Boolean rejectChange = false;
-
-        public StudentGroupController() {
-                getGroupsHandler = new GetGroupsHandler();
-        }
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -114,32 +105,38 @@ public class StudentGroupController {
         void SaveButtonOnClick(ActionEvent event) {
                 // todo
                 // todo
-                Groups g = tableView.getSelectionModel().getSelectedItem();
-                System.out.println(g);
-                if (g == null) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Save");
-                        a.setContentText("Please select a row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
-                }
-                editRow = -1;
+                if (editRow == -1) {
+                        Helper.createAlert("Error", "No row was been modified");
+                } else {
+                        var respone = tableView.getItems().get(editRow).updateOrSave();
 
+                        if (respone.hasException()) {
+                                Helper.createAlert("Error", respone.getException().getMessage());
+
+                                var resetResponse = tableView.getItems().get(editRow).reset();
+
+                                if (resetResponse.hasException()) {
+                                        Helper.createAlert("Database Error", resetResponse.getException().getMessage());
+                                        tableView.getItems().remove(editRow);
+                                }
+                        } else if (editRow + 1 == tableView.getItems().size()) {
+                                tableView.getItems().add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
+                        }
+
+                        tableView.refresh();
+
+                        editRow = -1;
+                }
         }
 
-        // int getRow(CellEditEvent<Groups, ?> t) {
-        // // todo
-        // return t.getTablePosition().getRow();
-        // }
-
         @FXML
-        void groupnameEditStart(CellEditEvent<Groups, String> t) {
+        void groupnameEditStart(CellEditEvent<Group, String> t) {
 
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void groupnameEditCommit(CellEditEvent<Groups, String> t) {
+        void groupnameEditCommit(CellEditEvent<Group, String> t) {
 
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
@@ -155,18 +152,16 @@ public class StudentGroupController {
                 } else {
                         editRow = Helper.getRow(t);
                         tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
-                        // dataLeaders.get(editRow).setCollege();
                 }
         }
 
         @FXML
-        void grouppeerleaderEditStart(CellEditEvent<Groups, String> t) {
-
+        void grouppeerleaderEditStart(CellEditEvent<Group, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void grouppeerleaderEditCommit(CellEditEvent<Groups, String> t) {
+        void grouppeerleaderEditCommit(CellEditEvent<Group, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -175,24 +170,22 @@ public class StudentGroupController {
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+                if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
-                        tableView.getSelectionModel().getSelectedItem().setPname(t.getNewValue());
-
+                        tableView.getSelectionModel().getSelectedItem().setPeerLeaderId(t.getNewValue());
                 }
         }
 
         @FXML
-        void groupteamleaderEditStart(CellEditEvent<Groups, String> t) {
-
+        void groupteamleaderEditStart(CellEditEvent<Group, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void groupteamleaderEditCommit(CellEditEvent<Groups, String> t) {
+        void groupteamleaderEditCommit(CellEditEvent<Group, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -201,13 +194,12 @@ public class StudentGroupController {
                 // to do your valiidation
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
+                if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
-                        tableView.getSelectionModel().getSelectedItem().setTname(t.getNewValue());
-
+                        tableView.getSelectionModel().getSelectedItem().setTeamLeaderId(t.getNewValue());
                 }
         }
 
@@ -233,78 +225,51 @@ public class StudentGroupController {
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
 
-                Response<List<Group>> response = getGroupsHandler.handle();
+                Response<List<entity.Group>> response = new GetGroupsHandler().handle();
 
                 if (response.success()) {
 
-                        List<Group> groups = response.getResponse();
+                        response.getResponse().forEach(dbGroup -> tableView.getItems().add(new Group(dbGroup)));
+                        tableView.getItems().add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
 
-                        for (var group : groups) {
-                                Groups tbGroup = new Groups(group.getId(), group.getName(),
-                                                group.getPeerLeader().getUserDetail().getFullName(),
-                                                group.getTeamLeader().getUserDetail().getFullName());
-
-                                tableView.getItems().add(tbGroup);
-                        }
+                } else {
+                        // todo add alert box
                 }
+
                 StudentGroupGroupIDcolumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Groups, Long>, ObservableValue<Long>>() {
-                                        public ObservableValue<Long> call(CellDataFeatures<Groups, Long> p) {
-                                                return new ReadOnlyObjectWrapper<Long>(
-                                                                Long.valueOf(p.getValue().getId()));
+                                new Callback<CellDataFeatures<Group, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Group, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
                                         }
                                 });
 
                 StudentGroupGroupNameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
+                                new Callback<CellDataFeatures<Group, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Group, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                                         }
                                 });
 
                 StudentGroupPeerLeaderColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
-                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getPname());
+                                new Callback<CellDataFeatures<Group, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Group, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(
+                                                                p.getValue().getPeerLeaderId());
                                         }
                                 });
+
                 StudentGroupTeamLeaderColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Groups, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Groups, String> p) {
-                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getTname());
+                                new Callback<CellDataFeatures<Group, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Group, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(
+                                                                p.getValue().getTeamLeaderId());
                                         }
                                 });
 
                 // Skipped making the ID editable
                 StudentGroupGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // StudentGroupGroupNameColumn.setOnEditCommit(new
-                // EventHandler<CellEditEvent<Groups, String>>() {
-                // public void handle(CellEditEvent<Groups, String> t) {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 StudentGroupPeerLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // StudentGroupPeerLeaderColumn.setOnEditCommit(new
-                // EventHandler<CellEditEvent<Groups, String>>() {
-                // public void handle(CellEditEvent<Groups, String> t) {
-                // System.out.println("It works1!");
-                // }
-
-                // });
-
                 StudentGroupTeamLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // StudentGroupTeamLeaderColumn.setOnEditCommit(new
-                // EventHandler<CellEditEvent<Groups, String>>() {
-                // public void handle(CellEditEvent<Groups, String> t) {
-                // System.out.println("It works1!");
-                // }
-
-                // });
 
         }
 }
