@@ -17,6 +17,10 @@ public class Response<R> {
         return new Response<R>(exception);
     }
 
+    public static <R> Response<R> ofException(String message) {
+        return new Response<R>(new Exception(message));
+    }
+
     protected Response() {
     }
 
