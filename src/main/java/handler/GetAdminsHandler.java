@@ -6,7 +6,7 @@ import entity.User;
 import repository.UserRepository;
 import response.Response;
 
-public class GetAdminsHanlder {
+public class GetAdminsHandler {
 
     public Response<List<User>> handle(Long groupId) {
 
