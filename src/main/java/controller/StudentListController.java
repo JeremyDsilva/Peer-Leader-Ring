@@ -103,13 +103,25 @@ public class StudentListController {
 
     @FXML
     void DeleteButtonOnClick(ActionEvent event) {
-        // This removed the selected row from the table. The first line selects the ID
-        // of the selected cell.
-        // Could use it to check
-        // todo JEREMY
-        // long data = tableview.getSelectionModel().getSelectedItem().getId();
-        // System.out.println(data);
-        // tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItems());
+        if (!Helper.onDeleteCheck(editRow))
+            return;
+
+        var toDelete = tableView.getSelectionModel().getSelectedItem();
+
+        int index = tableView.getItems().indexOf(toDelete);
+
+        if (index + 1 == tableView.getItems().size()) {
+            Helper.createAlert("Error in Deletion", "Invalid Selection");
+            return;
+        }
+
+        var response = toDelete.delete();
+
+        if (response.success()) {
+            tableView.getItems().remove(index);
+            tableView.refresh();
+        } else
+            Helper.createAlert("Error in Deletion", response.getException().getMessage());
     }
 
     @FXML
@@ -260,9 +272,9 @@ public class StudentListController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty() || ( !t.getNewValue().equals("CEN")
-                && !t.getNewValue().equals("CAAD") && !t.getNewValue().equals("CAS")
-                && !t.getNewValue().equals("SBA"))) {
+        if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()
+                || (!t.getNewValue().equals("CEN") && !t.getNewValue().equals("CAAD") && !t.getNewValue().equals("CAS")
+                        && !t.getNewValue().equals("SBA"))) {
             Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {

@@ -10,6 +10,6 @@ public interface Repository<T, ID> {
 
     Response<T> update(T entity);
 
-    Response<T> delete(T entity);
+    Response<Void> delete(T entity);
 
 }

@@ -61,7 +61,7 @@ public class ActivityRepository implements Repository<Activity, Long> {
     public Response<Activity> update(Activity entity) {
         Session session = HibernateUtil.getSession();
         Response<Activity> response;
-        
+
         try {
             session.beginTransaction();
             session.update(entity);
@@ -74,14 +74,31 @@ public class ActivityRepository implements Repository<Activity, Long> {
         } finally {
             session.close();
         }
-        
-        return response;       
+
+        return response;
     }
 
     @Override
-    public Response<Activity> delete(Activity entity) {
-        // TODO Auto-generated method stub
-        return null;
+    public Response<Void> delete(Activity entity) {
+
+        Session session = HibernateUtil.getSession();
+
+        Response<Void> response;
+
+        try {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            response = Response.Ok();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
     }
 
     public Response<List<Activity>> readAll() {

@@ -1,5 +1,6 @@
 package dto;
 
+import handler.DeleteStudentHandler;
 import handler.GetStudentHandler;
 import handler.UpdateOrSaveStudentHandler;
 import response.Response;
@@ -134,6 +135,12 @@ public class Student {
 
     public entity.Student getDatabaseObject() {
         return db;
+    }
+
+    public Response<Void> delete() {
+        DeleteStudentHandler handler = new DeleteStudentHandler();
+
+        return handler.handle(this);
     }
 
 }

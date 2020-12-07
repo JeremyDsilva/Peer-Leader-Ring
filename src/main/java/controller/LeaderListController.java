@@ -2,12 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dto.Leaders;
-import entity.StudentLeader;
+import dto.Leader;
 import handler.GetLeadersHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +22,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -43,25 +40,25 @@ public class LeaderListController {
         private Label label;
 
         @FXML
-        private TableView<Leaders> tableView;
+        private TableView<Leader> tableView;
 
         @FXML
-        private TableColumn<Leaders, Long> LeaderListIDColumn;
+        private TableColumn<Leader, String> IDColumn;
 
         @FXML
-        private TableColumn<Leaders, String> LeaderListCollegeColumn;
+        private TableColumn<Leader, String> CollegeColumn;
 
         @FXML
-        private TableColumn<Leaders, String> LeaderListYearColumn;
+        private TableColumn<Leader, String> YearColumn;
 
         @FXML
-        private TableColumn<Leaders, String> LeaderListRoleColumn;
+        private TableColumn<Leader, String> RoleColumn;
 
         @FXML
-        private TableColumn<Leaders, String> LeaderListEmailColumn;
+        private TableColumn<Leader, String> EmailColumn;
 
         @FXML
-        private TableColumn<Leaders, String> LeaderListPhoneColumn;
+        private TableColumn<Leader, String> PhoneColumn;
 
         @FXML
         private Button BackButton;
@@ -120,7 +117,7 @@ public class LeaderListController {
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
                 // todo
-                Leaders l = tableView.getSelectionModel().getSelectedItem();
+                Leader l = tableView.getSelectionModel().getSelectedItem();
                 System.out.println(l);
                 if (l == null) {
                         Alert a = new Alert(Alert.AlertType.ERROR);
@@ -133,12 +130,12 @@ public class LeaderListController {
         }
 
         @FXML
-        void listofleaderscollegeEditStart(CellEditEvent<Leaders, String> t) {
+        void collegeEditStart(CellEditEvent<Leader, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void listofleaderscollegeEditCommit(CellEditEvent<Leaders, String> t) {
+        void collegeEditCommit(CellEditEvent<Leader, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -160,12 +157,12 @@ public class LeaderListController {
         }
 
         @FXML
-        void listofleadersyearStartCommit(CellEditEvent<Leaders, String> t) {
+        void yearStartCommit(CellEditEvent<Leader, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void listofleadersyearEditCommit(CellEditEvent<Leaders, String> t) {
+        void yearEditCommit(CellEditEvent<Leader, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -185,12 +182,12 @@ public class LeaderListController {
         }
 
         @FXML
-        void listofleadersroleStartCommit(CellEditEvent<Leaders, String> t) {
+        void roleStartCommit(CellEditEvent<Leader, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void listofleadersroleEditCommit(CellEditEvent<Leaders, String> t) {
+        void roleEditCommit(CellEditEvent<Leader, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -209,12 +206,12 @@ public class LeaderListController {
         }
 
         @FXML
-        void listofleadersemailStartCommit(CellEditEvent<Leaders, String> t) {
+        void emailStartCommit(CellEditEvent<Leader, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void listofleadersemailEditCommit(CellEditEvent<Leaders, String> t) {
+        void emailEditCommit(CellEditEvent<Leader, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -234,12 +231,12 @@ public class LeaderListController {
         }
 
         @FXML
-        void listofleadersphoneStartCommit(CellEditEvent<Leaders, String> t) {
+        void phoneStartCommit(CellEditEvent<Leader, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void listofleadersphoneEditCommit(CellEditEvent<Leaders, String> t) {
+        void phoneEditCommit(CellEditEvent<Leader, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -262,18 +259,18 @@ public class LeaderListController {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert tableView != null
                                 : "fx:id=\"tableview\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListIDColumn != null
+                assert IDColumn != null
                                 : "fx:id=\"LeaderListIDColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListCollegeColumn != null
+                assert CollegeColumn != null
                                 : "fx:id=\"LeaderListCollegeColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListYearColumn != null
-                                : "fx:id=\"LeaderListYearColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListRoleColumn != null
-                                : "fx:id=\"LeaderListRoleColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListEmailColumn != null
-                                : "fx:id=\"LeaderListEmailColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
-                assert LeaderListPhoneColumn != null
-                                : "fx:id=\"LeaderListPhoneColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
+                assert YearColumn != null
+                                : "fx:id=\"YearColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
+                assert RoleColumn != null
+                                : "fx:id=\"RoleColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
+                assert EmailColumn != null
+                                : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
+                assert PhoneColumn != null
+                                : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
                 assert SignOutButton != null
@@ -283,68 +280,57 @@ public class LeaderListController {
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
 
-                Response<List<StudentLeader>> response = getLeadersHandler.handle();
+                Response<List<entity.StudentLeader>> response = getLeadersHandler.handle();
 
                 if (response.success()) {
-
-                        List<StudentLeader> leaders = response.getResponse();
-
-                        for (var leader : leaders) {
-                                Leaders tbLeaders = new Leaders(Long.valueOf(leader.getId()),
-                                                leader.getCollege(), leader.getYear(),
-                                                leader.getStudentLeaderRole(), leader.getUserDetail().getEmail(),
-                                                leader.getUserDetail().getPhoneNumber());
-
-                                tableView.getItems().add(tbLeaders);
-                        }
+                        response.getResponse().forEach(dbLeader -> tableView.getItems().add(new Leader(dbLeader)));
                 }
 
-                LeaderListIDColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, Long>, ObservableValue<Long>>() {
-                                        public ObservableValue<Long> call(CellDataFeatures<Leaders, Long> p) {
-                                                return new ReadOnlyObjectWrapper<Long>(
-                                                                Long.valueOf(p.getValue().getId()));
+                IDColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
                                         }
                                 });
 
-                LeaderListCollegeColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
+                CollegeColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getCollege());
                                         }
                                 });
 
-                LeaderListYearColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
+                YearColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getYear());
                                         }
                                 });
-                LeaderListRoleColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
+                RoleColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getRole());
                                         }
                                 });
 
-                LeaderListEmailColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
+                EmailColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getEmail());
                                         }
                                 });
-                LeaderListPhoneColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Leaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Leaders, String> p) {
+                PhoneColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPhone());
                                         }
                                 });
 
-                LeaderListCollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                LeaderListYearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                LeaderListRoleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                LeaderListEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                LeaderListPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                CollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                YearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                RoleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                EmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                PhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         }
 }

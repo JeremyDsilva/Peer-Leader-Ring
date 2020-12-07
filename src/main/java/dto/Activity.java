@@ -7,6 +7,7 @@ package dto;
 
 import java.text.SimpleDateFormat;
 
+import handler.DeleteActivityHandler;
 import handler.GetActivityHandler;
 import handler.UpdateOrSaveActivityHandler;
 import response.Response;
@@ -105,7 +106,7 @@ public class Activity {
 
             if (response.hasException()) // will occur if database cant find the value
                 return Response.ofException("Group has been deleted");
-            
+
             setName(db.getName());
             setDate(new SimpleDateFormat("dd-MMM-yyyy").format(db.getDateOfActivity()));
             setOrganizedby(db.getOrganizedBy());
@@ -119,6 +120,12 @@ public class Activity {
         }
 
         return Response.Ok();
+    }
+
+    public Response<Void> delete() {
+        DeleteActivityHandler handler = new DeleteActivityHandler();
+
+        return handler.handle(this);
     }
 
 }

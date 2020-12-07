@@ -73,7 +73,7 @@ public class ActivityAttendanceRepository implements Repository<ActivityAttendan
     }
 
     @Override
-    public Response<ActivityAttendance> delete(ActivityAttendance entity) {
+    public Response<Void> delete(ActivityAttendance entity) {
         // TODO Auto-generated method stub
         return null;
     }

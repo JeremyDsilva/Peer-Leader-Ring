@@ -40,6 +40,18 @@ public class Helper {
         return true;
     }
 
+    public static boolean onDeleteCheck(int editRow) {
+        if (editRow != -1) { // no row is being edit, dont care
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Cannot Delete");
+            a.setContentText("First SAVE changes before delete");
+            a.setHeaderText(null);
+            a.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
     public static boolean isNumeric(String s) {
         try {
             Long.parseLong(s);
@@ -60,8 +72,10 @@ public class Helper {
     }
 
     public static boolean emailValidate(String email) {
-        Matcher matcher = Pattern.compile("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}(.[a-z]{2,3})+$|^$", Pattern.CASE_INSENSITIVE).matcher(email);
-    
+        Matcher matcher = Pattern
+                .compile("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}(.[a-z]{2,3})+$|^$", Pattern.CASE_INSENSITIVE)
+                .matcher(email);
+
         return matcher.find();
     }
 

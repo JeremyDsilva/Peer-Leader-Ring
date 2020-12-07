@@ -78,7 +78,7 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
     }
 
     @Override
-    public Response<StudentLeader> delete(StudentLeader entity) {
+    public Response<Void> delete(StudentLeader entity) {
         // TODO Auto-generated method stub
         return null;
     }

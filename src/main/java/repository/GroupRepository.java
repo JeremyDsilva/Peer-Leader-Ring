@@ -119,9 +119,26 @@ public class GroupRepository implements Repository<Group, Long> {
     }
 
     @Override
-    public Response<Group> delete(Group entity) {
-        // TODO Auto-generated method stub
-        return null;
+    public Response<Void> delete(Group entity) {
+
+        Session session = HibernateUtil.getSession();
+
+        Response<Void> response;
+
+        try {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            response = Response.Ok();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
     }
 
     public Response<List<Group>> readAll() {

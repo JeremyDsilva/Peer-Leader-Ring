@@ -81,7 +81,7 @@ public class UserRepository implements Repository<User, Long> {
     }
 
     @Override
-    public Response<User> delete(User entity) {
+    public Response<Void> delete(User entity) {
         // TODO Auto-generated method stub
         return null;
     }

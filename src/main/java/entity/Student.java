@@ -26,7 +26,7 @@ public class Student implements Serializable {
 	private long id;
 
 	//bi-directional many-to-one association to ActivityAttendance
-	@OneToMany(mappedBy="student")
+	@OneToMany(mappedBy="student", cascade = CascadeType.ALL)
 	private List<ActivityAttendance> attendace;
 
 	//bi-directional one-to-one association to User

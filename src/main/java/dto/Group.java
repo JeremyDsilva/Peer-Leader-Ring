@@ -1,5 +1,6 @@
 package dto;
 
+import handler.DeleteGroupHandler;
 import handler.GetGroupHandler;
 import handler.UpdateOrSaveGroupHandler;
 import response.Response;
@@ -92,6 +93,12 @@ public class Group {
         }
 
         return Response.Ok();
+    }
+
+    public Response<Void> delete() {
+        DeleteGroupHandler handler = new DeleteGroupHandler();
+
+        return handler.handle(this);
     }
 
     public Group(String id, String name, String peerLeaderId, String teamLeaderId) {

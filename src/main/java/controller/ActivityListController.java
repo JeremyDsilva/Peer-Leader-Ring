@@ -138,14 +138,26 @@ public class ActivityListController {
 
         @FXML
         void DeleteButtonOnClick(ActionEvent event) {
-                // todo
-                // This removed the selected row from the table. The first line selects the ID
-                // of the selected cell.
-                // Could use it to check
-                // todo JEREMY
-                // long data = tableview.getSelectionModel().getSelectedItem().getId();
-                // System.out.println(data);
-                // tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItems());
+                if (!Helper.onDeleteCheck(editRow))
+                        return;
+
+                var toDelete = tableView.getSelectionModel().getSelectedItem();
+
+                int index = tableView.getItems().indexOf(toDelete);
+
+                if (index + 1 == tableView.getItems().size()) {
+                        Helper.createAlert("Error in Deletion", "Invalid Selection");
+                        return;
+                }
+
+                var response = toDelete.delete();
+
+                if (response.success()) {
+                        tableView.getItems().remove(index);
+                        tableView.refresh();
+                } else
+                        Helper.createAlert("Error in Deletion", response.getException().getMessage());
+
         }
 
         @FXML
