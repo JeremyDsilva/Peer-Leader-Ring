@@ -2,11 +2,13 @@ package repository;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
 
 import entity.StudentLeader;
 import response.Response;
@@ -60,7 +62,7 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
     public Response<StudentLeader> update(StudentLeader entity) {
         Session session = HibernateUtil.getSession();
         Response<StudentLeader> response;
-        
+
         try {
             session.beginTransaction();
             session.update(entity);
@@ -73,14 +75,30 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
         } finally {
             session.close();
         }
-        
+
         return response;
     }
 
     @Override
     public Response<Void> delete(StudentLeader entity) {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = HibernateUtil.getSession();
+
+        Response<Void> response;
+
+        try {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            response = Response.Ok();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
     }
 
     public Response<List<StudentLeader>> readAll() {
@@ -108,5 +126,44 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
         return response;
 
     }
+
+    public Response<Long> count(String leaderRole) {
+
+        Response<Long> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+            Root<StudentLeader> leader = criteria.from(StudentLeader.class);
+
+            criteria.select(builder.count(leader));
+
+            ParameterExpression<String> role = builder.parameter(String.class);
+            criteria.where(builder.equal(leader.get("userRole"), role));
+
+            TypedQuery<Long> query = session.createQuery(criteria);
+            query.setParameter(role, leaderRole);
+
+            response = Response.of(query.getSingleResult());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
+
+
+
 
 }
