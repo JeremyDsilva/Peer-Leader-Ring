@@ -2,35 +2,31 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Activities;
-import entity.Activity;
+import dto.Activity;
 import handler.GetActivitiesHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
+import util.Helper;
 
 public class ActivityListController {
 
@@ -44,22 +40,22 @@ public class ActivityListController {
         private Label label;
 
         @FXML
-        private TableView<Activities> tableView;
+        private TableView<Activity> tableView;
 
         @FXML
-        private TableColumn<Activities, Long> ActivityListActivityIDColumn;
+        private TableColumn<Activity, String> ActivityIDColumn;
 
         @FXML
-        private TableColumn<Activities, String> ActivityListActivityNameColumn;
+        private TableColumn<Activity, String> ActivityNameColumn;
 
         @FXML
-        private TableColumn<Activities, Date> ActivityListDateColumn;
+        private TableColumn<Activity, String> DateColumn;
 
         @FXML
-        private TableColumn<Activities, String> ActivityListOrganizedbyColumn;
+        private TableColumn<Activity, String> OrganizedbyColumn;
 
         @FXML
-        private TableColumn<Activities, String> ActivityListNoteColumn;
+        private TableColumn<Activity, String> NoteColumn;
 
         @FXML
         private Button BackButton;
@@ -129,12 +125,10 @@ public class ActivityListController {
                         window.setScene(Back);
                         window.show();
                 }
-
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-
                 Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
                 Scene Logout = new Scene(root);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -152,32 +146,42 @@ public class ActivityListController {
                 // long data = tableview.getSelectionModel().getSelectedItem().getId();
                 // System.out.println(data);
                 // tableview.getItems().removeAll(tableview.getSelectionModel().getSelectedItems());
-
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
-                //endEditMode();
-                // todo
-                Activities l = tableView.getSelectionModel().getSelectedItem();
-                System.out.println(l);
-                if (l == null) {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Cannot Save");
-                        a.setContentText("Please select a row and SAVE");
-                        a.setHeaderText(null);
-                        a.showAndWait();
+                if (editRow == -1) {
+                        Helper.createAlert("Error", "No row was been modified");
+                } else {
+                        var respone = tableView.getItems().get(editRow).updateOrSave();
+
+                        if (respone.hasException()) {
+                                Helper.createAlert("Error", respone.getException().getMessage());
+
+                                var resetResponse = tableView.getItems().get(editRow).reset();
+
+                                if (resetResponse.hasException()) {
+                                        Helper.createAlert("Database Error", resetResponse.getException().getMessage());
+                                        tableView.getItems().remove(editRow);
+                                }
+                        } else if (editRow + 1 == tableView.getItems().size()) {
+                                tableView.getItems().add(new Activity("<Insert>", "<Insert>", "<Insert>", "<Insert>",
+                                                "<Insert>"));
+                        }
+
+                        tableView.refresh();
+
+                        editRow = -1;
                 }
-                editRow = -1;
         }
 
         @FXML
-        void ActivityListnameEditStart(CellEditEvent<Activities, String> t) {
+        void nameEditStart(CellEditEvent<Activity, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void ActivityListnameEditCommit(CellEditEvent<Activities, String> t) {
+        void nameEditCommit(CellEditEvent<Activity, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -196,37 +200,36 @@ public class ActivityListController {
         }
 
         @FXML
-        void ActivityListDOAEditStart(CellEditEvent<Activities, Date> t) {
+        void dateEditStart(CellEditEvent<Activity, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void ActivityListDOAEditCommit(CellEditEvent<Activities, Date> t) {
-                // if (!Helper.onEditCommitCheck(t, editRow)) {
-                // tableView.refresh();
-                // return;
-                // }
+        void dateEditCommit(CellEditEvent<Activity, String> t) {
+                if (!Helper.onEditCommitCheck(t, editRow)) {
+                        tableView.refresh();
+                        return;
+                }
 
-                // // to do your valiidation
-                // System.out.println(t.getNewValue());
-                // // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
-                // if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()) {
-                // Helper.createAlert("Cannot Edit", "Please follow the constraint
-                // requirements");
-                // } else {
-                // editRow = Helper.getRow(t);
-                // tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
-                // // dataLeaders.get(editRow).setCollege();
-                // }
+                // to do your valiidation
+                System.out.println(t.getNewValue());
+                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+                if (t.getNewValue().isEmpty() || !Helper.isDate(t.getNewValue())) {
+                        Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+                        tableView.refresh();
+                } else {
+                        editRow = Helper.getRow(t);
+                        tableView.getSelectionModel().getSelectedItem().setDate(t.getNewValue());
+                }
         }
 
         @FXML
-        void ActivityListorganizedEditStart(CellEditEvent<Activities, String> t) {
+        void organizedEditStart(CellEditEvent<Activity, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void ActivityListorganizedEditCommit(CellEditEvent<Activities, String> t) {
+        void organizedEditCommit(CellEditEvent<Activity, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -245,12 +248,12 @@ public class ActivityListController {
         }
 
         @FXML
-        void ActivityListnoteEditStart(CellEditEvent<Activities, String> t) {
+        void noteEditStart(CellEditEvent<Activity, String> t) {
                 Helper.onEditStartCheck(t, editRow);
         }
 
         @FXML
-        void ActivityListnoteEditCommit(CellEditEvent<Activities, String> t) {
+        void noteEditCommit(CellEditEvent<Activity, String> t) {
                 if (!Helper.onEditCommitCheck(t, editRow)) {
                         tableView.refresh();
                         return;
@@ -271,16 +274,16 @@ public class ActivityListController {
         @FXML
         void initialize() {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListActivityIDColumn != null
-                                : "fx:id=\"ActivityListActivityIDColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListActivityNameColumn != null
-                                : "fx:id=\"ActivityListActivityNameColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListDateColumn != null
-                                : "fx:id=\"ActivityListDateColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListOrganizedbyColumn != null
-                                : "fx:id=\"ActivityListOrganizedbyColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
-                assert ActivityListNoteColumn != null
-                                : "fx:id=\"ActivityListNoteColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert ActivityIDColumn != null
+                                : "fx:id=\"ActivityIDColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert ActivityNameColumn != null
+                                : "fx:id=\"ActivityNameColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert DateColumn != null
+                                : "fx:id=\"DateColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert OrganizedbyColumn != null
+                                : "fx:id=\"OrganizedbyColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
+                assert NoteColumn != null
+                                : "fx:id=\"NoteColumn\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'ActivityList.fxml'.";
                 assert SignOutButton != null
@@ -293,50 +296,44 @@ public class ActivityListController {
                 DeleteButton.setVisible(false);
                 SaveButton.setVisible(false);
 
-                Response<List<Activity>> response = activitiesHandler.handle();
+                Response<List<entity.Activity>> response = activitiesHandler.handle();
 
                 if (response.success()) {
+                        response.getResponse()
+                                        .forEach(dbActivity -> tableView.getItems().add(new Activity(dbActivity)));
 
-                        List<Activity> activities = response.getResponse();
-
-                        for (var activity : activities) {
-                                Activities tbActivity = new Activities(Long.valueOf(activity.getId()),
-                                                activity.getName(), (Date) activity.getDateOfActivity(),
-                                                activity.getOrganizedBy(), activity.getNote());
-
-                                tableView.getItems().add(tbActivity);
-                        }
-
+                        tableView.getItems()
+                                        .add(new Activity("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
                 }
 
-                ActivityListActivityIDColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Activities, Long>, ObservableValue<Long>>() {
-                                        public ObservableValue<Long> call(CellDataFeatures<Activities, Long> p) {
-                                                return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
+                ActivityIDColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
                                         }
                                 });
-                ActivityListActivityNameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                ActivityNameColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                                         }
                                 });
 
-                ActivityListDateColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Activities, Date>, ObservableValue<Date>>() {
-                                        public ObservableValue<Date> call(CellDataFeatures<Activities, Date> p) {
-                                                return new ReadOnlyObjectWrapper<Date>(p.getValue().getDate());
+                DateColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getDate());
                                         }
                                 });
-                ActivityListOrganizedbyColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                OrganizedbyColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getOrganizedby());
                                         }
                                 });
-                ActivityListNoteColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Activities, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Activities, String> p) {
+                NoteColumn.setCellValueFactory(
+                                new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getNote());
                                         }
                                 });
@@ -347,47 +344,10 @@ public class ActivityListController {
                         DeleteButton.setVisible(true);
                         SaveButton.setVisible(true);
 
-                        ActivityListActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                        // ActivityListActivityNameColumn
-                        // .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                        // public void handle(CellEditEvent<Activities, String> t) {
-                        // System.out.println("It works1!");
-                        // }
-
-                        // });
-                        // Need to check how to make the date editable
-                        // ActivityListDateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                        // ActivityListDateColumn.setOnEditCommit(new
-                        // EventHandler<CellEditEvent<Activities, Date>>() {
-                        // public void handle(CellEditEvent<Activities, Date> t) {
-                        // // add error checking
-                        // // is this an actual date
-
-                        // System.out.println("It works2!");
-                        // }
-                        // });
-
-                        ActivityListOrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                        // ActivityListOrganizedbyColumn
-                        // .setOnEditCommit(new EventHandler<CellEditEvent<Activities, String>>() {
-                        // public void handle(CellEditEvent<Activities, String> t) {
-                        // System.out.println("It works3!");
-                        // }
-
-                        // });
-
-                        ActivityListNoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                        // ActivityListNoteColumn.setOnEditCommit(new
-                        // EventHandler<CellEditEvent<Activities, String>>() {
-                        // public void handle(CellEditEvent<Activities, String> t) {
-                        // System.out.println("It works4!");
-                        // }
-
-                        // });
+                        ActivityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                        OrganizedbyColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                        NoteColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                        DateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 }
 
         }

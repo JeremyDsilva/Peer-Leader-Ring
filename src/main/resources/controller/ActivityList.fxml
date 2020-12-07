@@ -25,11 +25,11 @@
       </Label>
       <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="177.0" prefHeight="351.0" prefWidth="961.0">
          <columns>
-            <TableColumn fx:id="ActivityListActivityIDColumn" prefWidth="93.0" text="Activity ID " />
-            <TableColumn fx:id="ActivityListActivityNameColumn" onEditCommit="#ActivityListnameEditCommit" onEditStart="#ActivityListnameEditStart" prefWidth="295.0" text="Activity Name" />
-            <TableColumn fx:id="ActivityListDateColumn" minWidth="0.0" onEditCommit="#ActivityListDOAEditCommit" onEditStart="#ActivityListDOAEditStart" prefWidth="133.0" text="Date of Activity " />
-            <TableColumn fx:id="ActivityListOrganizedbyColumn" onEditCommit="#ActivityListorganizedEditCommit" onEditStart="#ActivityListorganizedEditStart" prefWidth="143.0" text="Organized By" />
-            <TableColumn fx:id="ActivityListNoteColumn" minWidth="0.0" onEditCommit="#ActivityListnoteEditCommit" onEditStart="#ActivityListnoteEditStart" prefWidth="296.0" text="Note" />
+            <TableColumn fx:id="ActivityIDColumn" prefWidth="93.0" text="Activity ID " />
+            <TableColumn fx:id="ActivityNameColumn" onEditCommit="#nameEditCommit" onEditStart="#nameEditStart" prefWidth="295.0" text="Activity Name" />
+            <TableColumn fx:id="DateColumn" minWidth="0.0" onEditCommit="#dateEditCommit" onEditStart="#dateEditStart" prefWidth="133.0" text="Date of Activity " />
+            <TableColumn fx:id="OrganizedbyColumn" onEditCommit="#organizedEditCommit" onEditStart="#organizedEditStart" prefWidth="143.0" text="Organized By" />
+            <TableColumn fx:id="NoteColumn" minWidth="0.0" onEditCommit="#noteEditCommit" onEditStart="#noteEditStart" prefWidth="296.0" text="Note" />
          </columns>
       </TableView>
       <AnchorPane layoutY="83.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400;">

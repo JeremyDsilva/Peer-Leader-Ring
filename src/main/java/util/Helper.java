@@ -1,4 +1,4 @@
-package controller;
+package util;
 
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
