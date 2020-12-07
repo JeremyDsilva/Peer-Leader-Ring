@@ -2,66 +2,63 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="613.0" style="-fx-background-color: #902400;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageAdminController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageAdminController">
    <children>
-      <ImageView fitHeight="58.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
+         <children>
+            <Text fill="#ebebeb" layoutX="428.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fall 2020" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="38.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
          </image>
       </ImageView>
-      <Label alignment="TOP_LEFT" layoutX="216.0" layoutY="11.0" text="Manage Admin" textFill="#dadada">
+      <Label layoutX="407.0" layoutY="22.0" text="Manage Admin" textFill="#902400">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="124.0" layoutY="102.0" text="ID:" textFill="#dadada">
-         <font>
-            <Font name="Arial Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_LEFT" layoutX="124.0" layoutY="143.0" text="Email:" textFill="#dadada">
-         <font>
-            <Font name="Arial Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_LEFT" layoutX="124.0" layoutY="185.0" text="Full Name:" textFill="#dadada">
-         <font>
-            <Font name="Arial Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_LEFT" layoutX="124.0" layoutY="228.0" text="Phone No.:" textFill="#dadada">
-         <font>
-            <Font name="Arial Bold" size="22.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ManageAdminIDTextField" layoutX="256.0" layoutY="102.0" prefHeight="27.0" prefWidth="233.0" />
-      <TextField fx:id="ManageAdminEmailTextField" layoutX="256.0" layoutY="143.0" prefHeight="27.0" prefWidth="233.0" />
-      <TextField fx:id="ManageAdminFullNameTextField" layoutX="256.0" layoutY="185.0" prefHeight="27.0" prefWidth="233.0" />
-      <TextField fx:id="ManageAdminPhoneTextField" layoutX="256.0" layoutY="228.0" prefHeight="27.0" prefWidth="233.0" />
-      <Button fx:id="DeleteButton" layoutX="423.0" layoutY="286.0" mnemonicParsing="false" onAction="#DeleteButtonOnClick" prefHeight="34.0" prefWidth="86.0" style="-fx-background-color: #ffd002;" text="Delete">
+      <TableView fx:id="tableView" editable="true" layoutX="15.0" layoutY="169.0" prefHeight="362.0" prefWidth="984.0">
+         <columns>
+            <TableColumn fx:id="IDColumn" onEditCommit="#idEditCommit" onEditStart="#idEditStart" prefWidth="158.0" text="Admin ID" />
+            <TableColumn fx:id="NameColumn" onEditCommit="#nameEditCommit" onEditStart="#nameEditStart" prefWidth="305.0" text="Full Name " />
+            <TableColumn fx:id="EmailColumn" minWidth="0.0" onEditCommit="#emailEditCommit" onEditStart="#emailEditStart" prefWidth="299.0" text="Email " />
+            <TableColumn fx:id="PhoneColumn" onEditCommit="#phoneEditCommit" onEditStart="#phoneEditStart" prefWidth="221.0" text="Phone No. " />
+         </columns>
+      </TableView>
+      <Button fx:id="BackButton" layoutX="15.0" layoutY="548.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back" textFill="#0a0a0a">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="UpdateButton" layoutX="223.0" layoutY="286.0" mnemonicParsing="false" onAction="#UpdateButtonOnClick" prefHeight="34.0" prefWidth="86.0" style="-fx-background-color: #ffd002;" text="Update">
+      <Button fx:id="SignOutButton" layoutX="912.0" layoutY="25.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="BackButton" layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#BackButtonOnClick" style="-fx-background-color: #ffd002;" text="Back">
+      <Button fx:id="SaveButton" alignment="CENTER" layoutX="786.0" layoutY="543.0" mnemonicParsing="false" onAction="#SaveButtonOnClick" prefHeight="44.0" prefWidth="97.0" style="-fx-background-color: rgb(58,71,80);" text="Save" textFill="#f8eeee">
          <font>
-            <Font size="17.0" />
+            <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AddButton" layoutX="323.0" layoutY="286.0" mnemonicParsing="false" onAction="#AddButtonOnClick" prefHeight="34.0" prefWidth="86.0" style="-fx-background-color: #ffd002;" text="Add">
+      <Button fx:id="DeleteButton" alignment="CENTER" layoutX="900.0" layoutY="543.0" mnemonicParsing="false" onAction="#DeleteButtonOnClick" prefHeight="44.0" prefWidth="97.0" style="-fx-background-color: rgb(58,71,80);" text="Delete" textFill="#f8eeee">
          <font>
-            <Font size="17.0" />
+            <Font size="22.0" />
          </font>
       </Button>
    </children>

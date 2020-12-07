@@ -73,8 +73,6 @@ public class StudentListController {
 
     int editRow = -1;
 
-    Boolean rejectChange = false;
-
     final GetStudentsHandler studentsHandler;
 
     public StudentListController() {
