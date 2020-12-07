@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Students;
+import dto.Student;
 import entity.Group;
 import handler.GetGroupHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -50,13 +50,13 @@ public class MarkAttendanceController {
         private Label GroupListTeamLeaderLabel;
 
         @FXML
-        private TableView<Students> tableView;
+        private TableView<Student> tableView;
 
         @FXML
-        private TableColumn<Students, Long> idColumn;
+        private TableColumn<Student, Long> idColumn;
 
         @FXML
-        private TableColumn<Students, String> nameColumn;
+        private TableColumn<Student, String> nameColumn;
 
         @FXML
         private Button GroupListMarkAttendButton;
@@ -127,29 +127,15 @@ public class MarkAttendanceController {
                 GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
                 //GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
                 
-                if (response.success()) {
-
-                        Group group = response.getResponse();
-
-                        for (var student : group.getStudents()) {
-                                Students tbStudent = new Students(Long.valueOf(student.getUserDetail().getId()),
-                                                student.getUserDetail().getFullName(), student.getCollege().getId(),
-                                                student.getUserDetail().getEmail(),
-                                                student.getUserDetail().getPhoneNumber());
-
-                                tableView.getItems().add(tbStudent);
-                        }
-                } 
-
                 nameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Students, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Students, String> p) {
+                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                                         }
                                 });
 
-                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Students, Long>, ObservableValue<Long>>() {
-                        public ObservableValue<Long> call(CellDataFeatures<Students, Long> p) {
+                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, Long>, ObservableValue<Long>>() {
+                        public ObservableValue<Long> call(CellDataFeatures<Student, Long> p) {
                                 return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
                         }
                 });
@@ -157,8 +143,8 @@ public class MarkAttendanceController {
                 // Making the columns editable except the ID field
                 nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Students, String>>() {
-                        public void handle(CellEditEvent<Students, String> t) {
+                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
+                        public void handle(CellEditEvent<Student, String> t) {
                                 System.out.println("It works1!");
                         }
 
