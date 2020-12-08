@@ -14,23 +14,6 @@
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
-         <children>
-            <Label fx:id="GroupListNameLabel" layoutX="22.0" layoutY="11.0" prefHeight="42.0" prefWidth="261.0" text="{Name}" textFill="#f2f2f2">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="GroupListGroupNameLabel" layoutX="352.0" layoutY="13.0" prefHeight="42.0" prefWidth="168.0" text="{Group Name}" textFill="#f2f2f2">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="GroupListTeamLeaderLabel" layoutX="660.0" layoutY="13.0" prefHeight="42.0" prefWidth="316.0" text="{Team Leader}" textFill="#f2f2f2">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Label>
-         </children>
       </Pane>
       <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -42,22 +25,12 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
+      <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="262.0" text="Student Name" />
+            <TableColumn fx:id="nameColumn" prefWidth="240.0" text="Student Name" />
          </columns>
       </TableView>
-      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="522.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
-         <font>
-            <Font name="Arial" size="17.0" />
-         </font>
-      </Button>
-      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="301.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
-         <font>
-            <Font name="Arial" size="17.0" />
-         </font>
-      </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
          <font>
             <Font size="17.0" />

@@ -198,4 +198,41 @@ public class GroupRepository implements Repository<Group, Long> {
 
     }
 
+    public Response<Long> count() {
+
+        Response<Long> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+            Root<Group> leader = criteria.from(Group.class);
+
+            criteria.select(builder.count(leader));
+
+            TypedQuery<Long> query = session.createQuery(criteria);
+
+            response = Response.of(query.getSingleResult());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
+
+
+
+
+
+
 }

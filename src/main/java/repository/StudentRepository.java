@@ -166,6 +166,43 @@ public class StudentRepository implements Repository<Student, Long> {
 
     }
 
+
+    public Response<List<Student>> readAllWithAttendance() {
+
+        Response<List<Student>> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Student> q = cb.createQuery(Student.class);
+            Root<Student> g = q.from(Student.class);
+            q.select(g);
+
+            TypedQuery<Student> query = session.createQuery(q);
+
+            var students = query.getResultList();
+
+            // to get attendance
+            for (var student : students) {
+                student.getAttendace().size();
+            }
+
+            response = Response.of(students);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
     public Response<List<Object>> countPerCollege() {
 
         Response<List<Object>> response;

@@ -1,6 +1,6 @@
 package app;
 
-import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import entity.User;
@@ -9,10 +9,10 @@ public class AppContext {
 
     static User user;
 
-    static Dictionary<String, Object> dictionary;
+    static HashMap<String, Object> dictionary;
 
     static {
-        dictionary = new Hashtable<String, Object>();
+        dictionary = new HashMap<String, Object>();
     }
 
     public static User getUser() {
@@ -49,7 +49,11 @@ public class AppContext {
 
     public static void clear() {
         AppContext.user = null;
-        AppContext.dictionary = new Hashtable<String, Object>();
+        AppContext.dictionary = new HashMap<String, Object>();
+    }
+
+    public static boolean contains(String key){
+        return AppContext.dictionary.containsKey(key);
     }
 
 }

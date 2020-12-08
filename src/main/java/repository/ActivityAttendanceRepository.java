@@ -55,7 +55,7 @@ public class ActivityAttendanceRepository implements Repository<ActivityAttendan
     public Response<ActivityAttendance> update(ActivityAttendance entity) {
         Session session = HibernateUtil.getSession();
         Response<ActivityAttendance> response;
-        
+
         try {
             session.beginTransaction();
             session.update(entity);
@@ -68,14 +68,31 @@ public class ActivityAttendanceRepository implements Repository<ActivityAttendan
         } finally {
             session.close();
         }
-        
-        return response;      
+
+        return response;
     }
 
     @Override
     public Response<Void> delete(ActivityAttendance entity) {
-        // TODO Auto-generated method stub
-        return null;
+
+        Session session = HibernateUtil.getSession();
+
+        Response<Void> response;
+
+        try {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            response = Response.Ok();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
     }
 
 }

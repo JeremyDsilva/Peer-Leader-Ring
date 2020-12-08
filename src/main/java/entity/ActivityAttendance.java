@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,10 +25,12 @@ public class ActivityAttendance implements Serializable {
 
 	//bi-directional many-to-one association to Activity
 	@ManyToOne
+	@JoinColumn(insertable = false, updatable = false)
 	private Activity activity;
 
 	//bi-directional many-to-one association to Student
 	@ManyToOne
+	@JoinColumn(insertable = false, updatable = false)
 	private Student student;
 
 	public ActivityAttendance() {

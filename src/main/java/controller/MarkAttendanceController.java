@@ -5,19 +5,26 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import dto.Attendace;
 import entity.Activity;
+import entity.Group;
+import handler.CreateAttendanceHandler;
+import handler.DeleteAttendanceHandler;
 import handler.GetActivitiesHandler;
 import handler.GetGroupHandler;
 import handler.GetStudentsFromGroupHandler;
+import handler.GetStudentsWithAttendanceHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
@@ -36,15 +43,6 @@ public class MarkAttendanceController {
         private Label label;
 
         @FXML
-        private Label GroupListNameLabel;
-
-        @FXML
-        private Label GroupListGroupNameLabel;
-
-        @FXML
-        private Label GroupListTeamLeaderLabel;
-
-        @FXML
         private TableView<Attendace> tableView;
 
         @FXML
@@ -52,12 +50,6 @@ public class MarkAttendanceController {
 
         @FXML
         private TableColumn<Attendace, String> nameColumn;
-
-        @FXML
-        private Button GroupListMarkAttendButton;
-
-        @FXML
-        private Button GroupListViewActButton;
 
         @FXML
         private Button SignOutButton;
@@ -86,29 +78,13 @@ public class MarkAttendanceController {
         @FXML
         void initialize() {
                 assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert GroupListNameLabel != null
-                                : "fx:id=\"GroupListNameLabel\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert GroupListGroupNameLabel != null
-                                : "fx:id=\"GroupListGroupNameLabel\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert GroupListTeamLeaderLabel != null
-                                : "fx:id=\"GroupListTeamLeaderLabel\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert tableView != null
                                 : "fx:id=\"tableView\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert idColumn != null : "fx:id=\"IdColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert nameColumn != null
                                 : "fx:id=\"nameColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert GroupListMarkAttendButton != null
-                                : "fx:id=\"GroupListMarkAttendButton\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert GroupListViewActButton != null
-                                : "fx:id=\"GroupListViewActButton\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
-
-                // GroupListNameLabel.setText(AppContext.getUser().getFullName());
-                // GroupListGroupNameLabel.setText(groupResponse.getResponse().getName());
-                // GroupListTeamLeaderLabel
-                // .setText(groupResponse.getResponse().getTeamLeader().getUserDetail().getFullName());
-                // GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
 
                 Response<List<Activity>> activities = new GetActivitiesHandler().handle();
 
@@ -127,22 +103,79 @@ public class MarkAttendanceController {
                                                         if (p.getValue().getActivity().containsKey(activity)) {
                                                                 return new ReadOnlyObjectWrapper<String>(
                                                                                 p.getValue().getActivity().get(activity)
-                                                                                                ? "Yes"
-                                                                                                : "No");
+                                                                                                ? "Y"
+                                                                                                : "N");
                                                         } else {
                                                                 p.getValue().getActivity().put(activity,
                                                                                 Boolean.valueOf(false));
-                                                                return new ReadOnlyObjectWrapper<String>("No");
+                                                                return new ReadOnlyObjectWrapper<String>("N");
                                                         }
                                                 }
                                         });
 
                         col.setCellFactory(TextFieldTableCell.forTableColumn());
 
+                        col.setOnEditCommit(new EventHandler<CellEditEvent<Attendace, String>>() {
+
+                                public void handle(CellEditEvent<Attendace, String> t) {
+
+                                        if (t.getNewValue().equals(t.getOldValue()))
+                                                return;
+
+                                        if (!t.getNewValue().equals("Y") && !t.getNewValue().equals("N")) {
+                                                Helper.createErrorAlert("ERROR", "Enter either Y or N");
+                                                tableView.refresh();
+                                                return;
+                                        }
+
+                                        var attendace = tableView.getSelectionModel().getSelectedItem();
+                                        var student = attendace.getStudent();
+
+                                        if (t.getNewValue().equals("Y")) {
+
+                                                CreateAttendanceHandler handler = new CreateAttendanceHandler();
+
+                                                var response = handler.handle(student, activity);
+
+                                                if (response.success()) {
+                                                } else {
+                                                        Helper.createErrorAlert("ERROR",
+                                                                        response.getException().getMessage());
+                                                        tableView.refresh();
+                                                }
+                                        } else {
+
+                                                DeleteAttendanceHandler handler = new DeleteAttendanceHandler();
+
+                                                var response = handler.handle(student, activity);
+
+                                                if (response.success()) {
+                                                        attendace.getActivity().remove(activity);
+                                                        attendace.getActivity().put(activity, Boolean.valueOf(false));
+                                                } else {
+                                                        Helper.createErrorAlert("ERROR",
+                                                                        response.getException().getMessage());
+                                                        tableView.refresh();
+                                                }
+
+                                        }
+
+                                }
+
+                        });
+
                         tableView.getColumns().add(col);
                 }
 
-                Response<List<entity.Student>> students = new GetStudentsFromGroupHandler().handle(1L);
+                Response<List<entity.Student>> students;
+
+                if (AppContext.userIsAdmin() && AppContext.contains("groupId")) {
+                        students = new GetStudentsWithAttendanceHandler().handle();
+                } else {
+                        students = new GetStudentsFromGroupHandler().handle((Long) AppContext.get("groupId"));
+
+                        Group group = students.getResponse().get(0).getGroup();
+                }
 
                 students.getResponse().forEach(student -> tableView.getItems().add(new Attendace(student)));
 
@@ -159,17 +192,6 @@ public class MarkAttendanceController {
                                                                 .getUserDetail().getFullName());
                                         }
                                 });
-
-                // Making the columns editable except the ID field
-                // nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                // nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>()
-                // {
-                // public void handle(CellEditEvent<Student, String> t) {
-                // System.out.println("It works1!");
-                // }
-
-                // });
 
         }
 
