@@ -3,14 +3,11 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import util.Helper;
 
 public class AdminController {
 
@@ -43,72 +40,37 @@ public class AdminController {
 
     @FXML
     void AdminActivityListButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-        Scene Activity = new Scene(root);
-        // System.out.println("Activity");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Activity);
-        window.show();
+        Helper.loadView(getClass().getResource("ActivityList.fxml"));
     }
 
     @FXML
     void AdminDashboardButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-        Scene Dashboard = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Dashboard);
-        window.show();
+        Helper.loadView(getClass().getResource("Dashboard.fxml"));
     }
 
     @FXML
     void AdminLeadersButtonOnlick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("LeaderList.fxml"));
-        Scene Leaders = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Leaders);
-        window.show();
+        Helper.loadView(getClass().getResource("LeaderList.fxml"));
     }
 
     @FXML
     void AdminManageAdminButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ManageAdmin.fxml"));
-        Scene Manage = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Manage);
-        window.showAndWait();
+        Helper.loadView(getClass().getResource("ManageAdmin.fxml"));
     }
 
     @FXML
     void AdminStudentButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("StudentList.fxml"));
-        Scene Student = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Student);
-        window.show();
+        Helper.loadView(getClass().getResource("StudentList.fxml"));
     }
 
     @FXML
     void AdminStudentGroupButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("StudentGroup.fxml"));
-        Scene Group = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Group);
-        window.show();
+        Helper.loadView(getClass().getResource("StudentGroup.fxml"));
     }
 
     @FXML
     void SignOutButtonOnClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene login = new Scene(root);
-        // System.out.println("Peer");
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(login);
-        window.show();
+        Helper.loadView(getClass().getResource("Login.fxml"));
     }
 
     @FXML

@@ -12,10 +12,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -23,7 +19,6 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
 import util.Helper;
@@ -95,45 +90,23 @@ public class ActivityListController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
-                // No need to check for student login as no BACK BUTTON needed.
-                if (AppContext.getUser().getUserRole().equals("leader")) {
+                if (AppContext.userIsLeader()) {
                         if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader")) {
-                                Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
-                                Scene back = new Scene(root);
-                                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                window.setScene(back);
-                                window.show();
+                                Helper.loadView(getClass().getResource("GroupList.fxml"));
                         } else if (AppContext.getUser().getStudentLeader().getStudentLeaderRole()
                                         .equals("team_leader")) {
-                                Parent root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
-                                Scene back = new Scene(root);
-                                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                window.setScene(back);
-                                window.show();
+                                Helper.loadView(getClass().getResource("PeerLeaderList.fxml"));
                         }
-                } else if (AppContext.getUser().getUserRole().equals("admin")) {
-                        Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-                        Scene Back = new Scene(root);
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        window.setScene(Back);
-                        window.show();
-
+                } else if (AppContext.userIsAdmin()) {
+                        Helper.loadView(getClass().getResource("Admin.fxml"));
                 } else {
-                        Parent root = FXMLLoader.load(getClass().getResource("StudentView.fxml"));
-                        Scene Back = new Scene(root);
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        window.setScene(Back);
-                        window.show();
+                        Helper.loadView(getClass().getResource("StudentView.fxml"));
                 }
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                Helper.loadView(getClass().getResource("Login.fxml"));
         }
 
         @FXML
@@ -199,9 +172,7 @@ public class ActivityListController {
                         return;
                 }
 
-                // to do your valiidation
                 System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 100 || t.getNewValue().isEmpty()) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -223,9 +194,7 @@ public class ActivityListController {
                         return;
                 }
 
-                // to do your valiidation
                 System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().isEmpty() || !Helper.isDate(t.getNewValue())) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -247,9 +216,7 @@ public class ActivityListController {
                         return;
                 }
 
-                // to do your valiidation
                 System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 50 || t.getNewValue().isEmpty()) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -271,9 +238,7 @@ public class ActivityListController {
                         return;
                 }
 
-                // to do your valiidation
                 System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 200) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();

@@ -102,34 +102,19 @@ public class GroupListController {
 
                 AppContext.remove("groupId");
 
-                try {
-                        Parent root = null;
-                        if (AppContext.userIsAdmin()) {
-                                root = FXMLLoader.load(getClass().getResource("StudentGroup.fxml"));
-                        } else if (AppContext.userIsLeader()) {
-                                root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
-                        } else {
-                                throw new Exception("Error in displaying page");
-                        }
-
-                        Scene scene = new Scene(root);
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        window.setScene(scene);
-                        window.show();
-                } catch (Exception e) {
-                        util.Helper.createAlert("Error", e.getMessage());
+                if (AppContext.userIsAdmin()) {
+                        util.Helper.loadView(getClass().getResource("StudentGroup.fxml"));
+                } else if (AppContext.userIsLeader()) {
+                        util.Helper.loadView(getClass().getResource("PeerLeaderList.fxml"));
+                } else {
+                        util.Helper.createAlert("Error", "Error in displaying page");
                 }
 
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                util.Helper.loadView(getClass().getResource("Login.fxml"));
         }
 
         @FXML
@@ -161,7 +146,7 @@ public class GroupListController {
 
                 Response<Group> response = null;
 
-                if (AppContext.getUser().getUserRole().equals("leader") && AppContext.getUser().getStudentLeader()
+                if (AppContext.userIsLeader() && AppContext.getUser().getStudentLeader()
                                 .getStudentLeaderRole().equals("peer_leader")) {
 
                         response = groupHandler

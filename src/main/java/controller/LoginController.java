@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import entity.User;
 import handler.LoginHandler;
 import javafx.event.ActionEvent;
@@ -76,13 +77,13 @@ public class LoginController {
 
         } else {
             Helper.createAlert("Unsuccessful Login", "Please Enter your valid credentials");
-            // TODO Add message to error label
         }
 
     }
 
     public LoginController() {
         loginHandler = new LoginHandler();
+        AppContext.clear();
     }
 
     @FXML
