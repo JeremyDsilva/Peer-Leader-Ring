@@ -9,8 +9,6 @@ public class AppContext {
 
     static User user;
 
-    static Long groupId = null;
-
     static Dictionary<String, Object> dictionary;
 
     static {
@@ -47,6 +45,11 @@ public class AppContext {
 
     public static Boolean userIsStudent() {
         return AppContext.user.getUserRole().equals("student");
+    }
+
+    public static void clear() {
+        AppContext.user = null;
+        AppContext.dictionary = new Hashtable<String, Object>();
     }
 
 }

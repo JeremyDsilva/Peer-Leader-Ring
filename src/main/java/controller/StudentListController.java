@@ -84,22 +84,13 @@ public class StudentListController {
 
     @FXML
     void BackButtonOnClick(ActionEvent event) throws IOException {
-        // todo
-        Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-        Scene Back = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Back);
-        window.show();
+        Helper.loadView(getClass().getResource("Admin.fxml"));
+
     }
 
     @FXML
     void SignOutButtonOnClick(ActionEvent event) throws IOException {
-        // todo
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene Logout = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Logout);
-        window.show();
+        Helper.loadView(getClass().getResource("Login.fxml"));
     }
 
     @FXML
@@ -168,11 +159,6 @@ public class StudentListController {
         AppContext.put("studentId", Long.parseLong(tableView.getSelectionModel().getSelectedItem().getId()));
 
         Helper.loadView(getClass().getResource("StudentView.fxml"));
-        // int row = editRow != -1 ? editRow : Helper.getRow(t);
-        // if (row + 1 != tableView.getItems().size())
-        // Helper.createAlert("Cannot Edit", "ID is not editable");
-
-        // Helper.onEditStartCheck(t, editRow);
     }
 
     @FXML

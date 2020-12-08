@@ -76,22 +76,12 @@ public class ManageAdminController {
 
     @FXML
     void BackButtonOnClick(ActionEvent event) throws IOException {
-        // todo
-        Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-        Scene Back = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Back);
-        window.show();
+        Helper.loadView(getClass().getResource("Admin.fxml"));
     }
 
     @FXML
     void SignOutButtonOnClick(ActionEvent event) throws IOException {
-        // todo
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene Logout = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(Logout);
-        window.show();
+        Helper.loadView(getClass().getResource("Login.fxml"));
     }
 
     @FXML

@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import response.Response;
+import util.Helper;
 
 public class PeerLeaderListController {
 
@@ -77,12 +78,8 @@ public class PeerLeaderListController {
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                Helper.loadView(getClass().getResource("Login.fxml"));
+
         }
 
         @FXML
@@ -108,7 +105,8 @@ public class PeerLeaderListController {
                         try {
                                 Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
                                 Scene Logout = new Scene(root);
-                                Stage window =  (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
+                                Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny()
+                                                .get();
                                 window.setScene(Logout);
                                 window.show();
                         } catch (IOException e) {

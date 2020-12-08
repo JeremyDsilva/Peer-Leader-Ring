@@ -13,10 +13,6 @@ import handler.LeaderCountHandler;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -24,7 +20,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import util.Helper;
 
 public class DashboardController {
 
@@ -81,23 +77,12 @@ public class DashboardController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-                Scene Back = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Back);
-                window.show();
-
+                Helper.loadView(getClass().getResource("Admin.fxml"));
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                Helper.loadView(getClass().getResource("Login.fxml"));
         }
 
         @FXML
@@ -189,13 +174,15 @@ public class DashboardController {
 
                 GroupCount.setText("0");
                 ActivityCount.setText("0");
-                StudentCount.setText(String.valueOf(appUserCount.getNumberOfStudents() * 1.0 / appUserCount.getNumberOfLeaders()));
+                StudentCount.setText(String
+                                .valueOf(appUserCount.getNumberOfStudents() * 1.0 / appUserCount.getNumberOfLeaders()));
                 MaxLeaderCollege.setText("0");
                 MinAttendActivity.setText("0");
                 TLCount.setText(String.valueOf(appUserCount.getNumberOfLeaders()));
                 ActiveStudent.setText("0");
                 MaxAttendActivity.setText("0");
-                PLCount.setText(String.valueOf(leaderCount.getPeerLeaderCount() * 1.0/ leaderCount.getTeamLeaderCount()));
+                PLCount.setText(String
+                                .valueOf(leaderCount.getPeerLeaderCount() * 1.0 / leaderCount.getTeamLeaderCount()));
 
         }
 }
