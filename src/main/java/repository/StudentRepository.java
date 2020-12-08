@@ -166,4 +166,35 @@ public class StudentRepository implements Repository<Student, Long> {
 
     }
 
+    public Response<List<Object>> countPerCollege() {
+
+        Response<List<Object>> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Object> criteria = builder.createQuery(Object.class);
+            Root<Student> student = criteria.from(Student.class);
+
+            criteria.multiselect(student.get("college") , builder.count(student.get("id")));
+            criteria.groupBy(student.get("college"));
+
+            TypedQuery<Object> query = session.createQuery(criteria);
+
+            response = Response.of(query.getResultList());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+    }
+
 }
