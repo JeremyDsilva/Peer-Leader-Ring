@@ -101,38 +101,4 @@ public class ActivityAttendanceRepository implements Repository<ActivityAttendan
         return response;
     }
 
-    public Response<Long> count() {
-
-        Response<Long> response;
-
-        Session session = HibernateUtil.getSession();
-        try {
-            session.beginTransaction();
-
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-            Root<ActivityAttendance> leader = criteria.from(ActivityAttendance.class);
-
-            criteria.select(builder.count(leader));
-
-            TypedQuery<Long> query = session.createQuery(criteria);
-
-            response = Response.of(query.getSingleResult());
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (session.getTransaction() != null)
-                session.getTransaction().rollback();
-            response = Response.of(e);
-        } finally {
-            session.close();
-        }
-
-        return response;
-
-    }
-
-
-
-
 }

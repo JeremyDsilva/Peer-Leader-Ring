@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import app.AppContext;
 import dto.Attendace;
 import entity.Activity;
-import entity.Group;
 import handler.CreateAttendanceHandler;
 import handler.DeleteAttendanceHandler;
 import handler.GetActivitiesHandler;
