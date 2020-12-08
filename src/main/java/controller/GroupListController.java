@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
@@ -67,6 +68,9 @@ public class GroupListController {
         private Button GroupListMarkAttendButton;
 
         @FXML
+        private Button BackButton;
+
+        @FXML
         private Button GroupListViewActButton;
 
         @FXML
@@ -91,6 +95,31 @@ public class GroupListController {
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(Activity);
                 window.show();
+        }
+
+        @FXML
+        void onClickonBackBtn(ActionEvent event) {
+
+                AppContext.remove("groupId");
+
+                try {
+                        Parent root = null;
+                        if (AppContext.userIsAdmin()) {
+                                root = FXMLLoader.load(getClass().getResource("StudentGroup.fxml"));
+                        } else if (AppContext.userIsLeader()) {
+                                root = FXMLLoader.load(getClass().getResource("PeerLeaderList.fxml"));
+                        } else {
+                                throw new Exception("Error in displaying page");
+                        }
+
+                        Scene scene = new Scene(root);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        window.setScene(scene);
+                        window.show();
+                } catch (Exception e) {
+                        util.Helper.createAlert("Error", e.getMessage());
+                }
+
         }
 
         @FXML
@@ -132,13 +161,17 @@ public class GroupListController {
 
                 Response<Group> response = null;
 
-                if (AppContext.getUser().getUserRole().equals("leader")) {
+                if (AppContext.getUser().getUserRole().equals("leader") && AppContext.getUser().getStudentLeader()
+                                .getStudentLeaderRole().equals("peer_leader")) {
 
-                        if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("peer_leader"))
-                                response = groupHandler.handle(
-                                                AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
-                        else
-                                response = groupHandler.handle((Long) AppContext.get("groupId"));
+                        response = groupHandler
+                                        .handle(AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+
+                        BackButton.setVisible(false);
+                } else {
+                        response = groupHandler.handle((Long) AppContext.get("groupId"));
+
+                        GroupListViewActButton.setVisible(false);
                 }
 
                 if (response != null && response.success()) {

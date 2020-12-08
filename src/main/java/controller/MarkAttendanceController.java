@@ -127,6 +127,11 @@ public class MarkAttendanceController {
                 GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
                 //GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
                 
+
+                
+
+
+
                 nameColumn.setCellValueFactory(
                                 new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
                                         public ObservableValue<String> call(CellDataFeatures<Student, String> p) {

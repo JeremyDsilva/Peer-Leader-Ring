@@ -39,7 +39,7 @@
          </font></Button>
       <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="181.0" prefHeight="347.0" prefWidth="961.0">
          <columns>
-            <TableColumn fx:id="StudentGroupGroupIDcolumn" prefWidth="136.0" text="Group ID" />
+            <TableColumn fx:id="StudentGroupGroupIDcolumn" onEditStart="#idEditStart" prefWidth="136.0" text="Group ID" />
             <TableColumn fx:id="StudentGroupGroupNameColumn" onEditCommit="#groupnameEditCommit" onEditStart="#groupnameEditStart" prefWidth="298.0" text="Group Name " />
             <TableColumn fx:id="StudentGroupPeerLeaderColumn" minWidth="0.0" onEditCommit="#grouppeerleaderEditCommit" onEditStart="#grouppeerleaderEditStart" prefWidth="270.0" text="Peer Leader " />
             <TableColumn fx:id="StudentGroupTeamLeaderColumn" onEditCommit="#groupteamleaderEditCommit" onEditStart="#groupteamleaderEditStart" prefWidth="256.0" text="Team Leader " />

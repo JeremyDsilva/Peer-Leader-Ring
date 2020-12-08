@@ -1,27 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dto;
 
-/**
- *
- * @author Yash Gaikwad
- */
-public class PeerLeaders {
+public class PeerLeader {
     long pid;
     String pname;
     String pphone;
     String pemail;
     String pgroupname;
+    Long groupId;
 
-    public PeerLeaders(long pid, String pname, String pphone, String pemail, String pgroupname) {
+    public PeerLeader(long pid, String pname, String pphone, String pemail, String pgroupname, Long groupId) {
         this.pid = pid;
         this.pname = pname;
         this.pphone = pphone;
         this.pemail = pemail;
         this.pgroupname = pgroupname;
+        this.groupId = groupId;
     }
 
     public long getPid() {
@@ -63,6 +56,13 @@ public class PeerLeaders {
     public void setPgroupname(String pgroupname) {
         this.pgroupname = pgroupname;
     }
-    
-    
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
 }

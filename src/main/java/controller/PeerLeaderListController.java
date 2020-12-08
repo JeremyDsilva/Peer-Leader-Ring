@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.PeerLeaders;
+import dto.PeerLeader;
 import entity.Group;
 import entity.StudentLeader;
 import handler.GetGroupsUnderLeaderHandler;
@@ -23,7 +23,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import response.Response;
 
@@ -45,22 +47,22 @@ public class PeerLeaderListController {
         private Button SignOutButton;
 
         @FXML
-        private TableView<PeerLeaders> tableview;
+        private TableView<PeerLeader> tableview;
 
         @FXML
-        private TableColumn<PeerLeaders, Long> TeamLeaderPeerLeaderIDColumn;
+        private TableColumn<PeerLeader, Long> TeamLeaderPeerLeaderIDColumn;
 
         @FXML
-        private TableColumn<PeerLeaders, String> TeamLeaderPeerLeaderNameColumn;
+        private TableColumn<PeerLeader, String> TeamLeaderPeerLeaderNameColumn;
 
         @FXML
-        private TableColumn<PeerLeaders, String> TeamLeaderPeerLeaderEmailColumn;
+        private TableColumn<PeerLeader, String> TeamLeaderPeerLeaderEmailColumn;
 
         @FXML
-        private TableColumn<PeerLeaders, String> TeamLeaderPeerLeaderPhoneColumn;
+        private TableColumn<PeerLeader, String> TeamLeaderPeerLeaderPhoneColumn;
 
         @FXML
-        private TableColumn<PeerLeaders, String> TeamLeaderGroupNameColumn;
+        private TableColumn<PeerLeader, String> TeamLeaderGroupNameColumn;
 
         @FXML
         private Button TeamLeaderViewActivityListButton;
@@ -84,13 +86,36 @@ public class PeerLeaderListController {
         }
 
         @FXML
-        void TeamLeaderViewActivityListOnClick(ActionEvent event) throws IOException {
+        void TeamLeaderViewActivityListOnClick(ActionEvent event) {
                 // todo
-                Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                try {
+                        Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
+                        Scene Logout = new Scene(root);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        window.setScene(Logout);
+                        window.show();
+                } catch (Exception e) {
+                        util.Helper.createAlert("Error", e.getMessage());
+                }
+        }
+
+        @FXML
+        public void onClick(MouseEvent event) {
+                if (event.getClickCount() == 2) // Checking double click
+                {
+                        AppContext.put("groupId", tableview.getSelectionModel().getSelectedItem().getGroupId());
+
+                        try {
+                                Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
+                                Scene Logout = new Scene(root);
+                                Stage window =  (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
+                                window.setScene(Logout);
+                                window.show();
+                        } catch (IOException e) {
+                                util.Helper.createAlert("Error", e.getMessage());
+                                e.printStackTrace();
+                        }
+                }
         }
 
         @FXML
@@ -126,46 +151,45 @@ public class PeerLeaderListController {
                         // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
                         for (var group : groups) {
                                 StudentLeader leader = group.getPeerLeader();
-                                PeerLeaders tbLeaders = new PeerLeaders(Long.valueOf(leader.getId()),
+                                PeerLeader tbLeaders = new PeerLeader(Long.valueOf(leader.getId()),
                                                 leader.getUserDetail().getFullName(),
                                                 leader.getUserDetail().getPhoneNumber(),
-                                                leader.getUserDetail().getEmail(), group.getName());
+                                                leader.getUserDetail().getEmail(), group.getName(), group.getId());
 
                                 tableview.getItems().add(tbLeaders);
                         }
-                        // }
 
                 }
 
                 TeamLeaderPeerLeaderIDColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<PeerLeaders, Long>, ObservableValue<Long>>() {
-                                        public ObservableValue<Long> call(CellDataFeatures<PeerLeaders, Long> p) {
+                                new Callback<CellDataFeatures<PeerLeader, Long>, ObservableValue<Long>>() {
+                                        public ObservableValue<Long> call(CellDataFeatures<PeerLeader, Long> p) {
                                                 return new ReadOnlyObjectWrapper<Long>(
                                                                 Long.valueOf(p.getValue().getPid()));
                                         }
                                 });
 
                 TeamLeaderPeerLeaderNameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                new Callback<CellDataFeatures<PeerLeader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPname());
                                         }
                                 });
                 TeamLeaderPeerLeaderEmailColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                new Callback<CellDataFeatures<PeerLeader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPemail());
                                         }
                                 });
                 TeamLeaderPeerLeaderPhoneColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                new Callback<CellDataFeatures<PeerLeader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPphone());
                                         }
                                 });
                 TeamLeaderGroupNameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<PeerLeaders, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<PeerLeaders, String> p) {
+                                new Callback<CellDataFeatures<PeerLeader, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<PeerLeader, String> p) {
                                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getPgroupname());
                                         }
                                 });

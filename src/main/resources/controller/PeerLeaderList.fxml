@@ -32,7 +32,7 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableview" layoutX="38.0" layoutY="180.0" prefHeight="292.0" prefWidth="937.0">
+      <TableView fx:id="tableview" onMouseClicked="#onClick" layoutX="38.0" layoutY="180.0" prefHeight="292.0" prefWidth="937.0">
          <columns>
             <TableColumn fx:id="TeamLeaderPeerLeaderIDColumn" prefWidth="103.0" text="Peer Leader ID" />
             <TableColumn fx:id="TeamLeaderPeerLeaderNameColumn"  prefWidth="256.0" text="Peer Leader Name" />

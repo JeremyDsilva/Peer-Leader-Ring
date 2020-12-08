@@ -1,29 +1,32 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CountPerCollege {
 
-    List<Object> leaders;
+    List<Object[]> _leaders;
 
-    List<Object> students;
+    List<Object[]> _students;
 
-    public List<Object> getLeaders() {
-        return leaders;
+    public List<Object[]> getLeaders() {
+        return _leaders;
     }
 
     public void setLeaders(List<Object> leaders) {
-        this.leaders = leaders;
+        this._leaders = new ArrayList<Object[]>();
+
+        leaders.forEach(leader -> this._leaders.add((Object[]) leader));
     }
 
-    public List<Object> getStudents() {
-        return students;
+    public List<Object[]> getStudents() {
+        return _students;
     }
 
     public void setStudents(List<Object> students) {
-        this.students = students;
+        this._students = new ArrayList<Object[]>();
+
+        students.forEach(leader -> this._students.add((Object[]) leader));
     }
 
-
-    
 }

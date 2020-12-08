@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button ?>
+<?import javafx.scene.control.Label ?>
+<?import javafx.scene.control.TableColumn ?>
+<?import javafx.scene.control.TableView ?>
+<?import javafx.scene.image.Image ?>
+<?import javafx.scene.image.ImageView ?>
+<?import javafx.scene.layout.AnchorPane ?>
+<?import javafx.scene.layout.Pane ?>
+<?import javafx.scene.text.Font ?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
-    <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+   <children>
+      <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
             <Label fx:id="GroupListNameLabel" layoutX="22.0" layoutY="11.0" prefHeight="42.0" prefWidth="261.0" text="{Name}" textFill="#f2f2f2">
@@ -30,7 +30,8 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
-         </children></Pane>
+         </children>
+      </Pane>
       <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
@@ -42,14 +43,13 @@
          </font>
       </Label>
       <TableView fx:id="tableView" layoutX="26.0" layoutY="179.0" prefHeight="310.0" prefWidth="961.0">
-        <columns>
-         <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" />
-          <!-- <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" /> -->
-          <TableColumn fx:id="nameColumn" prefWidth="262.0" text="Student Name" />
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="97.0" text="Student ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="262.0" text="Student Name" />
             <TableColumn fx:id="emailCloumn" minWidth="0.0" prefWidth="187.0" text="Student Email" />
             <TableColumn fx:id="phoneColumn" prefWidth="127.0" text="Student Phone No." />
             <TableColumn fx:id="collegeColumn" minWidth="0.0" prefWidth="287.0" text="College" />
-        </columns>
+         </columns>
       </TableView>
       <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="522.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
          <font>
@@ -61,10 +61,15 @@
             <Font name="Arial" size="17.0" />
          </font>
       </Button>
+      <Button fx:id="BackButton" alignment="CENTER" layoutX="301.0" layoutY="520.0" mnemonicParsing="false" onAction="#onClickonBackBtn" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Back" textFill="#eee9e9">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-    </children>
+   </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import dto.Group;
 import handler.GetGroupsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import response.Response;
 import util.Helper;
@@ -114,8 +116,7 @@ public class StudentGroupController {
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
-                // todo
-                // todo
+
                 if (editRow == -1) {
                         Helper.createAlert("Error", "No row was been modified");
                 } else {
@@ -137,6 +138,23 @@ public class StudentGroupController {
                         tableView.refresh();
 
                         editRow = -1;
+                }
+        }
+
+        @FXML
+        void idEditStart(CellEditEvent<Group, String> t) {
+
+                AppContext.put("groupId", Long.parseLong(tableView.getSelectionModel().getSelectedItem().getId()));
+
+                try {
+                        Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
+                        Scene Logout = new Scene(root);
+                        Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
+                        window.setScene(Logout);
+                        window.show();
+                } catch (IOException e) {
+                        util.Helper.createAlert("Error", e.getMessage());
+                        e.printStackTrace();
                 }
         }
 
