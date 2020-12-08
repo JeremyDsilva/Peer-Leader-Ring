@@ -12,8 +12,8 @@ public class AppUserCountHandler {
         AppUserCount data = new AppUserCount();
 
         data.setNumberOfAdmins(repos.count("admin").getResponse());
-        data.setNumberOfAdmins(repos.count("leader").getResponse());
-        data.setNumberOfAdmins(repos.count("student").getResponse());
+        data.setNumberOfLeaders(repos.count("leader").getResponse());
+        data.setNumberOfStudents(repos.count("student").getResponse());
 
         return data;
     }
