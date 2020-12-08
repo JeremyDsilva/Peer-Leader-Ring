@@ -10,6 +10,9 @@ public class DeleteAdminHandler {
 
         UserRepository repos = new UserRepository();
 
+        if (repos.count("admin").getResponse() < 2)
+            return Response.ofException("Atleast one admin must be registered in the system");
+
         return repos.delete(admin.getDatabaseObject());
     }
 }
