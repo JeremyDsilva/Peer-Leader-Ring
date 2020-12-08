@@ -239,7 +239,7 @@ public class LeaderListController {
 
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 9 || !t.getNewValue().isEmpty()
-                                || (!t.getNewValue().equals("Freshman") && !t.getNewValue().equals("Sophmore")
+                                || (!t.getNewValue().equals("Freshman") && !t.getNewValue().equals("Sophomore")
                                                 && !t.getNewValue().equals("Junior")
                                                 && !t.getNewValue().equals("Senior"))) {
                         Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
