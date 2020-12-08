@@ -1,7 +1,6 @@
 package app;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import entity.User;
 
