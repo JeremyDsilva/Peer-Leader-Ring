@@ -113,8 +113,11 @@ public class ManageAdminController {
                     && (tableView.getItems().get(editRow).getId().equals("<Insert>")
                             || tableView.getItems().get(editRow).getName().equals("<Insert>")
                             || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
-                            || tableView.getItems().get(editRow).getPhone().equals("<Insert>")))
-                Helper.createErrorAlert("ERROR", "Insert all values");
+                            || tableView.getItems().get(editRow).getPhone().equals("<Insert>"))){
+                                Helper.createErrorAlert("ERROR", "Insert all values");
+                                return;
+                            }
+                
 
             var respone = tableView.getItems().get(editRow).updateOrSave();
 
@@ -166,7 +169,7 @@ public class ManageAdminController {
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
-            tableView.getSelectionModel().getSelectedItem().setName(t.getNewValue());
+            tableView.getSelectionModel().getSelectedItem().setId(t.getNewValue());
         }
     }
 

@@ -142,8 +142,10 @@ public class ActivityListController {
                         if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
                         || tableView.getItems().get(editRow).getDate().equals("<Insert>") 
                         || tableView.getItems().get(editRow).getOrganizedby().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getNote().equals("<Insert>")))
+                        || tableView.getItems().get(editRow).getNote().equals("<Insert>"))){
                                 Helper.createErrorAlert("ERROR", "Insert all values");
+                                return;
+                            }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 

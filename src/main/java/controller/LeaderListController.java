@@ -124,8 +124,10 @@ public class LeaderListController {
                         || tableView.getItems().get(editRow).getCollege().equals("<Insert>") 
                         || tableView.getItems().get(editRow).getEmail().equals("<Insert>") 
                         || tableView.getItems().get(editRow).getPhone().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getRole().equals("<Insert>")))
+                        || tableView.getItems().get(editRow).getRole().equals("<Insert>"))){
                                 Helper.createErrorAlert("ERROR", "Insert all values");
+                                return;
+                            }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 

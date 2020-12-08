@@ -120,8 +120,10 @@ public class StudentListController {
             || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
             || tableView.getItems().get(editRow).getGroupName().equals("<Insert>") 
             || tableView.getItems().get(editRow).getName().equals("<Insert>")
-            || tableView.getItems().get(editRow).getPhone().equals("<Insert>")))
+            || tableView.getItems().get(editRow).getPhone().equals("<Insert>"))){
                 Helper.createErrorAlert("ERROR", "Insert all values");
+                return;
+            }
 
             var respone = tableView.getItems().get(editRow).updateOrSave();
 
