@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import app.AppContext;
 import dto.Attendace;
 import entity.Activity;
 import handler.GetActivitiesHandler;

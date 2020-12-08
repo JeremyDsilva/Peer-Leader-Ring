@@ -1,5 +1,6 @@
 package util;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,9 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
-import java.io.IOException;
-import java.net.URL;
 
 public class Helper {
 

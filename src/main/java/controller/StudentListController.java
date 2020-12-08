@@ -12,10 +12,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -23,9 +19,6 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.shape.HLineTo;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
 import response.Response;
 import util.Helper;
@@ -305,13 +298,12 @@ public class StudentListController {
 
         // to do your valiidation
         System.out.println(t.getNewValue());
-        // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
         if (t.getNewValue().length() > 20) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
-            tableView.getSelectionModel().getSelectedItem().setCollege(t.getNewValue());
+            tableView.getSelectionModel().getSelectedItem().setGroupName(t.getNewValue());
         }
     }
 

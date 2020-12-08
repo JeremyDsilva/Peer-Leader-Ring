@@ -1,9 +1,7 @@
 package repository;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

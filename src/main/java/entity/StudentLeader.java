@@ -44,7 +44,7 @@ public class StudentLeader implements Serializable {
 
 	//bi-directional one-to-one association to User
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="ID")
+	@JoinColumn(name="ID", insertable = false, updatable = false)
 	private User userDetail;
 
 	//uni-directional many-to-one association to College

@@ -1,6 +1,7 @@
 package handler;
 
 import dto.Leader;
+import entity.User;
 import repository.StudentLeaderRepository;
 import response.Response;
 
@@ -17,6 +18,10 @@ public class UpdateOrSaveLeaderHandler {
         if (db == null) {
             db = new entity.StudentLeader();
             db.setId(Long.parseLong(dto.getId()));
+            db.setUserDetail(new User());
+            db.getUserDetail().setId(db.getId());
+            db.getUserDetail().setUserRole("leader");
+            db.getUserDetail().setPassword(Long.toString(db.getId()));
         }
 
         db.getUserDetail().setFullName(dto.getName());

@@ -1,7 +1,6 @@
 package handler;
 
 import app.AppContext;
-import entity.User;
 import repository.UserRepository;
 import response.Response;
 
