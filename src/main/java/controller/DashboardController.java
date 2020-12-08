@@ -189,13 +189,13 @@ public class DashboardController {
 
                 GroupCount.setText("0");
                 ActivityCount.setText("0");
-                StudentCount.setText(String.valueOf(appUserCount.getNumberOfStudents()));
+                StudentCount.setText(String.valueOf(appUserCount.getNumberOfStudents() * 1.0 / appUserCount.getNumberOfLeaders()));
                 MaxLeaderCollege.setText("0");
                 MinAttendActivity.setText("0");
-                TLCount.setText(String.valueOf(leaderCount.getTeamLeaderCount()));
+                TLCount.setText(String.valueOf(appUserCount.getNumberOfLeaders()));
                 ActiveStudent.setText("0");
                 MaxAttendActivity.setText("0");
-                PLCount.setText(String.valueOf(leaderCount.getPeerLeaderCount()));
+                PLCount.setText(String.valueOf(leaderCount.getPeerLeaderCount() * 1.0/ leaderCount.getTeamLeaderCount()));
 
         }
 }
