@@ -153,7 +153,7 @@ public class ActivityListController {
                                 }
                         } else {
                                 if (editRow + 1 == tableView.getItems().size()) {
-                                        tableView.getItems().add(new Activity("<Insert>", "<Insert>", "<Insert>",
+                                        tableView.getItems().add(new Activity("<Default>", "<Insert>", "<Insert>",
                                                         "<Insert>", "<Insert>"));
                                 }
                                 Helper.createSuccessAlert("SUCCESS", "Activity saved successfully");
@@ -285,7 +285,9 @@ public class ActivityListController {
                                         .forEach(dbActivity -> tableView.getItems().add(new Activity(dbActivity)));
 
                         tableView.getItems()
-                                        .add(new Activity("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                                        .add(new Activity("<Default>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                } else {
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
                 ActivityIDColumn.setCellValueFactory(
@@ -320,8 +322,6 @@ public class ActivityListController {
                                         }
                                 });
 
-                // Haven't done the ID column again
-                // Since only admin can edit activities.
                 if (AppContext.getUser().getUserRole().equals("admin")) {
                         DeleteButton.setVisible(true);
                         SaveButton.setVisible(true);

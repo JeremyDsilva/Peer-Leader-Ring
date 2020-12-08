@@ -112,7 +112,7 @@ public class Activity {
             setOrganizedby(db.getOrganizedBy());
             setNote(db.getNote());
         } else {
-            id = "<Insert>";
+            id = "<Default>";
             setName("<Insert>");
             setDate("<Insert>");
             setOrganizedby("<Insert>");

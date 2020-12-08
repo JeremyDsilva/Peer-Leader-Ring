@@ -188,9 +188,8 @@ public class StudentGroupController {
                         return;
                 }
 
-                // to do your valiidation
-                System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+    
+ 
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -211,10 +210,7 @@ public class StudentGroupController {
                         tableView.refresh();
                         return;
                 }
-
-                // to do your valiidation
-                System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
+               
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -254,7 +250,7 @@ public class StudentGroupController {
                         tableView.getItems().add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
 
                 } else {
-                        // todo add alert box
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
                 StudentGroupGroupIDcolumn.setCellValueFactory(
@@ -287,7 +283,6 @@ public class StudentGroupController {
                                         }
                                 });
 
-                // Skipped making the ID editable
                 StudentGroupGroupNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 StudentGroupPeerLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 StudentGroupTeamLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());

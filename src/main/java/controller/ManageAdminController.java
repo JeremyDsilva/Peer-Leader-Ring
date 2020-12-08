@@ -151,7 +151,6 @@ public class ManageAdminController {
             return;
         }
 
-        System.out.println(t.getNewValue());
         if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -174,7 +173,6 @@ public class ManageAdminController {
             return;
         }
 
-        System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -197,8 +195,6 @@ public class ManageAdminController {
             return;
         }
 
-        // to do your valiidation
-        System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty() || !Helper.emailValidate(t.getNewValue())) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -221,8 +217,6 @@ public class ManageAdminController {
             return;
         }
 
-        // to do your valiidation
-        System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -252,6 +246,8 @@ public class ManageAdminController {
         if (response.success()) {
             response.getResponse().forEach(dbAdmin -> tableView.getItems().add(new Admin(dbAdmin)));
             tableView.getItems().add(new Admin("<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+        } else {
+            Helper.createErrorAlert("ERROR", "Cannot load page");
         }
 
         IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Admin, String>, ObservableValue<String>>() {

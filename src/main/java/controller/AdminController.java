@@ -33,6 +33,9 @@ public class AdminController {
     private Button AdminActivityListButton;
 
     @FXML
+    private Button MarkAttendanceButton;
+
+    @FXML
     private Button AdminDashboardButton;
 
     @FXML
@@ -44,6 +47,11 @@ public class AdminController {
     @FXML
     void AdminActivityListButtonOnClick(ActionEvent event) throws IOException {
         Helper.loadView(getClass().getResource("ActivityList.fxml"));
+    }
+
+    @FXML
+    void MarkAttendanceButtonOnClick(ActionEvent event) {
+        Helper.loadView(getClass().getResource("MarkAttendance.fxml"));
     }
 
     @FXML
@@ -90,6 +98,8 @@ public class AdminController {
                 : "fx:id=\"AdminStudentGroupButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert AdminActivityListButton != null
                 : "fx:id=\"AdminActivityListButton\" was not injected: check your FXML file 'Admin.fxml'.";
+        assert MarkAttendanceButton != null 
+                : "fx:id=\"MarkAttendanceButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert AdminDashboardButton != null
                 : "fx:id=\"AdminDashboardButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert AdminManageAdminButton != null
@@ -98,7 +108,6 @@ public class AdminController {
                 : "fx:id=\"AdminLeadersButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert ChangePasswordButton != null 
                 : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'Admin.fxml'.";
-
 
     }
 }

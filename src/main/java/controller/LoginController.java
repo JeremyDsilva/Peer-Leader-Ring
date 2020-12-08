@@ -66,9 +66,8 @@ public class LoginController {
                     root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
 
             } else {
-                // Tried the STUDENT LOGIN
+
                 root = FXMLLoader.load(getClass().getResource("admin.fxml"));
-                // TODO Add
             }
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -88,12 +87,15 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'Login.fxml'.";
+        assert label != null 
+                : "fx:id=\"label\" was not injected: check your FXML file 'Login.fxml'.";
         assert UserIDTextbox != null
                 : "fx:id=\"EmailUsernameTextbox\" was not injected: check your FXML file 'Login.fxml'.";
         assert PasswordTextbox != null
                 : "fx:id=\"PasswordTextbox\" was not injected: check your FXML file 'Login.fxml'.";
-        assert SignInButton != null : "fx:id=\"SignInButton\" was not injected: check your FXML file 'Login.fxml'.";
-        assert SignInLabel != null : "fx:id=\"SignInLabel\" was not injected: check your FXML file 'Login.fxml'.";
+        assert SignInButton != null 
+                : "fx:id=\"SignInButton\" was not injected: check your FXML file 'Login.fxml'.";
+        assert SignInLabel != null 
+                : "fx:id=\"SignInLabel\" was not injected: check your FXML file 'Login.fxml'.";
     }
 }

@@ -54,15 +54,13 @@ public class MarkAttendanceController {
         @FXML
         private Button SignOutButton;
 
+        @FXML
+        private Button BackButton;
+
         final GetGroupHandler groupHandler;
 
         public MarkAttendanceController() {
                 groupHandler = new GetGroupHandler();
-        }
-
-        @FXML
-        void GroupListMarkAttendOnClick(ActionEvent event) {
-                // todo
         }
 
         @FXML
@@ -76,8 +74,20 @@ public class MarkAttendanceController {
         }
 
         @FXML
+        void BackButtonOnClick(ActionEvent event) {
+                if(AppContext.userIsAdmin() && !AppContext.contains("groupId"))
+                        Helper.loadView(getClass().getResource("Admin.fxml"));
+                else if(AppContext.userIsAdmin())
+                        Helper.loadView(getClass().getResource("StudentGroup.fxml"));
+                else 
+                     Helper.loadView(getClass().getResource("GroupList.fxml"));   
+        }
+    
+
+        @FXML
         void initialize() {
-                assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
+                assert label != null 
+                                : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert tableView != null
                                 : "fx:id=\"tableView\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert idColumn != null : "fx:id=\"IdColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
@@ -85,6 +95,8 @@ public class MarkAttendanceController {
                                 : "fx:id=\"nameColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
+                assert BackButton != null 
+                                : "fx:id=\"BackButton\" was not injected: check your FXML file 'MarkAttendance.fxml'.";
 
                 Response<List<Activity>> activities = new GetActivitiesHandler().handle();
 
@@ -169,12 +181,11 @@ public class MarkAttendanceController {
 
                 Response<List<entity.Student>> students;
 
-                if (AppContext.userIsAdmin() && AppContext.contains("groupId")) {
+                if (AppContext.userIsAdmin() && !AppContext.contains("groupId")) {
                         students = new GetStudentsWithAttendanceHandler().handle();
                 } else {
                         students = new GetStudentsFromGroupHandler().handle((Long) AppContext.get("groupId"));
 
-                        Group group = students.getResponse().get(0).getGroup();
                 }
 
                 students.getResponse().forEach(student -> tableView.getItems().add(new Attendace(student)));

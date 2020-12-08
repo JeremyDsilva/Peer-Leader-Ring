@@ -187,7 +187,6 @@ public class LeaderListController {
                         return;
                 }
 
-                // to do your valiidation
                 System.out.println(t.getNewValue());
 
                 if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
@@ -210,9 +209,6 @@ public class LeaderListController {
                         tableView.refresh();
                         return;
                 }
-
-                // to do your valiidation
-                System.out.println(t.getNewValue());
 
                 if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()
                                 || (!t.getNewValue().equals("CEN") && !t.getNewValue().equals("CAAD")
@@ -262,8 +258,6 @@ public class LeaderListController {
                         return;
                 }
 
-                // to do your valiidation
-                System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 11 || t.getNewValue().isEmpty()
                                 || (!t.getNewValue().equals("team_leader") && !t.getNewValue().equals("peer_leader"))) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
@@ -286,8 +280,6 @@ public class LeaderListController {
                         return;
                 }
 
-                // to do your valiidation
-                System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()
                                 || !Helper.emailValidate(t.getNewValue())) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
@@ -311,8 +303,6 @@ public class LeaderListController {
                         return;
                 }
 
-                // to do your valiidation
-                System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -358,6 +348,8 @@ public class LeaderListController {
 
                         tableView.getItems().add(new Leader("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>",
                                         "<Insert>", "<Insert>"));
+                } else {
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
                 IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {

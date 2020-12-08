@@ -23,32 +23,32 @@
             <Image url="@HatchfulExport-All/facebook_profile_image.png" />
          </image>
       </ImageView>
-      <Button fx:id="AdminStudentButton" layoutX="101.0" layoutY="141.0" mnemonicParsing="false" onAction="#AdminStudentButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Students" textFill="#f2f4f5">
+      <Button fx:id="AdminStudentButton" layoutX="100.0" layoutY="109.0" mnemonicParsing="false" onAction="#AdminStudentButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Students" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AdminStudentGroupButton" layoutX="101.0" layoutY="260.0" mnemonicParsing="false" onAction="#AdminStudentGroupButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Student Groups" textFill="#f2f4f5">
+      <Button fx:id="AdminStudentGroupButton" layoutX="100.0" layoutY="228.0" mnemonicParsing="false" onAction="#AdminStudentGroupButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Student Groups" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AdminActivityListButton" layoutX="101.0" layoutY="320.0" mnemonicParsing="false" onAction="#AdminActivityListButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Activity List" textFill="#f2f4f5">
+      <Button fx:id="AdminActivityListButton" layoutX="100.0" layoutY="288.0" mnemonicParsing="false" onAction="#AdminActivityListButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Activity List" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AdminDashboardButton" layoutX="101.0" layoutY="381.0" mnemonicParsing="false" onAction="#AdminDashboardButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Dashboard" textFill="#f2f4f5">
+      <Button fx:id="AdminDashboardButton" layoutX="100.0" layoutY="468.0" mnemonicParsing="false" onAction="#AdminDashboardButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Dashboard" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AdminManageAdminButton" layoutX="101.0" layoutY="441.0" mnemonicParsing="false" onAction="#AdminManageAdminButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Manage Admin" textFill="#f2f4f5">
+      <Button fx:id="AdminManageAdminButton" layoutX="100.0" layoutY="409.0" mnemonicParsing="false" onAction="#AdminManageAdminButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Manage Admin" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="AdminLeadersButton" layoutX="101.0" layoutY="201.0" mnemonicParsing="false" onAction="#AdminLeadersButtonOnlick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Leaders" textFill="#f2f4f5">
+      <Button fx:id="AdminLeadersButton" layoutX="100.0" layoutY="169.0" mnemonicParsing="false" onAction="#AdminLeadersButtonOnlick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Leaders" textFill="#f2f4f5">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
@@ -61,6 +61,11 @@
       <Button fx:id="ChangePasswordButton" layoutX="746.0" layoutY="544.0" mnemonicParsing="false" onAction="#ChangePasswordButtonOnClick" style="-fx-background-color: #ffd002;" text="Change Password">
          <font>
             <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="MarkAttendanceButton" layoutX="100.0" layoutY="350.0" mnemonicParsing="false" onAction="#MarkAttendanceButtonOnClick" prefHeight="44.0" prefWidth="212.0" style="-fx-background-color: #902400;" text="Mark Attendance" textFill="#f2f4f5">
+         <font>
+            <Font name="Arial" size="22.0" />
          </font>
       </Button>
    </children>

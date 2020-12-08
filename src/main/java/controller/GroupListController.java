@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.App;
 import app.AppContext;
 import dto.Student;
 import entity.Group;
@@ -151,7 +152,7 @@ public class GroupListController {
 
                         response = groupHandler
                                         .handle(AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
-
+                        AppContext.put("groupId", AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
                         BackButton.setVisible(false);
                 } else {
                         response = groupHandler.handle((Long) AppContext.get("groupId"));
@@ -168,6 +169,8 @@ public class GroupListController {
 
                         response.getResponse().getStudents()
                                         .forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
+                }else {
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
                 idColumn.setCellValueFactory(

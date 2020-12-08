@@ -172,8 +172,6 @@ public class StudentViewController {
                                         String.valueOf(student.getUserDetail().getPhoneNumber()));
                         LSStudentEmailLabel.setText(String.valueOf(AppContext.getUser().getEmail()));
 
-                        // -----------------------------------------------------------
-
                         LSPeerIDLabel.setText(String.valueOf(
                                         student.getGroup().getPeerLeader().getUserDetail().getId()));
                         LSPeerNameLabel.setText(String.valueOf(student.getGroup().getPeerLeader()
@@ -184,8 +182,6 @@ public class StudentViewController {
                                         .getUserDetail().getPhoneNumber()));
                         LSPeerEmailLabel.setText(String.valueOf(
                                         student.getGroup().getPeerLeader().getUserDetail().getEmail()));
-
-                        // -----------------------------------------------------------
 
                         LSTeamIDLabel.setText(String.valueOf(
                                         student.getGroup().getTeamLeader().getUserDetail().getId()));
@@ -198,6 +194,8 @@ public class StudentViewController {
                         LSTeamEmailLabel.setText(String.valueOf(
                                         student.getGroup().getTeamLeader().getUserDetail().getEmail()));
 
+                }  else {
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
         }

@@ -169,7 +169,6 @@ public class StudentListController {
             return;
         }
 
-        System.out.println(t.getNewValue());
         if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -193,9 +192,6 @@ public class StudentListController {
             return;
         }
 
-        // to do your valiidation
-        System.out.println(t.getNewValue());
-        // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -219,7 +215,6 @@ public class StudentListController {
             return;
         }
 
-        // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty() || !Helper.emailValidate(t.getNewValue())) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
@@ -244,7 +239,6 @@ public class StudentListController {
             return;
         }
 
-        // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
@@ -268,9 +262,6 @@ public class StudentListController {
             return;
         }
 
-        // to do your valiidation
-        System.out.println(t.getNewValue());
-        // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
         if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()
                 || (!t.getNewValue().equals("CEN") && !t.getNewValue().equals("CAAD") && !t.getNewValue().equals("CAS")
                         && !t.getNewValue().equals("SBA"))) {
@@ -296,8 +287,6 @@ public class StudentListController {
             return;
         }
 
-        // to do your valiidation
-        System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 20) {
             Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
@@ -310,20 +299,28 @@ public class StudentListController {
     @FXML
     void initialize() {
 
-        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert tableView != null : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert IDColumn != null : "fx:id=\" IDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert NameColumn != null : "fx:id=\" NameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert EmailColumn != null : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert PhoneColumn != null : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert label != null 
+                : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert tableView != null 
+                : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert IDColumn != null 
+                : "fx:id=\" IDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert NameColumn != null 
+                : "fx:id=\" NameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert EmailColumn != null 
+                : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert PhoneColumn != null 
+                : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert CollegeColumn != null
                 : "fx:id=\"CollegeColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert GroupColumn != null
                 : "fx:id=\" GroupColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert BackButton != null 
+                : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert SignOutButton != null
                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert SaveButton != null : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert SaveButton != null 
+                : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert DeleteButton != null
                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentList.fxml'.";
 
@@ -333,6 +330,8 @@ public class StudentListController {
             response.getResponse().forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
             tableView.getItems()
                     .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+        } else {
+            Helper.createErrorAlert("ERROR", "Cannot load page");
         }
 
         IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
@@ -368,7 +367,7 @@ public class StudentListController {
                 return new ReadOnlyObjectWrapper<String>(p.getValue().getGroupName());
             }
         });
-        // Skipped making the ID editable
+
         IDColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         NameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         EmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());

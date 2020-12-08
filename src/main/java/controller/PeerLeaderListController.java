@@ -93,16 +93,7 @@ public class PeerLeaderListController {
 
         @FXML
         void TeamLeaderViewActivityListOnClick(ActionEvent event) {
-                // todo
-                try {
-                        Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-                        Scene Logout = new Scene(root);
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        window.setScene(Logout);
-                        window.show();
-                } catch (Exception e) {
-                        util.Helper.createErrorAlert("ERROR", e.getMessage());
-                }
+               Helper.loadView(getClass().getResource("ActivityList.fxml"));
         }
 
         @FXML
@@ -111,23 +102,14 @@ public class PeerLeaderListController {
                 {
                         AppContext.put("groupId", tableview.getSelectionModel().getSelectedItem().getGroupId());
 
-                        try {
-                                Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
-                                Scene Logout = new Scene(root);
-                                Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny()
-                                                .get();
-                                window.setScene(Logout);
-                                window.show();
-                        } catch (IOException e) {
-                                util.Helper.createErrorAlert("ERROR", e.getMessage());
-                                e.printStackTrace();
-                        }
+                        Helper.loadView(getClass().getResource("GroupList.fxml"));
                 }
         }
 
         @FXML
         void initialize() {
-                assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+                assert label != null 
+                                : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderNameLabel != null
                                 : "fx:id=\"TeamLeaderNameLabel\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert tableview != null
@@ -157,7 +139,6 @@ public class PeerLeaderListController {
 
                         List<Group> groups = response.getResponse();
 
-                        // if(response.getResponse().getStudentLeaderRole().equals("peer_leader")){
                         for (var group : groups) {
                                 StudentLeader leader = group.getPeerLeader();
                                 PeerLeader tbLeaders = new PeerLeader(Long.valueOf(leader.getId()),
@@ -168,6 +149,8 @@ public class PeerLeaderListController {
                                 tableview.getItems().add(tbLeaders);
                         }
 
+                }else {
+                        Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
                 TeamLeaderPeerLeaderIDColumn.setCellValueFactory(
