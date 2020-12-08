@@ -9,17 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PeerLeaderListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
-            <Label fx:id="TeamLeaderNameLabel" layoutX="21.0" layoutY="11.0" prefHeight="42.0" prefWidth="252.0" text="{Name}" textFill="#f2f2f2">
+            <Label fx:id="TeamLeaderNameLabel" layoutX="40.0" layoutY="12.0" prefHeight="34.0" prefWidth="252.0" text="{Name}" textFill="#f2f2f2">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
+            <Text fill="#ffd002" layoutX="40.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Leader">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <ImageView fitHeight="84.0" fitWidth="269.0" pickOnBounds="true" preserveRatio="true">

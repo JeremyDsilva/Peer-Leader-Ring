@@ -172,7 +172,7 @@ public class GroupListController {
 
                 if (response != null && response.success()) {
 
-                        GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                        GroupListNameLabel.setText(response.getResponse().getPeerLeader().getUserDetail().getFullName());
                         GroupListGroupNameLabel.setText(response.getResponse().getName());
                         GroupListTeamLeaderLabel
                                         .setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
