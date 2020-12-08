@@ -4,6 +4,7 @@ import app.AppContext;
 import entity.User;
 import repository.UserRepository;
 import response.Response;
+import util.PasswordUtil;
 
 public class LoginHandler {
 
@@ -18,7 +19,7 @@ public class LoginHandler {
 
         User user = response.getResponse();
         
-        if(!user.getPassword().equals(password))
+        if(!PasswordUtil.comparePassword(user.getPassword(), password))
             return Response.of(new Exception("Incorrect Username or Password"));
 
         AppContext.setUser(user);

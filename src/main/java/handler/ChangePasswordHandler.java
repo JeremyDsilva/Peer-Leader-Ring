@@ -3,6 +3,7 @@ package handler;
 import app.AppContext;
 import repository.UserRepository;
 import response.Response;
+import util.PasswordUtil;
 
 public class ChangePasswordHandler {
 
@@ -17,8 +18,7 @@ public class ChangePasswordHandler {
         if(response.hasException())
             return Response.ofException("Incorrect password");
         
-
-        response.getResponse().setPassword(newPassword);
+        response.getResponse().setPassword(PasswordUtil.getHashedPassword(newPassword));
 
         var _response = userRepository.update(response.getResponse());
 

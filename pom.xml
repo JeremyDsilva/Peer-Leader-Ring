@@ -10,6 +10,13 @@
   </properties>
   <dependencies>
 
+    <!-- For Password Hashing -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
     <!-- For Database -->
     <dependency>
       <groupId>org.hibernate</groupId>

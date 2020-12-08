@@ -3,6 +3,7 @@ package handler;
 import dto.Admin;
 import repository.UserRepository;
 import response.Response;
+import util.PasswordUtil;
 
 public class UpdateOrSaveAdminHandler {
 
@@ -17,6 +18,7 @@ public class UpdateOrSaveAdminHandler {
         if (db == null) {
             db = new entity.User();
             db.setId(Long.parseLong(dto.getId()));
+            db.setPassword(PasswordUtil.getHashedPassword(dto.getId()));
         }
 
         db.setFullName(dto.getName());

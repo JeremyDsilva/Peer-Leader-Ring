@@ -5,6 +5,7 @@ import entity.User;
 import repository.GroupRepository;
 import repository.StudentRepository;
 import response.Response;
+import util.PasswordUtil;
 
 public class UpdateOrSaveStudentHandler {
 
@@ -22,7 +23,7 @@ public class UpdateOrSaveStudentHandler {
                 db.setUserDetail(new User());
                 db.setId(Long.parseLong(dto.getId()));
                 db.getUserDetail().setId(db.getId());
-                db.getUserDetail().setPassword(Long.toString(db.getId()));
+                db.getUserDetail().setPassword(PasswordUtil.getHashedPassword(dto.getId()));
                 db.getUserDetail().setUserRole("student");
             }
 
