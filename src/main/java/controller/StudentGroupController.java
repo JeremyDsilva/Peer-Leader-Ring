@@ -106,6 +106,11 @@ public class StudentGroupController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
+                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getPeerLeaderId().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getTeamLeaderId().equals("<Insert>")));
+                                Helper.createErrorAlert("ERROR", "Insert all values");
+
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
                         if (respone.hasException()) {
@@ -164,9 +169,6 @@ public class StudentGroupController {
                         return;
                 }
 
-                // to do your valiidation
-                System.out.println(t.getNewValue());
-                // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 20) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();

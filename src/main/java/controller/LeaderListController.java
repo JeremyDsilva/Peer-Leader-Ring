@@ -118,6 +118,15 @@ public class LeaderListController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
+                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getId().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getName().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getYear().equals("<Insert>")
+                        || tableView.getItems().get(editRow).getCollege().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getEmail().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getPhone().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getRole().equals("<Insert>")))
+                                Helper.createErrorAlert("ERROR", "Insert all values");
+
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
                         if (respone.hasException()) {
