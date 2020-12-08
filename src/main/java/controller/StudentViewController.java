@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import response.Response;
+import util.Helper;
 
 public class StudentViewController {
 
@@ -83,6 +84,9 @@ public class StudentViewController {
         @FXML
         private Button BackButton;
 
+        @FXML
+        private Button ChangePasswordButton;
+
         final GetStudentHandler studentHandler;
 
         public StudentViewController() {
@@ -91,31 +95,23 @@ public class StudentViewController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
-                Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
-                Scene Back = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Back);
-                window.show();
+                AppContext.remove("studentId");
+                Helper.loadView(getClass().getResource("StudentList.fxml"));
+        }
+
+        @FXML
+        void ChangePasswordButtonOnClick(ActionEvent event) {
+                Helper.loadView(getClass().getResource("ChangePassword.fxml"));
         }
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
+                Helper.loadView(getClass().getResource("Login.fxml"));
         }
 
         @FXML
         void ViewActivityListButtonOnClick(ActionEvent event) throws IOException {
-                Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-                Scene Logout = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Logout);
-                window.show();
-
+                Helper.loadView(getClass().getResource("ActivityList.fxml"));
         }
 
         @FXML
@@ -157,48 +153,55 @@ public class StudentViewController {
                                 : "fx:id=\"ViewActivityListButton\" was not injected: check your FXML file 'StudentView.fxml'.";
                 assert BackButton != null 
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentView.fxml'.";
+                assert ChangePasswordButton != null 
+                                : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
                 Response<Student> response = null;
-                if (AppContext.userIsStudent())
+                if (AppContext.userIsStudent()){
                         response = studentHandler.handle(AppContext.getUser().getId());
+                        BackButton.setVisible(false);
+                }
                 else {
                         response = studentHandler.handle((Long) AppContext.get("studentId"));
-                        // todo back button
+                        BackButton.setVisible(true);
+                        ViewActivityListButton.setVisible(false);
+                        ChangePasswordButton.setVisible(false);
                 }
 
                 if (response != null && response.success()) {
-                        LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
-                        LSStudentNameLabel.setText(String.valueOf(AppContext.getUser().getFullName()));
-                        LSStudentCollegeLabel.setText(String.valueOf(response.getResponse().getCollege()));
+                        Student student = response.getResponse();
+                        LSStudentIDLabel.setText(String.valueOf(student.getId()));
+                        LSStudentNameLabel.setText(String.valueOf(student.getUserDetail().getFullName()));
+                        LSStudentCollegeLabel.setText(String.valueOf(student.getCollege()));
                         LSStudentPhoneLabel.setText(
-                                        String.valueOf(response.getResponse().getUserDetail().getPhoneNumber()));
+                                        String.valueOf(student.getUserDetail().getPhoneNumber()));
                         LSStudentEmailLabel.setText(String.valueOf(AppContext.getUser().getEmail()));
 
                         // -----------------------------------------------------------
 
                         LSPeerIDLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getPeerLeader().getUserDetail().getId()));
-                        LSPeerNameLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
+                                        student.getGroup().getPeerLeader().getUserDetail().getId()));
+                        LSPeerNameLabel.setText(String.valueOf(student.getGroup().getPeerLeader()
                                         .getUserDetail().getFullName()));
                         LSPeerCollegeLabel.setText(
-                                        String.valueOf(response.getResponse().getGroup().getPeerLeader().getCollege()));
-                        LSPeerPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
+                                        String.valueOf(student.getGroup().getPeerLeader().getCollege()));
+                        LSPeerPhoneLabel.setText(String.valueOf(student.getGroup().getPeerLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSPeerEmailLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getPeerLeader().getUserDetail().getEmail()));
+                                        student.getGroup().getPeerLeader().getUserDetail().getEmail()));
 
                         // -----------------------------------------------------------
 
                         LSTeamIDLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getTeamLeader().getUserDetail().getId()));
-                        LSTeamNameLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
+                                        student.getGroup().getTeamLeader().getUserDetail().getId()));
+                        LSTeamNameLabel.setText(String.valueOf(student.getGroup().getTeamLeader()
                                         .getUserDetail().getFullName()));
                         LSTeamCollegeLabel.setText(
-                                        String.valueOf(response.getResponse().getGroup().getTeamLeader().getCollege()));
-                        LSTeamPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
+                                        String.valueOf(student.getGroup().getTeamLeader().getCollege()));
+                        LSTeamPhoneLabel.setText(String.valueOf(student.getGroup().getTeamLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSTeamEmailLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getTeamLeader().getUserDetail().getEmail()));
+                                        student.getGroup().getTeamLeader().getUserDetail().getEmail()));
 
                 }
 

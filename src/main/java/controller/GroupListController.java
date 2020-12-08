@@ -25,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
+import util.Helper;
 
 public class GroupListController {
 
@@ -76,6 +77,9 @@ public class GroupListController {
         @FXML
         private Button SignOutButton;
 
+        @FXML
+        private Button ChangePasswordButton;
+
         final GetGroupHandler groupHandler;
 
         public GroupListController() {
@@ -114,8 +118,13 @@ public class GroupListController {
 
         @FXML
         void SignOutButtonOnClick(ActionEvent event) throws IOException {
-                util.Helper.loadView(getClass().getResource("Login.fxml"));
+                Helper.loadView(getClass().getResource("Login.fxml"));
         }
+
+        @FXML
+        void ChangePasswordButtonOnClick(ActionEvent event) {
+                Helper.loadView(getClass().getResource("ChangePassword.fxml"));
+        }    
 
         @FXML
         void initialize() {
@@ -143,6 +152,8 @@ public class GroupListController {
                                 : "fx:id=\"GroupListViewActButton\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
+                assert ChangePasswordButton != null 
+                                : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'GroupList.fxml'.";
 
                 Response<Group> response = null;
 
@@ -155,7 +166,7 @@ public class GroupListController {
                         BackButton.setVisible(false);
                 } else {
                         response = groupHandler.handle((Long) AppContext.get("groupId"));
-
+                        ChangePasswordButton.setVisible(false);
                         GroupListViewActButton.setVisible(false);
                 }
 

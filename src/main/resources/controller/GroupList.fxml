@@ -37,7 +37,7 @@
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
          </image>
       </ImageView>
-      <Label layoutX="391.0" layoutY="22.0" text="List of Students in Group" textFill="#902400">
+      <Label layoutX="287.0" layoutY="22.0" text="List of Students in Group" textFill="#902400">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
@@ -67,6 +67,11 @@
          </font>
       </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="ChangePasswordButton" layoutX="746.0" layoutY="26.0" mnemonicParsing="false" onAction="#ChangePasswordButtonOnClick" style="-fx-background-color: #ffd002;" text="Change Password">
          <font>
             <Font size="17.0" />
          </font>

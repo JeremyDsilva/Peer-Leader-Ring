@@ -48,6 +48,9 @@ public class PeerLeaderListController {
         private Button SignOutButton;
 
         @FXML
+        private Button ChangePasswordButton;    
+
+        @FXML
         private TableView<PeerLeader> tableview;
 
         @FXML
@@ -81,6 +84,12 @@ public class PeerLeaderListController {
                 Helper.loadView(getClass().getResource("Login.fxml"));
 
         }
+
+        @FXML
+        void ChangePasswordButtonOnClick(ActionEvent event) {
+                Helper.loadView(getClass().getResource("ChangePassword.fxml"));
+        }
+        
 
         @FXML
         void TeamLeaderViewActivityListOnClick(ActionEvent event) {
@@ -137,6 +146,8 @@ public class PeerLeaderListController {
                                 : "fx:id=\"TeamLeaderGroupNameColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderViewActivityListButton != null
                                 : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+                assert ChangePasswordButton != null 
+                                : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
                 Response<List<Group>> response = getGroupsUnderLeaderHandler.handle(AppContext.getUser().getId());
 
