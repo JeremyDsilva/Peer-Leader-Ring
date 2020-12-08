@@ -76,7 +76,7 @@ public class LoginController {
             window.show();
 
         } else {
-            Helper.createAlert("Unsuccessful Login", "Please Enter your valid credentials");
+            Helper.createErrorAlert("Unsuccessful Login", "Please Enter your valid credentials");
         }
 
     }

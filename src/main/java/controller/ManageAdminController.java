@@ -94,7 +94,7 @@ public class ManageAdminController {
         int index = tableView.getItems().indexOf(toDelete);
 
         if (index + 1 == tableView.getItems().size()) {
-            Helper.createAlert("Error in Deletion", "Invalid Selection");
+            Helper.createErrorAlert("Error in Deletion", "Invalid Selection");
             return;
         }
 
@@ -104,23 +104,23 @@ public class ManageAdminController {
             tableView.getItems().remove(index);
             tableView.refresh();
         } else
-            Helper.createAlert("Error in Deletion", response.getException().getMessage());
+            Helper.createErrorAlert("Error in Deletion", response.getException().getMessage());
     }
 
     @FXML
     void SaveButtonOnClick(ActionEvent event) {
         if (editRow == -1) {
-            Helper.createAlert("Error", "No row was been modified");
+            Helper.createErrorAlert("Error", "No row was been modified");
         } else {
             var respone = tableView.getItems().get(editRow).updateOrSave();
 
             if (respone.hasException()) {
-                Helper.createAlert("Error", respone.getException().getMessage());
+                Helper.createErrorAlert("Error", respone.getException().getMessage());
 
                 var resetResponse = tableView.getItems().get(editRow).reset();
 
                 if (resetResponse.hasException()) {
-                    Helper.createAlert("Database Error", resetResponse.getException().getMessage());
+                    Helper.createErrorAlert("Database Error", resetResponse.getException().getMessage());
                     tableView.getItems().remove(editRow);
                 }
             } else if (editRow + 1 == tableView.getItems().size()) {
@@ -137,7 +137,7 @@ public class ManageAdminController {
     @FXML
     void idEditStart(CellEditEvent<Admin, String> t) {
         if (editRow + 1 != tableView.getItems().size())
-            Helper.createAlert("Cannot Edit", "ID is not editable");
+            Helper.createErrorAlert("Cannot Edit", "ID is not editable");
 
         Helper.onEditStartCheck(t, editRow);
     }
@@ -145,7 +145,7 @@ public class ManageAdminController {
     @FXML
     void idEditCommit(CellEditEvent<Admin, String> t) {
         if (editRow + 1 != tableView.getItems().size())
-            Helper.createAlert("Cannot Edit", "ID is not editable");
+            Helper.createErrorAlert("Cannot Edit", "ID is not editable");
 
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
@@ -154,7 +154,7 @@ public class ManageAdminController {
 
         System.out.println(t.getNewValue());
         if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
-            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -177,7 +177,7 @@ public class ManageAdminController {
 
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
-            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -201,7 +201,7 @@ public class ManageAdminController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty() || !Helper.emailValidate(t.getNewValue())) {
-            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -225,7 +225,7 @@ public class ManageAdminController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
-            Helper.createAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);

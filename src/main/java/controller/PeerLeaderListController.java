@@ -101,7 +101,7 @@ public class PeerLeaderListController {
                         window.setScene(Logout);
                         window.show();
                 } catch (Exception e) {
-                        util.Helper.createAlert("Error", e.getMessage());
+                        util.Helper.createErrorAlert("Error", e.getMessage());
                 }
         }
 
@@ -119,7 +119,7 @@ public class PeerLeaderListController {
                                 window.setScene(Logout);
                                 window.show();
                         } catch (IOException e) {
-                                util.Helper.createAlert("Error", e.getMessage());
+                                util.Helper.createErrorAlert("Error", e.getMessage());
                                 e.printStackTrace();
                         }
                 }

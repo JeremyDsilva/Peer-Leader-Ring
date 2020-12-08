@@ -87,7 +87,7 @@ public class Helper {
         return matcher.find();
     }
 
-    public static void createAlert(String title, String message) {
+    public static void createErrorAlert(String title, String message) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle(title);
         a.setContentText(message);
@@ -95,6 +95,13 @@ public class Helper {
         a.showAndWait();
     }
 
+    public static void createSuccessAlert(String title, String message) {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle(title);
+        a.setContentText(message);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
     public static void loadView(URL fxml) {
         try {
             Parent root = FXMLLoader.load(fxml);
@@ -103,7 +110,7 @@ public class Helper {
             window.setScene(scene);
             window.show();
         } catch (Exception e) {
-            Helper.createAlert("Error", "Cannot Load " + fxml.toString());
+            Helper.createErrorAlert("Error", "Cannot Load " + fxml.toString());
         }
 
     }
