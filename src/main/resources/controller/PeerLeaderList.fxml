@@ -32,17 +32,17 @@
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableview" onMouseClicked="#onClick" layoutX="38.0" layoutY="180.0" prefHeight="292.0" prefWidth="937.0">
+      <TableView fx:id="tableview" layoutX="38.0" layoutY="180.0" onMouseClicked="#onClick" prefHeight="292.0" prefWidth="937.0">
          <columns>
             <TableColumn fx:id="TeamLeaderPeerLeaderIDColumn" prefWidth="103.0" text="Peer Leader ID" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderNameColumn"  prefWidth="256.0" text="Peer Leader Name" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderEmailColumn" minWidth="0.0"  prefWidth="215.0" text="Peer Leader Email" />
-            <TableColumn fx:id="TeamLeaderPeerLeaderPhoneColumn"  prefWidth="177.0" text="Peer Leader Phone No." />
+            <TableColumn fx:id="TeamLeaderPeerLeaderNameColumn" prefWidth="256.0" text="Peer Leader Name" />
+            <TableColumn fx:id="TeamLeaderPeerLeaderEmailColumn" minWidth="0.0" prefWidth="215.0" text="Peer Leader Email" />
+            <TableColumn fx:id="TeamLeaderPeerLeaderPhoneColumn" prefWidth="177.0" text="Peer Leader Phone No." />
             <TableColumn fx:id="TeamLeaderGroupNameColumn" minWidth="0.0" prefWidth="185.0" text="Group Name " />
             <TableColumn fx:id="TeamLeaderActiveColumn" minWidth="0.0" prefWidth="0.0" text="Active" />
          </columns>
       </TableView>
-      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="434.0" layoutY="495.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="42.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="TeamLeaderViewActivityListButton" alignment="CENTER" layoutX="786.0" layoutY="494.0" mnemonicParsing="false" onAction="#TeamLeaderViewActivityListOnClick" prefHeight="42.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
