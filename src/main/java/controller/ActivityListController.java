@@ -139,13 +139,19 @@ public class ActivityListController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
+                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getDate().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getOrganizedby().equals("<Insert>") 
+                        || tableView.getItems().get(editRow).getNote().equals("<Insert>")))
+                                Helper.createErrorAlert("ERROR", "Insert all values");
+
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
                         if (respone.hasException()) {
                                 Helper.createErrorAlert("ERROR", respone.getException().getMessage());
 
                                 var resetResponse = tableView.getItems().get(editRow).reset();
-
+                                
                                 if (resetResponse.hasException()) {
                                         Helper.createErrorAlert("DATABASE ERROR",
                                                         resetResponse.getException().getMessage());
@@ -155,6 +161,7 @@ public class ActivityListController {
                                 if (editRow + 1 == tableView.getItems().size()) {
                                         tableView.getItems().add(new Activity("<Default>", "<Insert>", "<Insert>",
                                                         "<Insert>", "<Insert>"));
+
                                 }
                                 Helper.createSuccessAlert("SUCCESS", "Activity saved successfully");
                         }
