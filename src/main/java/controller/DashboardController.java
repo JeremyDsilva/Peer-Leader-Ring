@@ -9,6 +9,8 @@ import dto.CountPerCollege;
 import dto.LeaderCount;
 import handler.AppUserCountHandler;
 import handler.CountPerCollegeHandler;
+import handler.GetActivityCountHandler;
+import handler.GetGroupCountHandler;
 import handler.LeaderCountHandler;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -49,32 +51,32 @@ public class DashboardController {
         private StackedBarChart<String, Number> CollegeStudentCount;
 
         @FXML
-        private Label AvgStudentCount;
-
+        private Label AdminCount;
+    
         @FXML
-        private Label AvgActivityCount;
-
+        private Label LeaderCount;
+    
         @FXML
-        private Label AvgPeerLeaderCount;
-
+        private Label AvgStudentperPL;
+    
+        @FXML
+        private Label AvgPLperTL;
+    
         @FXML
         private Label GroupCount;
-
+    
+        @FXML
+        private Label StudentCount;
+    
+        @FXML
+        private Label AppUserCount;
+    
         @FXML
         private Label ActivityCount;
-
+    
         @FXML
-        private Label SeniorCount;
-
-        @FXML
-        private Label MinAttendActivity;
-
-        @FXML
-        private Label ActiveStudent;
-
-        @FXML
-        private Label MaxAttendActivity;
-
+        private Label AvgStudentperTL;
+    
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
                 Helper.loadView(getClass().getResource("Admin.fxml"));
@@ -102,20 +104,24 @@ public class DashboardController {
                                 : "fx:id=\"GroupCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
                 assert ActivityCount != null
                                 : "fx:id=\"ActivityCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert AvgStudentCount != null
-                                : "fx:id=\"AvgStudentCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert AvgActivityCount != null
-                                : "fx:id=\"AvgActivityCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert MinAttendActivity != null
-                                : "fx:id=\"MinAttendActivity\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert SeniorCount != null
-                                : "fx:id=\"SeniorCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert ActiveStudent != null
-                                : "fx:id=\"ActiveStudent\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert MaxAttendActivity != null
-                                : "fx:id=\"MaxAttendActivity\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert AvgPeerLeaderCount != null
-                                : "fx:id=\"AvgPeerLeaderCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AdminCount != null 
+                                : "fx:id=\"AdminCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert LeaderCount != null 
+                                : "fx:id=\"LeaderCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgStudentperPL != null 
+                                : "fx:id=\"AvgStudentperPL\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgPLperTL != null 
+                                : "fx:id=\"AvgPLperTL\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert GroupCount != null 
+                                : "fx:id=\"GroupCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert StudentCount != null 
+                                : "fx:id=\"StudentCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AppUserCount != null 
+                                : "fx:id=\"AppUserCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert ActivityCount != null 
+                                : "fx:id=\"ActivityCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgStudentperTL != null 
+                                : "fx:id=\"AvgStudentperTL\" was not injected: check your FXML file 'Dashboard.fxml'.";
 
                 AppUserCount appUserCount = new AppUserCountHandler().handle();
 
@@ -158,17 +164,21 @@ public class DashboardController {
 
                 CollegeStudentCount.getData().addAll(series1, series2);
 
-                GroupCount.setText("0");
-                ActivityCount.setText("0");
-                SeniorCount.setText("0");
-                AvgActivityCount.setText("0");
-                AvgPeerLeaderCount.setText(String
-                                .valueOf(leaderCount.getPeerLeaderCount() * 1.0 / leaderCount.getTeamLeaderCount()));
-                AvgStudentCount.setText(String
-                                .valueOf(appUserCount.getNumberOfStudents() * 1.0 / appUserCount.getNumberOfLeaders()));
-                MinAttendActivity.setText("0");
-                ActiveStudent.setText("0");
-                MaxAttendActivity.setText("0");
+                Long groupCount = new GetGroupCountHandler().handler().getResponse();
+                Long activityCount = new GetActivityCountHandler().handler().getResponse();
+
+                AdminCount.setText(String.valueOf(appUserCount.getNumberOfAdmins()));
+                LeaderCount.setText(String.valueOf(appUserCount.getNumberOfLeaders()));
+                StudentCount.setText(String.valueOf(appUserCount.getNumberOfStudents()));
+
+                AvgStudentperPL.setText(String.format("%.2f",appUserCount.getNumberOfStudents() * 1.0 /leaderCount.getPeerLeaderCount()));
+                AvgStudentperTL.setText(String.format("%.2f",appUserCount.getNumberOfStudents() * 1.0 /leaderCount.getTeamLeaderCount()));
+                AvgPLperTL.setText(String.format("%.2f",leaderCount.getPeerLeaderCount() * 1.0 / leaderCount.getTeamLeaderCount()));
+
+                GroupCount.setText(String.valueOf(groupCount));
+                ActivityCount.setText(String.valueOf(activityCount));
+                AppUserCount.setText(String.valueOf(appUserCount.getNumberOfAdmins() + appUserCount.getNumberOfLeaders() + appUserCount.getNumberOfStudents()));
+                
 
         }
 }
