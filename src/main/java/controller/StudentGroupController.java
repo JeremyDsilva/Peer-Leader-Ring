@@ -108,8 +108,10 @@ public class StudentGroupController {
                 } else {
                         if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
                         || tableView.getItems().get(editRow).getPeerLeaderId().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getTeamLeaderId().equals("<Insert>")));
+                        || tableView.getItems().get(editRow).getTeamLeaderId().equals("<Insert>"))){
                                 Helper.createErrorAlert("ERROR", "Insert all values");
+                                return;
+                            }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 

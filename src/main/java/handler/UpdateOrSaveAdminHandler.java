@@ -19,6 +19,7 @@ public class UpdateOrSaveAdminHandler {
             db = new entity.User();
             db.setId(Long.parseLong(dto.getId()));
             db.setPassword(PasswordUtil.getHashedPassword(dto.getId()));
+            db.setUserRole("admin");
         }
 
         db.setFullName(dto.getName());
