@@ -147,12 +147,15 @@ public class ActivityListController {
                                 var resetResponse = tableView.getItems().get(editRow).reset();
 
                                 if (resetResponse.hasException()) {
-                                        Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
+                                        Helper.createErrorAlert("DATABASE ERROR",
+                                                        resetResponse.getException().getMessage());
                                         tableView.getItems().remove(editRow);
                                 }
-                        } else if (editRow + 1 == tableView.getItems().size()) {
-                                tableView.getItems().add(new Activity("<Insert>", "<Insert>", "<Insert>", "<Insert>",
-                                                "<Insert>"));
+                        } else {
+                                if (editRow + 1 == tableView.getItems().size()) {
+                                        tableView.getItems().add(new Activity("<Insert>", "<Insert>", "<Insert>",
+                                                        "<Insert>", "<Insert>"));
+                                }
                                 Helper.createSuccessAlert("SUCCESS", "Activity saved successfully");
                         }
 

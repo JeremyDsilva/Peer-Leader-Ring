@@ -119,8 +119,10 @@ public class ManageAdminController {
                     Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
                     tableView.getItems().remove(editRow);
                 }
-            } else if (editRow + 1 == tableView.getItems().size()) {
-                tableView.getItems().add(new Admin("<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+            } else {
+                if (editRow + 1 == tableView.getItems().size()) {
+                    tableView.getItems().add(new Admin("<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                }
                 Helper.createSuccessAlert("SUCCESS", "Admin saved successfully");
             }
 

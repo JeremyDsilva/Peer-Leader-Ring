@@ -133,9 +133,11 @@ public class StudentListController {
                     Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
                     tableView.getItems().remove(editRow);
                 }
-            } else if (editRow + 1 == tableView.getItems().size()) {
-                tableView.getItems()
-                        .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+            } else {
+                if (editRow + 1 == tableView.getItems().size()) {
+                    tableView.getItems()
+                            .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                }
                 Helper.createSuccessAlert("SUCCESS", "Student saved successfully");
             }
 
@@ -150,7 +152,7 @@ public class StudentListController {
     void idEditStart(CellEditEvent<Student, String> t) {
         int row = editRow != -1 ? editRow : Helper.getRow(t);
 
-        if(row + 1 == tableView.getItems().size())
+        if (row + 1 == tableView.getItems().size())
             return;
 
         if (editRow != -1) {
