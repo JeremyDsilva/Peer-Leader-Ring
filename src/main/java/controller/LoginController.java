@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import response.Response;
+import util.Helper;
 
 public class LoginController {
 
@@ -74,14 +75,7 @@ public class LoginController {
             window.show();
 
         } else {
-            // Alert a = new Alert(Alert.AlertType.ERROR);
-            // a.setTitle("Wrong Input");
-            // a.setContentText("Please enter Valid Credentials");
-            // a.setHeaderText(null);
-            // a.showAndWait();
-            //AlertBox.display("Error Window", "Please Input valid credentials");
-            // SignInButton.setOnAction(e->);
-            System.out.println("Failed");
+            Helper.createAlert("Unsuccessful Login", "Please Enter your valid credentials");
             // TODO Add message to error label
         }
 
