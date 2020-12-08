@@ -142,7 +142,7 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
             criteria.select(builder.count(leader));
 
             ParameterExpression<String> role = builder.parameter(String.class);
-            criteria.where(builder.equal(leader.get("userRole"), role));
+            criteria.where(builder.equal(leader.get("studentLeaderRole"), role));
 
             TypedQuery<Long> query = session.createQuery(criteria);
             query.setParameter(role, leaderRole);
