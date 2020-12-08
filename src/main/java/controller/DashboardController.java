@@ -49,31 +49,31 @@ public class DashboardController {
         private StackedBarChart<String, Number> CollegeStudentCount;
 
         @FXML
+        private Label AvgStudentCount;
+
+        @FXML
+        private Label AvgActivityCount;
+
+        @FXML
+        private Label AvgPeerLeaderCount;
+
+        @FXML
         private Label GroupCount;
 
         @FXML
         private Label ActivityCount;
 
         @FXML
-        private Label StudentCount;
-
-        @FXML
-        private Label MaxLeaderCollege;
+        private Label SeniorCount;
 
         @FXML
         private Label MinAttendActivity;
-
-        @FXML
-        private Label TLCount;
 
         @FXML
         private Label ActiveStudent;
 
         @FXML
         private Label MaxAttendActivity;
-
-        @FXML
-        private Label PLCount;
 
         @FXML
         void BackButtonOnClick(ActionEvent event) throws IOException {
@@ -102,18 +102,20 @@ public class DashboardController {
                                 : "fx:id=\"GroupCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
                 assert ActivityCount != null
                                 : "fx:id=\"ActivityCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert StudentCount != null
-                                : "fx:id=\"StudentCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert MaxLeaderCollege != null
-                                : "fx:id=\"MaxLeaderCollege\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgStudentCount != null
+                                : "fx:id=\"AvgStudentCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgActivityCount != null
+                                : "fx:id=\"AvgActivityCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
                 assert MinAttendActivity != null
                                 : "fx:id=\"MinAttendActivity\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert TLCount != null : "fx:id=\"TLCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert SeniorCount != null
+                                : "fx:id=\"SeniorCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
                 assert ActiveStudent != null
                                 : "fx:id=\"ActiveStudent\" was not injected: check your FXML file 'Dashboard.fxml'.";
                 assert MaxAttendActivity != null
                                 : "fx:id=\"MaxAttendActivity\" was not injected: check your FXML file 'Dashboard.fxml'.";
-                assert PLCount != null : "fx:id=\"PLCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
+                assert AvgPeerLeaderCount != null
+                                : "fx:id=\"AvgPeerLeaderCount\" was not injected: check your FXML file 'Dashboard.fxml'.";
 
                 AppUserCount appUserCount = new AppUserCountHandler().handle();
 
@@ -133,11 +135,6 @@ public class DashboardController {
 
                 LeadersPie.setCenterShape(true);
                 LeadersPie.setLabelsVisible(false);
-
-                // final String CEN = "CEN";
-                // final String CAAD = "CAAD";
-                // final String CAS = "CAS";
-                // final String SBA = "SBA";
 
                 final CategoryAxis xAxis = new CategoryAxis();
                 final NumberAxis yAxis = new NumberAxis();
@@ -159,30 +156,19 @@ public class DashboardController {
                 countPerCollege.getLeaders().forEach(
                                 data -> series2.getData().add(new XYChart.Data((String) data[0], (Long) data[1])));
 
-                // series1.getData().add(new XYChart.Data(CEN,
-                // countPerCollege.getStudents().size()));
-                // series1.getData().add(new XYChart.Data(CAAD, 20148.82));
-                // series1.getData().add(new XYChart.Data(CAS, 10000));
-                // series1.getData().add(new XYChart.Data(SBA, 35407.15));
-
-                // series2.getData().add(new XYChart.Data(CEN, 57401.85));
-                // series2.getData().add(new XYChart.Data(CAAD, 41941.19));
-                // series2.getData().add(new XYChart.Data(CAS, 45263.37));
-                // series2.getData().add(new XYChart.Data(SBA, 117320.16));
-
                 CollegeStudentCount.getData().addAll(series1, series2);
 
                 GroupCount.setText("0");
                 ActivityCount.setText("0");
-                StudentCount.setText(String
+                SeniorCount.setText("0");
+                AvgActivityCount.setText("0");
+                AvgPeerLeaderCount.setText(String
+                                .valueOf(leaderCount.getPeerLeaderCount() * 1.0 / leaderCount.getTeamLeaderCount()));
+                AvgStudentCount.setText(String
                                 .valueOf(appUserCount.getNumberOfStudents() * 1.0 / appUserCount.getNumberOfLeaders()));
-                MaxLeaderCollege.setText("0");
                 MinAttendActivity.setText("0");
-                TLCount.setText(String.valueOf(appUserCount.getNumberOfLeaders()));
                 ActiveStudent.setText("0");
                 MaxAttendActivity.setText("0");
-                PLCount.setText(String
-                                .valueOf(leaderCount.getPeerLeaderCount() * 1.0 / leaderCount.getTeamLeaderCount()));
 
         }
 }

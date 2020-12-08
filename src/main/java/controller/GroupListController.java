@@ -105,7 +105,7 @@ public class GroupListController {
                 } else if (AppContext.userIsLeader()) {
                         util.Helper.loadView(getClass().getResource("PeerLeaderList.fxml"));
                 } else {
-                        util.Helper.createAlert("Error", "Error in displaying page");
+                        util.Helper.createErrorAlert("ERROR:", "Error in displaying page");
                 }
 
         }
