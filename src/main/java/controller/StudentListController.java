@@ -103,7 +103,7 @@ public class StudentListController {
         int index = tableView.getItems().indexOf(toDelete);
 
         if (index + 1 == tableView.getItems().size()) {
-            Helper.createErrorAlert("Error in Deletion", "Invalid Selection");
+            Helper.createErrorAlert("ERROR", "Invalid Selection");
             return;
         }
 
@@ -112,29 +112,31 @@ public class StudentListController {
         if (response.success()) {
             tableView.getItems().remove(index);
             tableView.refresh();
+            Helper.createSuccessAlert("SUCCESS", "Student deleted successfully");
         } else
-            Helper.createErrorAlert("Error in Deletion", response.getException().getMessage());
+            Helper.createErrorAlert("ERROR", response.getException().getMessage());
     }
 
     @FXML
     void SaveButtonOnClick(ActionEvent event) {
         if (editRow == -1) {
-            Helper.createErrorAlert("Error", "No row was been modified");
+            Helper.createErrorAlert("ERROR", "No row was been modified");
         } else {
             var respone = tableView.getItems().get(editRow).updateOrSave();
 
             if (respone.hasException()) {
-                Helper.createErrorAlert("Error", respone.getException().getMessage());
+                Helper.createErrorAlert("ERROR", respone.getException().getMessage());
 
                 var resetResponse = tableView.getItems().get(editRow).reset();
 
                 if (resetResponse.hasException()) {
-                    Helper.createErrorAlert("Database Error", resetResponse.getException().getMessage());
+                    Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
                     tableView.getItems().remove(editRow);
                 }
             } else if (editRow + 1 == tableView.getItems().size()) {
                 tableView.getItems()
                         .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                Helper.createSuccessAlert("SUCCESS", "Student saved successfully");
             }
 
             tableView.refresh();
@@ -152,7 +154,7 @@ public class StudentListController {
             return;
 
         if (editRow != -1) {
-            Helper.createErrorAlert("Error", "Save Changes first");
+            Helper.createErrorAlert("ERROR", "Save Changes first");
             return;
         }
 
@@ -165,7 +167,7 @@ public class StudentListController {
     void idEditCommit(CellEditEvent<Student, String> t) {
         int row = editRow != -1 ? editRow : Helper.getRow(t);
         if (row + 1 != tableView.getItems().size())
-            Helper.createErrorAlert("Cannot Edit", "ID is not editable");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "ID is not editable");
 
         if (!Helper.onEditCommitCheck(t, editRow)) {
             tableView.refresh();
@@ -174,7 +176,7 @@ public class StudentListController {
 
         System.out.println(t.getNewValue());
         if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -200,7 +202,7 @@ public class StudentListController {
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty()) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -225,7 +227,7 @@ public class StudentListController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 30 || t.getNewValue().isEmpty() || !Helper.emailValidate(t.getNewValue())) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -250,7 +252,7 @@ public class StudentListController {
         // to do your valiidation
         System.out.println(t.getNewValue());
         if (t.getNewValue().length() > 12 || !Helper.isNumeric(t.getNewValue())) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -277,7 +279,7 @@ public class StudentListController {
         if (t.getNewValue().length() > 5 || t.getNewValue().isEmpty()
                 || (!t.getNewValue().equals("CEN") && !t.getNewValue().equals("CAAD") && !t.getNewValue().equals("CAS")
                         && !t.getNewValue().equals("SBA"))) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);
@@ -303,7 +305,7 @@ public class StudentListController {
         System.out.println(t.getNewValue());
         // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
         if (t.getNewValue().length() > 20) {
-            Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+            Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
             tableView.refresh();
         } else {
             editRow = Helper.getRow(t);

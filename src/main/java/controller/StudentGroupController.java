@@ -92,7 +92,7 @@ public class StudentGroupController {
                 int index = tableView.getItems().indexOf(toDelete);
 
                 if (index + 1 == tableView.getItems().size()) {
-                        Helper.createErrorAlert("Error in Deletion", "Invalid Selection");
+                        Helper.createErrorAlert("ERROR", "Invalid Selection");
                         return;
                 }
 
@@ -101,29 +101,31 @@ public class StudentGroupController {
                 if (response.success()) {
                         tableView.getItems().remove(index);
                         tableView.refresh();
+                        Helper.createSuccessAlert("SUCCESS", "Group deleted successfully");
                 } else
-                        Helper.createErrorAlert("Error in Deletion", response.getException().getMessage());
+                        Helper.createErrorAlert("ERROR", response.getException().getMessage());
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
 
                 if (editRow == -1) {
-                        Helper.createErrorAlert("Error", "No row was been modified");
+                        Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
                         if (respone.hasException()) {
-                                Helper.createErrorAlert("Error", respone.getException().getMessage());
+                                Helper.createErrorAlert("ERROR", respone.getException().getMessage());
 
                                 var resetResponse = tableView.getItems().get(editRow).reset();
 
                                 if (resetResponse.hasException()) {
-                                        Helper.createErrorAlert("Database Error", resetResponse.getException().getMessage());
+                                        Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
                                         tableView.getItems().remove(editRow);
                                 }
                         } else if (editRow + 1 == tableView.getItems().size()) {
                                 tableView.getItems().add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
+                                Helper.createSuccessAlert("SUCCESS", "Group saved successfully");
                         }
 
                         tableView.refresh();
@@ -135,12 +137,12 @@ public class StudentGroupController {
         @FXML
         void idEditStart(CellEditEvent<Group, String> t) {
                 if (editRow != -1) {
-                        Helper.createErrorAlert("Error", "Save changes first");
+                        Helper.createErrorAlert("ERROR", "Save changes first");
                         return;
                 }
 
                 if (Helper.getRow(t) + 1 == tableView.getItems().size()) {
-                        Helper.createErrorAlert("Error", "Group id is created by default");
+                        Helper.createErrorAlert("ERROR", "Group id is created by default");
                         return;
                 }
 
@@ -168,7 +170,7 @@ public class StudentGroupController {
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (t.getNewValue().length() > 20) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
@@ -192,7 +194,7 @@ public class StudentGroupController {
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
@@ -216,7 +218,7 @@ public class StudentGroupController {
                 System.out.println(t.getNewValue());
                 // FOR SOME REASON THIS CHECKING CRITERIA SHOWS FUNCTION DEFINITON NOT FOUND
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);

@@ -119,7 +119,7 @@ public class ActivityListController {
                 int index = tableView.getItems().indexOf(toDelete);
 
                 if (index + 1 == tableView.getItems().size()) {
-                        Helper.createErrorAlert("Error in Deletion", "Invalid Selection");
+                        Helper.createErrorAlert("ERROR", "Invalid Selection");
                         return;
                 }
 
@@ -128,30 +128,32 @@ public class ActivityListController {
                 if (response.success()) {
                         tableView.getItems().remove(index);
                         tableView.refresh();
+                        Helper.createSuccessAlert("SUCCESS", "Activity deleted successfully");
                 } else
-                        Helper.createErrorAlert("Error in Deletion", response.getException().getMessage());
+                        Helper.createErrorAlert("ERROR", response.getException().getMessage());
 
         }
 
         @FXML
         void SaveButtonOnClick(ActionEvent event) {
                 if (editRow == -1) {
-                        Helper.createErrorAlert("Error", "No row was been modified");
+                        Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
                         if (respone.hasException()) {
-                                Helper.createErrorAlert("Error", respone.getException().getMessage());
+                                Helper.createErrorAlert("ERROR", respone.getException().getMessage());
 
                                 var resetResponse = tableView.getItems().get(editRow).reset();
 
                                 if (resetResponse.hasException()) {
-                                        Helper.createErrorAlert("Database Error", resetResponse.getException().getMessage());
+                                        Helper.createErrorAlert("DATABASE ERROR", resetResponse.getException().getMessage());
                                         tableView.getItems().remove(editRow);
                                 }
                         } else if (editRow + 1 == tableView.getItems().size()) {
                                 tableView.getItems().add(new Activity("<Insert>", "<Insert>", "<Insert>", "<Insert>",
                                                 "<Insert>"));
+                                Helper.createSuccessAlert("SUCCESS", "Activity saved successfully");
                         }
 
                         tableView.refresh();
@@ -174,7 +176,7 @@ public class ActivityListController {
 
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 100 || t.getNewValue().isEmpty()) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
@@ -196,7 +198,7 @@ public class ActivityListController {
 
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().isEmpty() || !Helper.isDate(t.getNewValue())) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
@@ -218,7 +220,7 @@ public class ActivityListController {
 
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 50 || t.getNewValue().isEmpty()) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);
@@ -240,7 +242,7 @@ public class ActivityListController {
 
                 System.out.println(t.getNewValue());
                 if (t.getNewValue().length() > 200) {
-                        Helper.createErrorAlert("Cannot Edit", "Please follow the constraint requirements");
+                        Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
                 } else {
                         editRow = Helper.getRow(t);

@@ -46,9 +46,9 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <PieChart fx:id="AppUserPie" layoutX="14.0" layoutY="162.0" prefHeight="252.0" prefWidth="286.0" style="-fx-border-style: solid;" title="App Users" />
-      <PieChart fx:id="LeadersPie" layoutX="313.0" layoutY="162.0" prefHeight="252.0" prefWidth="307.0" style="-fx-border-style: solid;" title="Student Leaders" />
-      <StackedBarChart fx:id="CollegeStudentCount" layoutX="634.0" layoutY="162.0" prefHeight="252.0" prefWidth="362.0" style="-fx-border-style: solid;" title="College ">
+      <PieChart fx:id="AppUserPie" layoutX="14.0" layoutY="162.0" prefHeight="252.0" prefWidth="286.0" style="-fx-border-style: solid; -fx-border-color: #902400;" title="App Users" />
+      <PieChart fx:id="LeadersPie" layoutX="313.0" layoutY="162.0" prefHeight="252.0" prefWidth="307.0" style="-fx-border-style: solid; -fx-border-color: #902400;" title="Student Leaders" />
+      <StackedBarChart fx:id="CollegeStudentCount" layoutX="634.0" layoutY="162.0" prefHeight="252.0" prefWidth="362.0" style="-fx-border-style: solid; -fx-border-color: #902400;" title="College ">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -56,98 +56,98 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </StackedBarChart>
-      <Text layoutX="14.0" layoutY="456.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Groups:" wrappingWidth="150.0" AnchorPane.topAnchor="442.4208984375">
+      <Text layoutX="16.0" layoutY="467.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Groups:" wrappingWidth="150.0" AnchorPane.topAnchor="453.4208984375">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="302.0" layoutY="455.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avg no. of Peer Leaders per Team Leader: " wrappingWidth="172.0">
+      <Text layoutX="252.0" layoutY="514.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avg no. of Peer Leaders per Team Leader: " wrappingWidth="294.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="16.0" layoutY="540.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avg no. of Students per Leader: " wrappingWidth="156.3232421875">
+      <Text layoutX="253.0" layoutY="467.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avg no. of Students per Leader: " wrappingWidth="231.0000000000001">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="506.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Activities: " wrappingWidth="150.0">
+      <Text layoutX="16.0" layoutY="514.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Activities: " wrappingWidth="150.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="581.0" layoutY="455.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Team Leaders: " wrappingWidth="200.0">
+      <Text layoutX="15.0" layoutY="561.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total no. of Seniors:" wrappingWidth="150.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="302.0" layoutY="505.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most attended activity:" wrappingWidth="172.0">
+      <Text layoutX="620.0" layoutY="467.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most attended activity:" wrappingWidth="172.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="581.0" layoutY="505.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Least attended activity: " wrappingWidth="172.0">
+      <Text layoutX="620.0" layoutY="515.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Least attended activity: " wrappingWidth="172.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="301.0" layoutY="555.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most active student:" wrappingWidth="172.0">
+      <Text layoutX="620.0" layoutY="562.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most active student:" wrappingWidth="172.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="581.0" layoutY="555.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="College with highest no. of leaders: " wrappingWidth="251.99999999999994">
+      <Text layoutX="252.0" layoutY="562.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avg. no. of Activities attended per Student:" wrappingWidth="307.0">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Text>
-      <Label fx:id="GroupCount" layoutX="185.0" layoutY="442.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="GroupCount" layoutX="187.0" layoutY="453.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="ActivityCount" layoutX="185.0" layoutY="492.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="ActivityCount" layoutX="187.0" layoutY="500.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="StudentCount" layoutX="185.0" layoutY="541.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="AvgStudentCount" layoutX="549.0" layoutY="453.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="MaxLeaderCollege" layoutX="825.0" layoutY="541.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="AvgActivityCount" layoutX="551.0" layoutY="548.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="MinAttendActivity" layoutX="825.0" layoutY="491.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="MinAttendActivity" layoutX="805.0" layoutY="502.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="TLCount" layoutX="825.0" layoutY="443.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="SeniorCount" layoutX="187.0" layoutY="548.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="ActiveStudent" layoutX="489.0" layoutY="542.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="ActiveStudent" layoutX="806.0" layoutY="549.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="MaxAttendActivity" layoutX="489.0" layoutY="491.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="MaxAttendActivity" layoutX="805.0" layoutY="454.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="PLCount" layoutX="489.0" layoutY="443.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
+      <Label fx:id="AvgPeerLeaderCount" layoutX="550.0" layoutY="501.0" prefHeight="17.0" prefWidth="40.0" text="Label" textFill="#3a4750">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Line endX="-13.5" layoutX="292.0" layoutY="441.0" startX="-13.5" startY="121.0" stroke="#902400" />
-      <Line endX="-13.5" layoutX="578.0" layoutY="441.0" startX="-13.5" startY="121.0" stroke="#902400" />
-      <Line endX="-13.5" layoutX="897.0" layoutY="439.0" startX="-13.5" startY="121.0" stroke="#902400" />
+      <Line endX="-13.5" endY="-8.0" layoutX="256.0" layoutY="441.0" startX="-13.5" startY="144.0" stroke="#902400" />
+      <Line endX="-13.5" endY="-8.0" layoutX="618.0" layoutY="441.0" startX="-13.5" startY="144.0" stroke="#902400" />
+      <Line endX="-13.5" endY="-8.0" layoutX="874.0" layoutY="441.0" startX="-13.5" startY="144.0" stroke="#902400" />
    </children>
 </AnchorPane>
