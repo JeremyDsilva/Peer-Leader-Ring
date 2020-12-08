@@ -74,8 +74,10 @@ public class MarkAttendanceController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) {
-                if(AppContext.userIsAdmin() && !AppContext.contains("groupId"))
+                if(AppContext.userIsAdmin() && !AppContext.contains("groupId")){
+                        AppContext.remove("groupId");
                         Helper.loadView(getClass().getResource("Admin.fxml"));
+                }
                 else if(AppContext.userIsAdmin())
                         Helper.loadView(getClass().getResource("StudentGroup.fxml"));
                 else 
