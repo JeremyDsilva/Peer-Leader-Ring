@@ -21,6 +21,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        try {
+            HibernateUtil.getSession().close();
+        } catch (Exception e){
+            return;
+        }
+
         Parent root = FXMLLoader.load(LoginController.class.getResource("Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);

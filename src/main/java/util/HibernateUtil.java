@@ -20,7 +20,6 @@ public class HibernateUtil {
                     .addAnnotatedClass(entity.User.class).configure();
             ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
             factory = conf.buildSessionFactory(registry);
-            HibernateUtil.getSession().close();
         } catch (Exception e) {
             util.Helper.createErrorAlert("Connection Error", "Cannot connect to Database");
         }
