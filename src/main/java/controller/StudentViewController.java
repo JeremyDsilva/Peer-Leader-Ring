@@ -80,10 +80,22 @@ public class StudentViewController {
         @FXML
         private Button ViewActivityListButton;
 
+        @FXML
+        private Button BackButton;
+
         final GetStudentHandler studentHandler;
 
         public StudentViewController() {
                 studentHandler = new GetStudentHandler();
+        }
+
+        @FXML
+        void BackButtonOnClick(ActionEvent event) throws IOException {
+                Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+                Scene Back = new Scene(root);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(Back);
+                window.show();
         }
 
         @FXML
@@ -143,6 +155,8 @@ public class StudentViewController {
                                 : "fx:id=\"LSTeamCollegeLabel\" was not injected: check your FXML file 'StudentView.fxml'.";
                 assert ViewActivityListButton != null
                                 : "fx:id=\"ViewActivityListButton\" was not injected: check your FXML file 'StudentView.fxml'.";
+                assert BackButton != null 
+                                : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
                 Response<Student> response = null;
                 if (AppContext.userIsStudent())

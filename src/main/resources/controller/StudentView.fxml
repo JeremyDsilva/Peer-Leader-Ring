@@ -206,5 +206,10 @@
             <Font name="Arial" size="17.0" />
          </font>
       </Button>
+      <Button fx:id="BackButton" layoutX="22.0" layoutY="551.0" mnemonicParsing="false" onAction="#BackButtonOnClick" prefHeight="36.0" prefWidth="78.0" style="-fx-background-color: #ffd002;" text="Back">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
