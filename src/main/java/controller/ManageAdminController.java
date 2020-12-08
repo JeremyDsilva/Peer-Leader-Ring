@@ -109,10 +109,11 @@ public class ManageAdminController {
             Helper.createErrorAlert("ERROR", "No row was been modified");
         } else {
 
-            if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getId().equals("<Insert>")
-            || tableView.getItems().get(editRow).getName().equals("<Insert>") 
-            || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
-            || tableView.getItems().get(editRow).getPhone().equals("<Insert>")))
+            if (editRow + 1 == tableView.getItems().size()
+                    && (tableView.getItems().get(editRow).getId().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getName().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getPhone().equals("<Insert>")))
                 Helper.createErrorAlert("ERROR", "Insert all values");
 
             var respone = tableView.getItems().get(editRow).updateOrSave();
@@ -142,7 +143,8 @@ public class ManageAdminController {
 
     @FXML
     void idEditStart(CellEditEvent<Admin, String> t) {
-        if (editRow + 1 != tableView.getItems().size())
+        int row = editRow != -1 ? editRow : Helper.getRow(t);
+        if (row + 1 != tableView.getItems().size())
             Helper.createErrorAlert("ERROR: Cannot Edit", "ID is not editable");
 
         Helper.onEditStartCheck(t, editRow);
@@ -150,7 +152,8 @@ public class ManageAdminController {
 
     @FXML
     void idEditCommit(CellEditEvent<Admin, String> t) {
-        if (editRow + 1 != tableView.getItems().size())
+        int row = editRow != -1 ? editRow : Helper.getRow(t);
+        if (row + 1 != tableView.getItems().size())
             Helper.createErrorAlert("ERROR: Cannot Edit", "ID is not editable");
 
         if (!Helper.onEditCommitCheck(t, editRow)) {
