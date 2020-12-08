@@ -100,6 +100,7 @@ public class Helper {
             Parent root = FXMLLoader.load(fxml);
             Scene scene = new Scene(root);
             Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
+            window.setResizable(false);
             window.setScene(scene);
             window.show();
         } catch (Exception e) {

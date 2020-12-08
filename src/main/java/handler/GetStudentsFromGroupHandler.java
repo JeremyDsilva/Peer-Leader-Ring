@@ -8,7 +8,7 @@ import response.Response;
 
 public class GetStudentsFromGroupHandler {
 
-    public static Response<List<Student>> handle(Long groupId) {
+    public Response<List<Student>> handle(Long groupId) {
 
         StudentRepository repos = new StudentRepository();
 

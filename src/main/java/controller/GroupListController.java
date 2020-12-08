@@ -21,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import response.Response;
@@ -88,17 +87,12 @@ public class GroupListController {
 
         @FXML
         void GroupListMarkAttendOnClick(ActionEvent event) {
-                // todo
+                Helper.loadView(getClass().getResource("MarkAttendance.fxml"));
         }
 
         @FXML
         void GroupListViewActButtonOnClick(ActionEvent event) throws IOException {
-                // todo
-                Parent root = FXMLLoader.load(getClass().getResource("ActivityList.fxml"));
-                Scene Activity = new Scene(root);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(Activity);
-                window.show();
+               Helper.loadView(getClass().getResource("ActivityList.fxml"));
         }
 
         @FXML

@@ -15,13 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the ACTIVITY database table.
  * 
  */
 @Entity
-@NamedQuery(name="Activity.findAll", query="SELECT a FROM Activity a")
+@NamedQuery(name = "Activity.findAll", query = "SELECT a FROM Activity a")
 public class Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,18 +29,18 @@ public class Activity implements Serializable {
 	private long id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="DATE_OF_ACTIVITY")
+	@Column(name = "DATE_OF_ACTIVITY")
 	private Date dateOfActivity;
 
 	private String name;
 
 	private String note;
 
-	@Column(name="ORGANIZED_BY")
+	@Column(name = "ORGANIZED_BY")
 	private String organizedBy;
 
-	//bi-directional many-to-one association to ActivityAttendance
-	@OneToMany(mappedBy="activity", cascade={CascadeType.ALL})
+	// bi-directional many-to-one association to ActivityAttendance
+	@OneToMany(mappedBy = "activity", cascade = { CascadeType.ALL })
 	private List<ActivityAttendance> attendance;
 
 	public Activity() {
@@ -108,5 +107,17 @@ public class Activity implements Serializable {
 
 		return attendance;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj.getClass() == Activity.class && ((Activity) obj).getId() == this.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(id);
+	}
+
+
 
 }

@@ -2,22 +2,23 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import app.AppContext;
-import dto.Student;
-import entity.Group;
+import dto.Attendace;
+import entity.Activity;
+import handler.GetActivitiesHandler;
 import handler.GetGroupHandler;
+import handler.GetStudentsFromGroupHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
@@ -45,13 +46,13 @@ public class MarkAttendanceController {
         private Label GroupListTeamLeaderLabel;
 
         @FXML
-        private TableView<Student> tableView;
+        private TableView<Attendace> tableView;
 
         @FXML
-        private TableColumn<Student, Long> idColumn;
+        private TableColumn<Attendace, Long> idColumn;
 
         @FXML
-        private TableColumn<Student, String> nameColumn;
+        private TableColumn<Attendace, String> nameColumn;
 
         @FXML
         private Button GroupListMarkAttendButton;
@@ -104,35 +105,72 @@ public class MarkAttendanceController {
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
 
-                Response<Group> response = groupHandler.handle(AppContext.getUser().getId());
-
-                GroupListNameLabel.setText(AppContext.getUser().getFullName());
-                GroupListGroupNameLabel.setText(response.getResponse().getName());
-                GroupListTeamLeaderLabel.setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
+                // GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                // GroupListGroupNameLabel.setText(groupResponse.getResponse().getName());
+                // GroupListTeamLeaderLabel
+                // .setText(groupResponse.getResponse().getTeamLeader().getUserDetail().getFullName());
                 // GroupListTeamLeaderLabel.setText(String.valueOf(response.getResponse().getTeamLeader()));
 
+                Response<List<Activity>> activities = new GetActivitiesHandler().handle();
+
+                for (var activity : activities.getResponse()) {
+
+                        TableColumn<Attendace, String> col = new TableColumn<Attendace, String>(
+                                        String.valueOf(activity.getId()));
+
+                        col.setMinWidth(50);
+
+                        col.setCellValueFactory(
+                                        new Callback<CellDataFeatures<Attendace, String>, ObservableValue<String>>() {
+                                                public ObservableValue<String> call(
+                                                                CellDataFeatures<Attendace, String> p) {
+
+                                                        if (p.getValue().getActivity().containsKey(activity)) {
+                                                                return new ReadOnlyObjectWrapper<String>(
+                                                                                p.getValue().getActivity().get(activity)
+                                                                                                ? "Yes"
+                                                                                                : "No");
+                                                        } else {
+                                                                p.getValue().getActivity().put(activity,
+                                                                                Boolean.valueOf(false));
+                                                                return new ReadOnlyObjectWrapper<String>("No");
+                                                        }
+                                                }
+                                        });
+
+                        col.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                        tableView.getColumns().add(col);
+                }
+
+                Response<List<entity.Student>> students = new GetStudentsFromGroupHandler().handle(1L);
+
+                students.getResponse().forEach(student -> tableView.getItems().add(new Attendace(student)));
+
+                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Attendace, Long>, ObservableValue<Long>>() {
+                        public ObservableValue<Long> call(CellDataFeatures<Attendace, Long> p) {
+                                return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getStudent().getId()));
+                        }
+                });
+
                 nameColumn.setCellValueFactory(
-                                new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
-                                        public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
-                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+                                new Callback<CellDataFeatures<Attendace, String>, ObservableValue<String>>() {
+                                        public ObservableValue<String> call(CellDataFeatures<Attendace, String> p) {
+                                                return new ReadOnlyObjectWrapper<String>(p.getValue().getStudent()
+                                                                .getUserDetail().getFullName());
                                         }
                                 });
 
-                idColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, Long>, ObservableValue<Long>>() {
-                        public ObservableValue<Long> call(CellDataFeatures<Student, Long> p) {
-                                return new ReadOnlyObjectWrapper<Long>(Long.valueOf(p.getValue().getId()));
-                        }
-                });
-
                 // Making the columns editable except the ID field
-                nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+                // nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-                nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>() {
-                        public void handle(CellEditEvent<Student, String> t) {
-                                System.out.println("It works1!");
-                        }
+                // nameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Student, String>>()
+                // {
+                // public void handle(CellEditEvent<Student, String> t) {
+                // System.out.println("It works1!");
+                // }
 
-                });
+                // });
 
         }
 
