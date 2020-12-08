@@ -65,6 +65,10 @@ public class ChangePasswordController {
         String oldPassword = OldPasswordTextbox.getText();
         String newPassword = NewPasswordTextbox.getText();
 
+        if (oldPassword.isEmpty() || newPassword.isEmpty()) {
+            Helper.createErrorAlert("ERROR", "Please fill in the fields first");
+        }
+
         Response<Void> response = changePasswordHandler.handle(oldPassword, newPassword);
 
         if (response.success())
