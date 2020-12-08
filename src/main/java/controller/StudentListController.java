@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import app.AppContext;
 import dto.Student;
 import handler.GetStudentsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -22,7 +23,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.shape.HLineTo;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import response.Response;
 import util.Helper;
@@ -153,10 +156,23 @@ public class StudentListController {
     @FXML
     void idEditStart(CellEditEvent<Student, String> t) {
         int row = editRow != -1 ? editRow : Helper.getRow(t);
-        if (row + 1 != tableView.getItems().size())
-            Helper.createAlert("Cannot Edit", "ID is not editable");
 
-        Helper.onEditStartCheck(t, editRow);
+        if(row + 1 == tableView.getItems().size())
+            return;
+
+        if (editRow != -1) {
+            Helper.createAlert("Error", "Save Changes first");
+            return;
+        }
+
+        AppContext.put("studentId", Long.parseLong(tableView.getSelectionModel().getSelectedItem().getId()));
+
+        Helper.loadView(getClass().getResource("StudentView.fxml"));
+        // int row = editRow != -1 ? editRow : Helper.getRow(t);
+        // if (row + 1 != tableView.getItems().size())
+        // Helper.createAlert("Cannot Edit", "ID is not editable");
+
+        // Helper.onEditStartCheck(t, editRow);
     }
 
     @FXML

@@ -4,8 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class Helper {
 
@@ -85,6 +93,19 @@ public class Helper {
         a.setContentText(message);
         a.setHeaderText(null);
         a.showAndWait();
+    }
+
+    public static void loadView(URL fxml) {
+        try {
+            Parent root = FXMLLoader.load(fxml);
+            Scene scene = new Scene(root);
+            Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            Helper.createAlert("Error", "Cannot Load " + fxml.toString());
+        }
+
     }
 
 }

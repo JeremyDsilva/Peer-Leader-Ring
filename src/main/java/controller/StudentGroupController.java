@@ -143,19 +143,20 @@ public class StudentGroupController {
 
         @FXML
         void idEditStart(CellEditEvent<Group, String> t) {
+                if (editRow != -1) {
+                        Helper.createAlert("Error", "Save changes first");
+                        return;
+                }
+
+                if (Helper.getRow(t) + 1 == tableView.getItems().size()) {
+                        Helper.createAlert("Error", "Group id is created by default");
+                        return;
+                }
 
                 AppContext.put("groupId", Long.parseLong(tableView.getSelectionModel().getSelectedItem().getId()));
 
-                try {
-                        Parent root = FXMLLoader.load(getClass().getResource("GroupList.fxml"));
-                        Scene Logout = new Scene(root);
-                        Stage window = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findAny().get();
-                        window.setScene(Logout);
-                        window.show();
-                } catch (IOException e) {
-                        util.Helper.createAlert("Error", e.getMessage());
-                        e.printStackTrace();
-                }
+                Helper.loadView(getClass().getResource("GroupList.fxml"));
+
         }
 
         @FXML

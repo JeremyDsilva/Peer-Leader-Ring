@@ -144,9 +144,15 @@ public class StudentViewController {
                 assert ViewActivityListButton != null
                                 : "fx:id=\"ViewActivityListButton\" was not injected: check your FXML file 'StudentView.fxml'.";
 
-                Response<Student> response = studentHandler.handle(AppContext.getUser().getId());
+                Response<Student> response = null;
+                if (AppContext.userIsStudent())
+                        response = studentHandler.handle(AppContext.getUser().getId());
+                else {
+                        response = studentHandler.handle((Long) AppContext.get("studentId"));
+                        // todo back button
+                }
 
-                if (response.success()) {
+                if (response != null && response.success()) {
                         LSStudentIDLabel.setText(String.valueOf(AppContext.getUser().getId()));
                         LSStudentNameLabel.setText(String.valueOf(AppContext.getUser().getFullName()));
                         LSStudentCollegeLabel.setText(String.valueOf(response.getResponse().getCollege()));
@@ -160,8 +166,8 @@ public class StudentViewController {
                                         response.getResponse().getGroup().getPeerLeader().getUserDetail().getId()));
                         LSPeerNameLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
                                         .getUserDetail().getFullName()));
-                        LSPeerCollegeLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getPeerLeader().getCollege()));
+                        LSPeerCollegeLabel.setText(
+                                        String.valueOf(response.getResponse().getGroup().getPeerLeader().getCollege()));
                         LSPeerPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getPeerLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSPeerEmailLabel.setText(String.valueOf(
@@ -173,8 +179,8 @@ public class StudentViewController {
                                         response.getResponse().getGroup().getTeamLeader().getUserDetail().getId()));
                         LSTeamNameLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
                                         .getUserDetail().getFullName()));
-                        LSTeamCollegeLabel.setText(String.valueOf(
-                                        response.getResponse().getGroup().getTeamLeader().getCollege()));
+                        LSTeamCollegeLabel.setText(
+                                        String.valueOf(response.getResponse().getGroup().getTeamLeader().getCollege()));
                         LSTeamPhoneLabel.setText(String.valueOf(response.getResponse().getGroup().getTeamLeader()
                                         .getUserDetail().getPhoneNumber()));
                         LSTeamEmailLabel.setText(String.valueOf(
