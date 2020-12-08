@@ -1,9 +1,15 @@
 package repository;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 
 import entity.ActivityAttendance;
 import entity.ActivityAttendancePK;
+import entity.Group;
 import response.Response;
 import util.HibernateUtil;
 
@@ -94,5 +100,39 @@ public class ActivityAttendanceRepository implements Repository<ActivityAttendan
 
         return response;
     }
+
+    public Response<Long> count() {
+
+        Response<Long> response;
+
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+            Root<ActivityAttendance> leader = criteria.from(ActivityAttendance.class);
+
+            criteria.select(builder.count(leader));
+
+            TypedQuery<Long> query = session.createQuery(criteria);
+
+            response = Response.of(query.getSingleResult());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+
+    }
+
+
+
 
 }
