@@ -50,10 +50,10 @@ public class ChangePasswordController {
         if (AppContext.userIsAdmin())
             Helper.loadView(getClass().getResource("Admin.fxml"));
         else if (AppContext.userIsLeader()) {
-            if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("team_leader")) {
+            if (AppContext.getUser().getStudentLeader().getStudentLeaderRole().equals("team_leader"))
                 Helper.loadView(getClass().getResource("PeerLeaderList.fxml"));
-            }
-            Helper.loadView(getClass().getResource("GroupList.fxml"));
+            else
+                Helper.loadView(getClass().getResource("GroupList.fxml"));
         } else
             Helper.loadView(getClass().getResource("StudentView.fxml"));
 
@@ -75,8 +75,7 @@ public class ChangePasswordController {
 
     @FXML
     void initialize() {
-        assert label != null 
-                : "fx:id=\"label\" was not injected: check your FXML file 'ChangePassword.fxml'.";
+        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'ChangePassword.fxml'.";
         assert BackButton != null
                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'ChangePassword.fxml'.";
         assert OldPasswordTextbox != null
