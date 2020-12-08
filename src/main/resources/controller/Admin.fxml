@@ -58,5 +58,10 @@
             <Font size="17.0" />
          </font>
       </Button>
+      <Button fx:id="ChangePasswordButton" layoutX="746.0" layoutY="544.0" mnemonicParsing="false" onAction="#ChangePasswordButtonOnClick" style="-fx-background-color: #ffd002;" text="Change Password">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

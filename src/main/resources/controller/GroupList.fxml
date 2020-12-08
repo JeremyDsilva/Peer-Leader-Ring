@@ -9,27 +9,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GroupListController">
    <children>
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane layoutY="84.0" prefHeight="68.0" prefWidth="1013.0" style="-fx-background-color: #902400#902400;">
          <children>
-            <Label fx:id="GroupListNameLabel" layoutX="22.0" layoutY="11.0" prefHeight="42.0" prefWidth="261.0" text="{Name}" textFill="#f2f2f2">
+            <Label fx:id="GroupListNameLabel" layoutX="32.0" layoutY="11.0" prefHeight="34.0" prefWidth="261.0" text="{Name}" textFill="#f2f2f2">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="GroupListGroupNameLabel" layoutX="352.0" layoutY="13.0" prefHeight="42.0" prefWidth="168.0" text="{Group Name}" textFill="#f2f2f2">
+            <Label fx:id="GroupListGroupNameLabel" layoutX="353.0" layoutY="11.0" prefHeight="36.0" prefWidth="168.0" text="{Group Name}" textFill="#fcfcfc">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="GroupListTeamLeaderLabel" layoutX="660.0" layoutY="13.0" prefHeight="42.0" prefWidth="316.0" text="{Team Leader}" textFill="#f2f2f2">
+            <Label fx:id="GroupListTeamLeaderLabel" layoutX="660.0" layoutY="10.0" prefHeight="36.0" prefWidth="274.0" text="{Team Leader}" textFill="#f2f2f2">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
+            <Text fill="#ffd002" layoutX="32.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Peer Leader">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#ffd002" layoutX="353.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Group Name">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#ffd002" layoutX="660.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Leader">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <ImageView fitHeight="84.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
@@ -37,7 +53,7 @@
             <Image url="@HatchfulExport-All/twitter_header_photo_1.png" />
          </image>
       </ImageView>
-      <Label layoutX="391.0" layoutY="22.0" text="List of Students in Group" textFill="#902400">
+      <Label layoutX="287.0" layoutY="22.0" text="List of Students in Group" textFill="#902400">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
@@ -67,6 +83,11 @@
          </font>
       </Button>
       <Button fx:id="SignOutButton" layoutX="913.0" layoutY="26.0" mnemonicParsing="false" onAction="#SignOutButtonOnClick" style="-fx-background-color: #ffd002#ffd002;" text="Sign Out">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="ChangePasswordButton" layoutX="746.0" layoutY="26.0" mnemonicParsing="false" onAction="#ChangePasswordButtonOnClick" style="-fx-background-color: #ffd002;" text="Change Password">
          <font>
             <Font size="17.0" />
          </font>

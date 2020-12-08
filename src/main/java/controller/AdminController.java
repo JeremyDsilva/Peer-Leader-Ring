@@ -21,6 +21,9 @@ public class AdminController {
     private Button SignOutButton;
 
     @FXML
+    private Button ChangePasswordButton;
+
+    @FXML
     private Button AdminStudentButton;
 
     @FXML
@@ -74,6 +77,11 @@ public class AdminController {
     }
 
     @FXML
+    void ChangePasswordButtonOnClick(ActionEvent event) {
+        Helper.loadView(getClass().getResource("ChangePassword.fxml"));
+    }
+
+    @FXML
     void initialize() {
         assert SignOutButton != null : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert AdminStudentButton != null
@@ -88,6 +96,9 @@ public class AdminController {
                 : "fx:id=\"AdminManageAdminButton\" was not injected: check your FXML file 'Admin.fxml'.";
         assert AdminLeadersButton != null
                 : "fx:id=\"AdminLeadersButton\" was not injected: check your FXML file 'Admin.fxml'.";
+        assert ChangePasswordButton != null 
+                : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'Admin.fxml'.";
+
 
     }
 }
