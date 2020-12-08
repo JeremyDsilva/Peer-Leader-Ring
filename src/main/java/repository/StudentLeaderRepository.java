@@ -1,7 +1,9 @@
 package repository;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -127,7 +129,7 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
 
     }
 
-    public Response<Long> count(String leaderRole) {
+    public Response<Long> countPerRole(String leaderRole) {
 
         Response<Long> response;
 
@@ -162,8 +164,35 @@ public class StudentLeaderRepository implements Repository<StudentLeader, Long> 
 
     }
 
+    public Response<List<Object>> countPerCollege() {
 
+        Response<List<Object>> response;
 
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
 
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Object> criteria = builder.createQuery(Object.class);
+            Root<StudentLeader> leader = criteria.from(StudentLeader.class);
+
+            criteria.multiselect(leader.get("college") , builder.count(leader.get("id")));
+            criteria.groupBy(leader.get("college"));
+
+            TypedQuery<Object> query = session.createQuery(criteria);
+
+            response = Response.of(query.getResultList());
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.getTransaction().rollback();
+            response = Response.of(e);
+        } finally {
+            session.close();
+        }
+
+        return response;
+    }
 
 }

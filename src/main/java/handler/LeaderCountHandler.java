@@ -11,8 +11,8 @@ public class LeaderCountHandler {
 
         StudentLeaderRepository repos = new StudentLeaderRepository();
 
-        data.setPeerLeaderCount(repos.count("peer_leader").getResponse());
-        data.setTeamLeaderCount(repos.count("team_leader").getResponse());
+        data.setPeerLeaderCount(repos.countPerRole("peer_leader").getResponse());
+        data.setTeamLeaderCount(repos.countPerRole("team_leader").getResponse());
 
         return data;
     }
