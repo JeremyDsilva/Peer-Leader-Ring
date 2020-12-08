@@ -18,7 +18,8 @@ CREATE TABLE app_user (
         CONSTRAINT user_pk PRIMARY KEY,
     email          VARCHAR2(30) CONSTRAINT user_email_nn NOT NULL,
     password       VARCHAR2(100) NOT NULL,
-    user_role      VARCHAR2(7) CONSTRAINT user_role_ck CHECK(user_role in ('leader', 'student', 'admin')),
+    user_role      VARCHAR2(7) CONSTRAINT user_role_nn NOT NULL
+    CONSTRAINT user_role_ck CHECK (user_role in ('leader', 'student', 'admin')),
     full_name      VARCHAR2(30) CONSTRAINT user_fname_nn NOT NULL,
     phone_number   VARCHAR2(12) 
 );
@@ -28,6 +29,7 @@ CREATE TABLE student_leader (
         CONSTRAINT student_leader_pk PRIMARY KEY,
     college               VARCHAR2(5),
     year                  VARCHAR2(9)
+        CONSTRAINT sleader_year_nn NOT NULL
         CONSTRAINT sleader_year_ck CHECK ( year IN (
             'Freshman',
             'Sophomore',
@@ -35,6 +37,7 @@ CREATE TABLE student_leader (
             'Senior'
         ) ),
     student_leader_role   CHAR(11)
+        CONSTRAINT sleader_role_nn NOT NULL
         CONSTRAINT sleader_role_ck CHECK ( student_leader_role IN (
             'team_leader',
             'peer_leader'
