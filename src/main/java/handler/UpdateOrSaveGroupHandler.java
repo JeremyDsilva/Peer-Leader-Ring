@@ -31,6 +31,10 @@ public class UpdateOrSaveGroupHandler {
                 return Response.of(response.getException());
 
             var peerLeader = response.getResponse();
+
+            if(peerLeader == null)
+                return Response.ofException("No such leader exist");
+
             if (peerLeader.getStudentLeaderRole().equals("team_leader")) // is a peer leader
                 return Response.ofException("Student Leader Id entered is not a Peer Leader");
 
@@ -51,6 +55,9 @@ public class UpdateOrSaveGroupHandler {
                 return Response.of(response.getException());
 
             var teamLeader = response.getResponse();
+
+            if(teamLeader == null)
+                return Response.ofException("No such leader exist");
 
             if (teamLeader.getStudentLeaderRole().equals("peer_leader")) // is a team leader
                 return Response.ofException("Student Leader Id entered is not a Team Leader");
