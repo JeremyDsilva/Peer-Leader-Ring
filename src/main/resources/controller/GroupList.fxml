@@ -67,12 +67,12 @@
             <TableColumn fx:id="collegeColumn" minWidth="0.0" prefWidth="287.0" text="College" />
          </columns>
       </TableView>
-      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="798.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
+      <Button fx:id="GroupListMarkAttendButton" alignment="CENTER" layoutX="798.0" layoutY="525.0" mnemonicParsing="false" onAction="#GroupListMarkAttendOnClick" prefHeight="42.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="Mark Attendance" textFill="#eee9e9">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="577.0" layoutY="520.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="49.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
+      <Button fx:id="GroupListViewActButton" alignment="CENTER" layoutX="577.0" layoutY="525.0" mnemonicParsing="false" onAction="#GroupListViewActButtonOnClick" prefHeight="42.0" prefWidth="189.0" style="-fx-background-color: rgb(58,71,80);" text="View List of Activities" textFill="#eee9e9">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
