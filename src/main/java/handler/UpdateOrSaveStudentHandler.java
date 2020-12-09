@@ -40,6 +40,9 @@ public class UpdateOrSaveStudentHandler {
                 if (response.hasException())
                     return Response.of(response.getException());
 
+                if(response.getResponse() == null)
+                    return Response.ofException("Group with given name does not exist");
+
                 db.setGroup(response.getResponse());
             }
 
