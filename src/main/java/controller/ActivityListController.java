@@ -139,13 +139,14 @@ public class ActivityListController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
-                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getDate().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getOrganizedby().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getNote().equals("<Insert>"))){
+                        if (editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName()
+                                        .equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getDate().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getOrganizedby().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getNote().equals("<Insert>"))) {
                                 Helper.createErrorAlert("ERROR", "Insert all values");
                                 return;
-                            }
+                        }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
@@ -153,7 +154,7 @@ public class ActivityListController {
                                 Helper.createErrorAlert("ERROR", respone.getException().getMessage());
 
                                 var resetResponse = tableView.getItems().get(editRow).reset();
-                                
+
                                 if (resetResponse.hasException()) {
                                         Helper.createErrorAlert("DATABASE ERROR",
                                                         resetResponse.getException().getMessage());
@@ -293,8 +294,10 @@ public class ActivityListController {
                         response.getResponse()
                                         .forEach(dbActivity -> tableView.getItems().add(new Activity(dbActivity)));
 
-                        tableView.getItems()
-                                        .add(new Activity("<Default>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                        if (AppContext.userIsAdmin()) {
+                                tableView.getItems().add(new Activity("<Default>", "<Insert>", "<Insert>", "<Insert>",
+                                                "<Insert>"));
+                        }
                 } else {
                         Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
