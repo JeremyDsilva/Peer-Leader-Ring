@@ -2,18 +2,22 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import app.AppContext;
 import dto.Student;
 import handler.GetStudentsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -73,6 +77,7 @@ public class StudentListController {
 
     public StudentListController() {
         studentsHandler = new GetStudentsHandler();
+
     }
 
     @FXML
@@ -115,12 +120,13 @@ public class StudentListController {
         if (editRow == -1) {
             Helper.createErrorAlert("ERROR", "No row was been modified");
         } else {
-            if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getId().equals("<Insert>") 
-            ||tableView.getItems().get(editRow).getCollege().equals("<Insert>") 
-            || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
-            || tableView.getItems().get(editRow).getGroupName().equals("<Insert>") 
-            || tableView.getItems().get(editRow).getName().equals("<Insert>")
-            || tableView.getItems().get(editRow).getPhone().equals("<Insert>"))){
+            if (editRow + 1 == tableView.getItems().size()
+                    && (tableView.getItems().get(editRow).getId().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getCollege().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getGroupName().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getName().equals("<Insert>")
+                            || tableView.getItems().get(editRow).getPhone().equals("<Insert>"))) {
                 Helper.createErrorAlert("ERROR", "Insert all values");
                 return;
             }
@@ -309,42 +315,55 @@ public class StudentListController {
     @FXML
     void initialize() {
 
-        assert label != null 
-                : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert tableView != null 
-                : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert IDColumn != null 
-                : "fx:id=\" IDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert NameColumn != null 
-                : "fx:id=\" NameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert EmailColumn != null 
-                : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert PhoneColumn != null 
-                : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert tableView != null : "fx:id=\"tableview\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert IDColumn != null : "fx:id=\" IDColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert NameColumn != null : "fx:id=\" NameColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert EmailColumn != null : "fx:id=\"EmailColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert PhoneColumn != null : "fx:id=\"PhoneColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert CollegeColumn != null
                 : "fx:id=\"CollegeColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert GroupColumn != null
                 : "fx:id=\" GroupColumn\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert BackButton != null 
-                : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert SignOutButton != null
                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'StudentList.fxml'.";
-        assert SaveButton != null 
-                : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
+        assert SaveButton != null : "fx:id=\"SaveButton\" was not injected: check your FXML file 'StudentList.fxml'.";
         assert DeleteButton != null
                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentList.fxml'.";
 
-        Response<List<entity.Student>> response = studentsHandler.handle();
+        Task<List<Student>> loadDataTask = new Task<List<Student>>() {
+            @Override
+            protected List<Student> call() throws Exception {
 
-        if (response.success()) {
-            response.getResponse().forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
-            tableView.getItems()
-                    .add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
-        } else {
-            Helper.createErrorAlert("ERROR", "Cannot load page");
-        }
+                Response<List<entity.Student>> response = studentsHandler.handle();
+
+                if (response.success()) {
+
+                    List<Student> data = new ArrayList<Student>();
+
+                    response.getResponse().forEach(dbStudent -> data.add(new Student(dbStudent)));
+                    data.add(new Student("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>"));
+                    return data;
+                } else {
+                    throw new Exception();
+                }
+
+            }
+
+        };
+
+        loadDataTask.setOnSucceeded(e -> tableView.getItems().setAll(loadDataTask.getValue()));
+        loadDataTask.setOnFailed(e -> Helper.createErrorAlert("ERROR", "Cannot load data"));
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        tableView.setPlaceholder(progressIndicator);
+
+        Thread loadDataThread = new Thread(loadDataTask);
+        loadDataThread.start();
 
         IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Student, String>, ObservableValue<String>>() {
+
             public ObservableValue<String> call(CellDataFeatures<Student, String> p) {
                 return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
             }
@@ -385,6 +404,11 @@ public class StudentListController {
         CollegeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         GroupColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        } // sleep for one tenth a second
     }
 
 }

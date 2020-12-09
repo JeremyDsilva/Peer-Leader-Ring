@@ -2,18 +2,22 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import app.AppContext;
 import dto.Group;
 import handler.GetGroupsHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -106,12 +110,13 @@ public class StudentGroupController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
-                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getPeerLeaderId().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getTeamLeaderId().equals("<Insert>"))){
+                        if (editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getName()
+                                        .equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getPeerLeaderId().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getTeamLeaderId().equals("<Insert>"))) {
                                 Helper.createErrorAlert("ERROR", "Insert all values");
                                 return;
-                            }
+                        }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
@@ -192,8 +197,6 @@ public class StudentGroupController {
                         return;
                 }
 
-    
- 
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -214,7 +217,7 @@ public class StudentGroupController {
                         tableView.refresh();
                         return;
                 }
-               
+
                 if (!Helper.isNumeric(t.getNewValue()) || t.getNewValue().isEmpty()) {
                         Helper.createErrorAlert("ERROR: Cannot Edit", "Please follow the constraint requirements");
                         tableView.refresh();
@@ -246,16 +249,36 @@ public class StudentGroupController {
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'StudentGroup.fxml'.";
 
-                Response<List<entity.Group>> response = new GetGroupsHandler().handle();
+                Task<List<Group>> loadDataTask = new Task<List<Group>>() {
+                        @Override
+                        protected List<Group> call() throws Exception {
 
-                if (response.success()) {
+                                Response<List<entity.Group>> response = new GetGroupsHandler().handle();
 
-                        response.getResponse().forEach(dbGroup -> tableView.getItems().add(new Group(dbGroup)));
-                        tableView.getItems().add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
+                                if (response.success()) {
 
-                } else {
-                        Helper.createErrorAlert("ERROR", "Cannot load page");
-                }
+                                        List<Group> data = new ArrayList<Group>();
+
+                                        response.getResponse().forEach(dbGroup -> data.add(new Group(dbGroup)));
+                                        data.add(new Group("<Default>", "<Insert>", "<Insert>", "<Insert>"));
+
+                                        return data;
+                                } else {
+                                        throw new Exception();
+                                }
+
+                        }
+
+                };
+
+                loadDataTask.setOnSucceeded(e -> tableView.getItems().setAll(loadDataTask.getValue()));
+                loadDataTask.setOnFailed(e -> Helper.createErrorAlert("ERROR", "Cannot load data"));
+
+                ProgressIndicator progressIndicator = new ProgressIndicator();
+                tableView.setPlaceholder(progressIndicator);
+
+                Thread loadDataThread = new Thread(loadDataTask);
+                loadDataThread.start();
 
                 StudentGroupGroupIDcolumn.setCellValueFactory(
                                 new Callback<CellDataFeatures<Group, String>, ObservableValue<String>>() {
@@ -291,5 +314,10 @@ public class StudentGroupController {
                 StudentGroupPeerLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 StudentGroupTeamLeaderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+                try {
+                        TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                } // sleep for one tenth a second
         }
 }

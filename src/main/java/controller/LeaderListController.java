@@ -2,17 +2,21 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import dto.Leader;
 import handler.GetLeadersHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -118,16 +122,17 @@ public class LeaderListController {
                 if (editRow == -1) {
                         Helper.createErrorAlert("ERROR", "No row was been modified");
                 } else {
-                        if(editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getId().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getName().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getYear().equals("<Insert>")
-                        || tableView.getItems().get(editRow).getCollege().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getEmail().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getPhone().equals("<Insert>") 
-                        || tableView.getItems().get(editRow).getRole().equals("<Insert>"))){
+                        if (editRow + 1 == tableView.getItems().size() && (tableView.getItems().get(editRow).getId()
+                                        .equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getName().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getYear().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getCollege().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getEmail().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getPhone().equals("<Insert>")
+                                        || tableView.getItems().get(editRow).getRole().equals("<Insert>"))) {
                                 Helper.createErrorAlert("ERROR", "Insert all values");
                                 return;
-                            }
+                        }
 
                         var respone = tableView.getItems().get(editRow).updateOrSave();
 
@@ -352,17 +357,38 @@ public class LeaderListController {
                 assert DeleteButton != null
                                 : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'LeaderList.fxml'.";
 
-                Response<List<entity.StudentLeader>> response = getLeadersHandler.handle();
+                Task<List<Leader>> loadDataTask = new Task<List<Leader>>() {
+                        @Override
+                        protected List<Leader> call() throws Exception {
+                                Response<List<entity.StudentLeader>> response = getLeadersHandler.handle();
 
-                if (response.success()) {
-                        response.getResponse().forEach(dbLeader -> tableView.getItems().add(new Leader(dbLeader)));
+                                if (response.success()) {
 
-                        tableView.getItems().add(new Leader("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>",
-                                        "<Insert>", "<Insert>"));
-                } else {
-                        Helper.createErrorAlert("ERROR", "Cannot load page");
-                }
+                                        var data = new ArrayList<Leader>();
 
+                                        response.getResponse().forEach(dbLeader -> data.add(new Leader(dbLeader)));
+
+                                        data.add(new Leader("<Insert>", "<Insert>", "<Insert>", "<Insert>", "<Insert>",
+                                                        "<Insert>", "<Insert>"));
+
+                                        return data;
+
+                                } else {
+                                        throw new Exception();
+                                }
+
+                        }
+
+                };
+
+                loadDataTask.setOnSucceeded(e -> tableView.getItems().setAll(loadDataTask.getValue()));
+                loadDataTask.setOnFailed(e -> Helper.createErrorAlert("ERROR", "Cannot load data"));
+
+                ProgressIndicator progressIndicator = new ProgressIndicator();
+                tableView.setPlaceholder(progressIndicator);
+
+                Thread loadDataThread = new Thread(loadDataTask);
+                loadDataThread.start();
                 IDColumn.setCellValueFactory(new Callback<CellDataFeatures<Leader, String>, ObservableValue<String>>() {
                         public ObservableValue<String> call(CellDataFeatures<Leader, String> p) {
                                 return new ReadOnlyObjectWrapper<String>(p.getValue().getId());
@@ -417,5 +443,10 @@ public class LeaderListController {
                 EmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 PhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+                try {
+                        TimeUnit.MILLISECONDS.sleep(200);
+                } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                } // sleep for one fifth a second
         }
 }

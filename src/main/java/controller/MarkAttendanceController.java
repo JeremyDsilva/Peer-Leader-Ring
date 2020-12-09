@@ -2,8 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import app.AppContext;
 import dto.Attendace;
@@ -16,11 +18,13 @@ import handler.GetStudentsFromGroupHandler;
 import handler.GetStudentsWithAttendanceHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -74,21 +78,18 @@ public class MarkAttendanceController {
 
         @FXML
         void BackButtonOnClick(ActionEvent event) {
-                if(AppContext.userIsAdmin() && !AppContext.contains("groupId")){
+                if (AppContext.userIsAdmin() && !AppContext.contains("groupId")) {
                         AppContext.remove("groupId");
                         Helper.loadView(getClass().getResource("Admin.fxml"));
-                }
-                else if(AppContext.userIsAdmin())
+                } else if (AppContext.userIsAdmin())
                         Helper.loadView(getClass().getResource("StudentGroup.fxml"));
-                else 
-                     Helper.loadView(getClass().getResource("GroupList.fxml"));   
+                else
+                        Helper.loadView(getClass().getResource("GroupList.fxml"));
         }
-    
 
         @FXML
         void initialize() {
-                assert label != null 
-                                : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
+                assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert tableView != null
                                 : "fx:id=\"tableView\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert idColumn != null : "fx:id=\"IdColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
@@ -96,7 +97,7 @@ public class MarkAttendanceController {
                                 : "fx:id=\"nameColumn\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert BackButton != null 
+                assert BackButton != null
                                 : "fx:id=\"BackButton\" was not injected: check your FXML file 'MarkAttendance.fxml'.";
 
                 Response<List<Activity>> activities = new GetActivitiesHandler().handle();
@@ -180,16 +181,43 @@ public class MarkAttendanceController {
                         tableView.getColumns().add(col);
                 }
 
-                Response<List<entity.Student>> students;
+                Task<List<Attendace>> loadDataTask = new Task<List<Attendace>>() {
+                        @Override
+                        protected List<Attendace> call() throws Exception {
 
-                if (AppContext.userIsAdmin() && !AppContext.contains("groupId")) {
-                        students = new GetStudentsWithAttendanceHandler().handle();
-                } else {
-                        students = new GetStudentsFromGroupHandler().handle((Long) AppContext.get("groupId"));
+                                Response<List<entity.Student>> students;
 
-                }
+                                if (AppContext.userIsAdmin() && !AppContext.contains("groupId")) {
+                                        students = new GetStudentsWithAttendanceHandler().handle();
+                                } else {
+                                        students = new GetStudentsFromGroupHandler()
+                                                        .handle((Long) AppContext.get("groupId"));
 
-                students.getResponse().forEach(student -> tableView.getItems().add(new Attendace(student)));
+                                }
+
+                                if (students.success()) {
+
+                                        var data = new ArrayList<Attendace>();
+
+                                        students.getResponse().forEach(student -> data.add(new Attendace(student)));
+
+                                        return data;
+                                } else {
+                                        throw new Exception();
+                                }
+
+                        }
+
+                };
+
+                loadDataTask.setOnSucceeded(e -> tableView.getItems().setAll(loadDataTask.getValue()));
+                loadDataTask.setOnFailed(e -> Helper.createErrorAlert("ERROR", "Cannot load data"));
+
+                ProgressIndicator progressIndicator = new ProgressIndicator();
+                tableView.setPlaceholder(progressIndicator);
+
+                Thread loadDataThread = new Thread(loadDataTask);
+                loadDataThread.start();
 
                 idColumn.setCellValueFactory(new Callback<CellDataFeatures<Attendace, Long>, ObservableValue<Long>>() {
                         public ObservableValue<Long> call(CellDataFeatures<Attendace, Long> p) {
@@ -204,6 +232,12 @@ public class MarkAttendanceController {
                                                                 .getUserDetail().getFullName());
                                         }
                                 });
+
+                try {
+                        TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                } // sleep for one tenth a second
 
         }
 
