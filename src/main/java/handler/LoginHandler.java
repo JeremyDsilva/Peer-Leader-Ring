@@ -18,9 +18,12 @@ public class LoginHandler {
             return Response.of(response.getException());
 
         User user = response.getResponse();
-        
+
+        if(user == null)
+            return Response.ofException("Incorrect Username or Password");
+
         if(!PasswordUtil.comparePassword(user.getPassword(), password))
-            return Response.of(new Exception("Incorrect Username or Password"));
+            return Response.ofException("Incorrect Username or Password");
 
         AppContext.setUser(user);
        
