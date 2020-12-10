@@ -1,5 +1,7 @@
 # Peer Leader Ring 
 
+![](media/Dashboard.png) 
+
 This repository contains are Database systems course project for the Fall 2020 semester.   
 
 Peer Leader Ring is an application that is based on the Peer Leader Program run by the Office of Student Affairs (OSA) at the American University of Sharjah (AUS) for new students.  Peer Leader Ring targets the employees of OSA (administrators), the student leaders (peer leader and team leader), and the students (students belonging to different peer groups) as its end users.    
@@ -41,11 +43,40 @@ mvn clean javafx:run@run
 
 You should see the Login screen, Login using one of Ids in the data.sql file with the passwords being set as the as the user id. Example to log in as admin use user id of 74902 and password of 74902. When inserting new users system sets password as the user id.
 
+## Views
+
+### Login
+![](media/Login.png)
+### Team Leader Home Page
+![](media/Team_Leader_Home.png) 
+### Peer Leader Home Page
+![](media/Group_List.png)
+### Student Home Page
+![](media/Student_Homepage.png)
+### Change Password
+![](media/Change_password.png)
+### Activities Page
+![](media/List_of_Activities.png)
+### Admin Pages
+Admin Pages support insertions, updates and deletions
+![](media/Admin_Homepage.png)
+![](media/List_of_Students.png)
+![](media/List_of_Leaders.png)
+![](media/Student_Group.png) 
+![](media/Mark_Attendance.png) 
+![](media/Manage_Admin.png)
+![](media/Dashboard.png) 
+![](media/Success.png)
+![](media/Error.png)
+
+
+
+
 ## License
 MIT
 
 ## Authors
-Project was build was part of University Database course by
+Project was build was part of our University Database course at AUS by
 
 - [Jeremy Dsilva](https://github.com/JeremyDsilva)  
 - [Iffa Afsa CM](https://github.com/IffaAfsaCM)  
