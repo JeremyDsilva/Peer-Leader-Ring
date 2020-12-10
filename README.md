@@ -41,7 +41,7 @@ Build and run using:
 mvn clean javafx:run@run
 ```
 
-You should see the Login screen, Login using one of Ids in the data.sql file with the passwords being set as the as the user id. Example to log in as admin use user id of 74902 and password of 74902. When inserting new users system sets password as the user id.
+You should see the Login screen, Login using one of Ids in the data.sql file with the passwords being set as the as the user id. For example to log in as admin, use the user id of 74902 and password of 74902. When inserting new users system sets password same as the user id.
 
 ## Views
 
