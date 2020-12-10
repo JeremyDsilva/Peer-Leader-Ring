@@ -87,7 +87,7 @@ public class GroupListController {
 
         @FXML
         void GroupListViewActButtonOnClick(ActionEvent event) throws IOException {
-               Helper.loadView(getClass().getResource("ActivityList.fxml"));
+                Helper.loadView(getClass().getResource("ActivityList.fxml"));
         }
 
         @FXML
@@ -113,7 +113,7 @@ public class GroupListController {
         @FXML
         void ChangePasswordButtonOnClick(ActionEvent event) {
                 Helper.loadView(getClass().getResource("ChangePassword.fxml"));
-        }    
+        }
 
         @FXML
         void initialize() {
@@ -141,17 +141,27 @@ public class GroupListController {
                                 : "fx:id=\"GroupListViewActButton\" was not injected: check your FXML file 'GroupList.fxml'.";
                 assert SignOutButton != null
                                 : "fx:id=\"SignOutButton\" was not injected: check your FXML file 'GroupList.fxml'.";
-                assert ChangePasswordButton != null 
+                assert ChangePasswordButton != null
                                 : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'GroupList.fxml'.";
 
                 Response<Group> response = null;
 
-                if (AppContext.userIsLeader() && AppContext.getUser().getStudentLeader()
-                                .getStudentLeaderRole().equals("peer_leader")) {
+                if (AppContext.userIsLeader() && AppContext.getUser().getStudentLeader().getStudentLeaderRole()
+                                .equals("peer_leader")) {
 
-                        response = groupHandler
-                                        .handle(AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
-                        AppContext.put("groupId", AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+                        if (0 < AppContext.getUser().getStudentLeader().getPeerGroup().size()) {
+
+                                response = groupHandler.handle(
+                                                AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+
+                                AppContext.put("groupId",
+                                                AppContext.getUser().getStudentLeader().getPeerGroup().get(0).getId());
+
+                        } else {
+                                Helper.createSuccessAlert("Information", "OSA has not assigned you a group");
+                                GroupListMarkAttendButton.setVisible(false);
+                        }
+
                         BackButton.setVisible(false);
                 } else {
                         response = groupHandler.handle((Long) AppContext.get("groupId"));
@@ -161,15 +171,20 @@ public class GroupListController {
 
                 if (response != null && response.success()) {
 
-                        GroupListNameLabel.setText(response.getResponse().getPeerLeader().getUserDetail().getFullName());
+                        GroupListNameLabel
+                                        .setText(response.getResponse().getPeerLeader().getUserDetail().getFullName());
                         GroupListGroupNameLabel.setText(response.getResponse().getName());
                         GroupListTeamLeaderLabel
                                         .setText(response.getResponse().getTeamLeader().getUserDetail().getFullName());
 
                         response.getResponse().getStudents()
                                         .forEach(dbStudent -> tableView.getItems().add(new Student(dbStudent)));
-                }else {
+                } else if (response != null) {
                         Helper.createErrorAlert("ERROR", "Cannot load page");
+                } else {
+                        GroupListNameLabel.setText(AppContext.getUser().getFullName());
+                        GroupListGroupNameLabel.setText("   -");
+                        GroupListTeamLeaderLabel.setText("   -");
                 }
 
                 idColumn.setCellValueFactory(

@@ -42,7 +42,7 @@ public class PeerLeaderListController {
         private Button SignOutButton;
 
         @FXML
-        private Button ChangePasswordButton;    
+        private Button ChangePasswordButton;
 
         @FXML
         private TableView<PeerLeader> tableview;
@@ -83,17 +83,19 @@ public class PeerLeaderListController {
         void ChangePasswordButtonOnClick(ActionEvent event) {
                 Helper.loadView(getClass().getResource("ChangePassword.fxml"));
         }
-        
 
         @FXML
         void TeamLeaderViewActivityListOnClick(ActionEvent event) {
-               Helper.loadView(getClass().getResource("ActivityList.fxml"));
+                Helper.loadView(getClass().getResource("ActivityList.fxml"));
         }
 
         @FXML
         public void onClick(MouseEvent event) {
                 if (event.getClickCount() == 2) // Checking double click
-                {
+                {       
+                        if(tableview.getSelectionModel().getSelectedItem() == null)
+                                return;
+                                
                         AppContext.put("groupId", tableview.getSelectionModel().getSelectedItem().getGroupId());
 
                         Helper.loadView(getClass().getResource("GroupList.fxml"));
@@ -102,8 +104,7 @@ public class PeerLeaderListController {
 
         @FXML
         void initialize() {
-                assert label != null 
-                                : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
+                assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderNameLabel != null
                                 : "fx:id=\"TeamLeaderNameLabel\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert tableview != null
@@ -122,7 +123,7 @@ public class PeerLeaderListController {
                                 : "fx:id=\"TeamLeaderGroupNameColumn\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
                 assert TeamLeaderViewActivityListButton != null
                                 : "fx:id=\"TeamLeaderViewActivityListButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
-                assert ChangePasswordButton != null 
+                assert ChangePasswordButton != null
                                 : "fx:id=\"ChangePasswordButton\" was not injected: check your FXML file 'PeerLeaderList.fxml'.";
 
                 Response<List<Group>> response = getGroupsUnderLeaderHandler.handle(AppContext.getUser().getId());
@@ -133,17 +134,22 @@ public class PeerLeaderListController {
 
                         List<Group> groups = response.getResponse();
 
-                        for (var group : groups) {
-                                StudentLeader leader = group.getPeerLeader();
-                                PeerLeader tbLeaders = new PeerLeader(Long.valueOf(leader.getId()),
-                                                leader.getUserDetail().getFullName(),
-                                                leader.getUserDetail().getPhoneNumber(),
-                                                leader.getUserDetail().getEmail(), group.getName(), group.getId());
+                        if (0 < groups.size()) {
+                                for (var group : groups) {
+                                        StudentLeader leader = group.getPeerLeader();
+                                        PeerLeader tbLeaders = new PeerLeader(Long.valueOf(leader.getId()),
+                                                        leader.getUserDetail().getFullName(),
+                                                        leader.getUserDetail().getPhoneNumber(),
+                                                        leader.getUserDetail().getEmail(), group.getName(),
+                                                        group.getId());
 
-                                tableview.getItems().add(tbLeaders);
+                                        tableview.getItems().add(tbLeaders);
+                                }
+                        } else {
+                                Helper.createSuccessAlert("Information", "OSA has not assigned you any groups");
                         }
 
-                }else {
+                } else {
                         Helper.createErrorAlert("ERROR", "Cannot load page");
                 }
 
